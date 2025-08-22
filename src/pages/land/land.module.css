@@ -1,0 +1,90 @@
+.land_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.header_area {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #fff;
+  padding-top: 32px;   /* 상단 여백 더 확장 */
+  padding-bottom: 16px; /* 탭 아래 여백 확장 */
+  border-bottom: 2px solid #d9d9d9; /* 하단 기준선 */
+}
+
+/* 상단 탭 */
+.tab_row{
+  display: inline-flex;        /* 표 형태로 붙도록 */
+  gap: 0;                      /* 간격 제거, 경계선으로 구분 */
+  align-items: center;
+  margin-top: 8px;             /* 탭과 헤더 경계 여백 */
+  margin-bottom: 20px;         /* 탭과 검색행 사이 여백 */
+  border: 1px solid #d9d9d9;   /* 외곽선 */
+  background: #f3f3f3;         /* 표 배경 */
+  border-radius: 2px;
+}
+.tab{
+  background: transparent;     /* 컨테이너 배경 사용 */
+  border: none;
+  color: #6b7280;              /* 기본 회색 텍스트 */
+  font-weight: 400;            /* 볼드 제거 */
+  font-size: 1rem;             /* 검색 영역과 동일한 크기 */
+  padding: 10px 16px;
+}
+.tab_row .tab + .tab {         /* 셀 구분선 */
+  border-left: 1px solid #d9d9d9;
+}
+.tab_active{
+  background: #fff;            /* 활성 셀 흰색 */
+  color: #111827;              /* 진한 텍스트 컬러 */
+}
+
+.filter_row{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.search_sel{
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+}
+.search_input{
+  width: 280px;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+.search_btn{
+  height: 38px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 8px;
+  background: #6a9357;
+  color: #fff;
+  font-weight: 700;
+}
+
+.cards_area{ padding-block: 6px; }
+
+.landlist_grid{
+  --card-w: 21.25rem;
+  --gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, var(--card-w));
+  gap: var(--gap);
+  justify-content: center;
+}
+@media (max-width: 1120px){
+  .landlist_grid{ grid-template-columns: repeat(2, var(--card-w)); }
+}
+@media (max-width: 740px){
+  .landlist_grid{ grid-template-columns: 1fr; }
+}
+
+

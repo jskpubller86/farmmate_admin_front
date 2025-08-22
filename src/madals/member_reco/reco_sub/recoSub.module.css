@@ -1,0 +1,53 @@
+/* 플랙스 설정 */
+.inter_group, .btn_group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Gap과 Direction */
+.inter_group {
+  gap: 0.714rem;
+}
+.btn_group {
+  flex-direction: column;
+}
+
+/* 플랙스 정렬 */
+.inter_group {
+  justify-content: center;
+}
+
+/* 관심사 */
+.inter_group {
+  padding : 1rem;
+}
+/* 버튼 그룹 */
+.btn_group {
+    padding: 1rem;
+    gap: 1rem;
+}
+
+/* 지역 추천 옵션 */
+.loc_group {
+  max-height: calc(100vh - 25rem);
+  overflow-y: auto;
+  border : 1px solid #ddd;
+}
+.loc_item {
+  border-bottom: 1px solid #ddd;
+}
+.loc_item:last-child {border-bottom: 0;}
+
+.loc_item > * {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  color: black;
+  font-size: 0.9rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loc_item > *:hover {
+  cursor: pointer;
+}

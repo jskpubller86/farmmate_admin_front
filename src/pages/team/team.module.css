@@ -1,0 +1,196 @@
+/* 플랙스 설정 */
+.container, .write_wrap, .full_container, .write_addr_detail_box, .write_box, .detail_box, .timer_box, .detail_member_box, .detail_profile_box, .detail_wrap, .list_group {
+    display: flex;
+    flex-wrap: wrap;
+}
+/* 플랙스 크기 설정 */
+.full_container input, .container input, .write_wrap textarea {
+    flex: auto;
+}
+/* Gap 설정 */
+.write_wrap, .detail_wrap {
+    gap: 2rem;
+}
+.write_box, .detail_box, .write_addr_detail_box, .detail_profile_box, .timer_box, .list_group {
+    gap: 1rem;
+}
+.detail_member_box {
+    gap: 0.714rem;
+}
+/* Directon 설정 */
+.full_container, .container, .write_wrap, .write_box, .detail_wrap, .detail_box {
+    flex-direction: column;
+}
+/* 정렬 */
+.detail_profile_box, .timer_box {
+    align-items: center;
+}
+
+/* full_container, container 패딩 설정 */
+.full_container, .container {
+    padding: 2rem 1rem;
+}
+.container {
+    max-width: 54.285rem;
+    margin: 0 auto;
+}
+
+/* label */
+.label {
+    font-family: primaryBold;
+}
+
+/* list_container */
+.list_container {display: flex;flex-wrap: wrap;justify-content: center;}
+.list_container_inner {
+    display: flex;
+    justify-self: center;
+    justify-content: flex-start;
+}
+
+/* detail */
+.detail_tit {
+    font-size: 1.142rem;
+}
+
+/** .detail_img */
+.detail_img {
+    display: flex;
+    flex-wrap: wrap;
+    gap:1rem;
+}
+.detail_img img  {
+    width: auto;
+    height: auto;
+    object-fit:contain;
+}
+.detail_img svg {
+    font-size: 100px;
+    color: #79747E;
+}
+/** .review_img */
+.review_img {
+    margin-top: 20px;
+    max-width: 100%;
+    display: flex;
+    gap: 14px;
+}
+.review_img img  {
+    width: 100px;
+    height: auto;
+}
+.review_good {
+    margin-top: 20px;
+    max-width: 100%;
+    display: flex;
+    gap: 14px;
+}
+.good_btn {
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 12px;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.good_btn:hover {
+  background-color: #f0f0f0;
+}
+.good_btn.active {
+  background-color: #4caf50;
+  color: white;
+  border-color: #4caf50;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.wish_btn:hover {
+  background-color: #0F1CF3;
+}
+.wish_btn.active {
+  background-color: #F60101;
+  color: white;
+  border-color: #F60101;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.apply_btn:hover {
+  background-color: #0F1CF3;
+}
+.apply_btn.active {
+  background-color: #F60101;
+  color: white;
+  border-color: #F60101;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.textarea_wrapper {
+position: relative;
+}
+.conts {
+margin:15px 0;
+padding: 8px;
+width:100%;
+height:90px;
+border-radius:6px;
+box-sizing: border-box;
+}
+/* 플레이스홀더 역할 레이블 */
+.placeholder_label {
+position: absolute;
+top: 50%;
+left: 10px;
+transform: translateY(-50%);
+color: #aaa;
+pointer-events: none;
+user-select: none;
+font-size: 14px;
+}
+/** timer_box */
+.timer_box strong:nth-child(1) {
+    font-size: 1.714rem;
+}
+.timer_box strong:nth-child(2) {
+    font-size: 2.142rem;
+    color: #F92B2F;
+}
+/* 등록 버튼*/
+.team_write_btn {
+      /* 버튼 위치 */
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      /* 크기, 형태 */
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      /* 색상, 아이콘 */
+      background-color: deepskyblue; 
+      color: #fff;              
+      border: none;
+      font-size: 40px;
+      font-weight: 700;
+      /* 정렬 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+.team_write_btn:hover {
+    background-color: skyblue;
+}    
+
+/*  btn_group */
+.btn_group{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 2rem;
+}
+
+/* 카운트 오류 */
+.cnt_err {
+    color: #ED0606; 
+}
+
+/* 라인 */
+hr {
+  border: none;
+  border-top: 1px solid #ccc; /* 선 색과 두께 */
+  margin: 16px 0;             /* 위아래 여백 */
+}

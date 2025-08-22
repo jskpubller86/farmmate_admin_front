@@ -1,0 +1,262 @@
+/* ===== Mypage 페이지 스타일 ===== */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background-color: #ffffff;
+  position: relative;
+}
+
+/* 우측 세로선 */
+.container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background-color: #e3f2fd;
+}
+
+/* 페이지 제목 */
+.page_title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+/* 프로필 섹션 */
+.profile_section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.profile_photo_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.profile_photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.edit_overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  background-color: #666;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.edit_overlay:hover {
+  background-color: #333;
+}
+
+.edit_icon {
+  color: white;
+  font-size: 12px;
+}
+
+.edit_link {
+  color: #333;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.edit_link:hover {
+  color: #6e9556;
+}
+
+/* 개인 정보 섹션 */
+.info_section {
+  margin-bottom: 2rem;
+}
+
+.info_item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.info_item:last-child {
+  border-bottom: none;
+}
+
+.info_label {
+  min-width: 80px;
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.info_value {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #333;
+  margin-left: 1rem;
+}
+
+/* 주소 컨테이너 */
+.address_container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.map_icon {
+  color: #666;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.map_icon:hover {
+  color: #6e9556;
+}
+
+/* 섹션 제목 */
+.section_title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* 관심사 섹션 */
+.interests_section {
+  margin-bottom: 2rem;
+}
+
+.interests_group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.interest_badge {
+  background-color: #6e9556;
+  color: white;
+}
+
+.no_interests {
+  text-align: center;
+  padding: 1rem;
+  color: #666;
+}
+
+.btn_skip {
+  background-color: transparent;
+  color: #6e9556;
+  border: 1px solid #6e9556;
+  transition: all 0.2s ease;
+}
+
+.btn_skip:hover {
+  background-color: #6e9556;
+  color: white;
+}
+
+/* 메뉴 섹션 */
+.menu_section {
+  margin-bottom: 2rem;
+}
+
+.menu_list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.menu_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.2s ease;
+}
+
+.menu_item:hover {
+  background-color: #e9ecef;
+}
+
+.menu_text {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.menu_badge {
+  background-color: #6e9556;
+  color: white;
+  margin: 0 0.5rem;
+}
+
+.menu_icon {
+  color: #666;
+  font-size: 14px;
+}
+
+/* 로그아웃 섹션 */
+.logout_section {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.logout_button {
+  min-width: 120px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .profile_section {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .info_item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .info_label {
+    min-width: auto;
+  }
+  
+  .info_value {
+    margin-left: 0;
+  }
+  
+  .address_container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}

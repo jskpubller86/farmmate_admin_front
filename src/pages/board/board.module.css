@@ -1,0 +1,66 @@
+/*  flex 설정  */
+.form_wrap, .container, .input_box, .button_group, .search_box
+{display: flex;flex-wrap: wrap;}
+
+/*  flex 방향  */
+.form_wrap, .container, .input_box {
+    flex-direction: column;
+}
+
+/* flex 정렬 */
+.search_box {
+  justify-content: center;
+}
+
+/*  flex Gap  */
+.form_wrap, .container {
+    gap: 2rem;
+}
+
+.input_box, .button_group, .search_box {
+    gap: 1rem;
+}
+
+
+/* 스타일링 */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.input_box input, .input_box textarea {
+  width: 100%;
+}
+
+.boardTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.boardTable th,
+.boardTable td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.boardTable thead {
+  background-color: purple;
+  color : #ddd;
+}
+
+.titleLink {
+  text-decoration: none;
+  color: white;
+}
+
+.titleLink:hover {
+  text-decoration: underline;
+  color: dodgerblue;
+}
+
+/* form */
+.title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}

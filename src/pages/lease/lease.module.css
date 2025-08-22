@@ -1,0 +1,163 @@
+.container {
+  padding: 1rem 0;
+  /* 고정 레이아웃(main_layout) 안에서 자체 스크롤 되도록 최대 높이 지정 */
+  max-height: calc(100vh - var(--header-h) - var(--footer-h) - var(--dock-h));
+  overflow: auto;
+}
+@media (min-width: 760px) {
+  .container {
+    max-height: calc(100vh - var(--header-h) - var(--footer-h));
+  }
+}
+
+/* 상단 툴바 */
+.toolbar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.btn_prev {
+}
+.btn_print {
+}
+
+/* 섹션 기본 */
+.section {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+.section_title {
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+/* 체결 문구 섹션 */
+.section_note {
+  padding: 0.25rem 0 1rem;
+}
+.center_text {
+  text-align: center;
+  font-weight: 600;
+}
+
+/* 공통 테이블 베이스 (grid) */
+.table {
+  display: grid;
+  grid-template-columns: 120px 1fr 120px 1fr 120px 1fr;
+  border-top: 1px solid #e5e7eb;
+  border-left: 1px solid #e5e7eb;
+}
+.table_col2 {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  border-top: 1px solid #e5e7eb;
+  border-left: 1px solid #e5e7eb;
+}
+.table_col1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.th,
+.td {
+  padding: 0.75rem;
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+.th {
+  background: #fff; /* 하늘색에서 흰색으로 변경 */
+  font-weight: normal; /* 볼드체에서 일반체로 변경 */
+  text-align: center;
+  padding: 0.75rem;
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+.td_full {
+  grid-column: span 5;
+}
+
+/* 금액 표에서의 풀셀: 4컬럼 그리드이므로 3칸을 차지해야 함 */
+.table_money .td_full {
+  grid-column: span 3;
+}
+
+/* 중도금, 잔금만 가운데 정렬 */
+.center_align {
+  text-align: center;
+}
+
+/* 전체 채우는 인풋 (주소 등) */
+.full_input {
+  width: 100%;
+}
+
+/* 금액 표 */
+.table_money {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px 1fr;
+  border-top: 1px solid #e5e7eb;
+  border-left: 1px solid #e5e7eb;
+}
+.td_inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+.row_inline {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+}
+
+/* 입력 폭 보조 */
+.input_sm {
+  width: 8rem;
+}
+.input_xs {
+  width: 4rem;
+}
+
+/* 테이블 셀 내 인풋이 셀을 넘지 않도록 강제 */
+.cell_input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* 특정 섹션의 input만 테두리 제거 */
+.section input[class*="cell_input"],
+.section input[class*="full_input"] {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+/* 안내문 박스 */
+.notice_box {
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+/* 서명/도장 */
+.sign_row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.sign_box {
+  height: 12rem;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+}

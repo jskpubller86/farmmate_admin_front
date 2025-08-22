@@ -1,0 +1,28 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    perspective: 1000px;
+    width: 100vw;
+    height: 100vh;
+    perspective-origin: center;
+    transform-style: preserve-3d;
+    transform-origin : 50% 50%;
+    transform: rotateY(-2deg);
+    background-color: black;
+}
+
+.container img {
+  position: absolute;
+  width: 150px;
+  left: 50%;
+  margin-left: -50px;
+  top: 50%;
+  transform-origin : 50% 50%;
+  transition-property: transform, filter;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  filter: blur(2px);
+}
+
+

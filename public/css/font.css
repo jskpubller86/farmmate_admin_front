@@ -1,0 +1,17 @@
+/** 
+ * 폰트 정의 
+ */
+@font-face {
+    font-family: primary;
+    src: url(../fonts/Nanum_Gothic/NanumGothic-Regular.ttf);
+}
+
+@font-face {
+    font-family: primaryBold;
+    src: url(../fonts/Nanum_Gothic/NanumGothic-Bold.ttf);
+}
+
+@font-face {
+    font-family: primaryExBold;
+    src: url(../fonts/Nanum_Gothic/NanumGothic-ExtraBold.ttf);
+}

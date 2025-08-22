@@ -1,0 +1,236 @@
+/*.button, .select, .input, .file, .textarea */
+.button:active,
+.button:link,
+.button:visited {
+  display: inline-flex;
+}
+
+.button,
+.button:active,
+.button:link,
+.button:visited,
+.select,
+.input,
+.file,
+.textarea {
+  border-radius: 8px;
+}
+/* .button, .select, .input, .file */
+.button,
+.button:active,
+.button:link,
+.button:visited,
+.select,
+.input,
+.file {
+  padding: 0 1rem;
+  border: none;
+  height: 2.428rem;
+  line-height: 2.428rem;
+  font-size: 1rem;
+}
+
+/* 버튼 */
+.button,
+.button:active,
+.button:link,
+.button:visited {
+  background-color: #2c2c2c;
+  color: white;
+  cursor: pointer;
+  font-family: primaryBold;
+}
+
+.button_secondary {
+  background-color: #939393;
+}
+.button_point {
+  background-color: #c1d08d;
+}
+.button_point2 {
+  background-color: #6e9556;
+}
+.button_point3 {
+  background-color: #0eb7dd;
+}
+.button_danger {
+  background-color: #f60101;
+}
+.button_xs,
+.button_xs:active,
+.button_xs:link,
+.button_xs:visited {
+  padding: 0 0.8rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  font-size: 0.8rem;
+}
+.button_sm,
+.button_sm:active,
+.button_sm:link,
+.button_sm:visited {
+  padding: 0 1rem;
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 0.9rem;
+}
+.button_lg,
+.button_lg:active,
+.button_lg:link,
+.button_lg:visited {
+  padding: 0 1.142rem;
+  height: 2.857rem;
+  line-height: 2.857rem;
+  font-size: 1.142rem;
+}
+.button_xl,
+.button_xl:active,
+.button_xl:link,
+.button_xl:visited {
+  padding: 0 1.285rem;
+  height: 3.285rem;
+  line-height: 3.285rem;
+  font-size: 1.285rem;
+}
+
+.button:hover {
+  box-shadow: inset 0 0 1.5rem 0 rgba(44, 44, 44, 0.5);
+}
+
+/* 에러 */
+.err {
+  color: red;
+}
+
+/* form */
+/** .select, .input, .file, .textarea */
+.select,
+.input,
+.file,
+.textarea {
+  border: 1px solid #ccc;
+}
+/** radio */
+.radio {
+  appearance: none;
+  width: 1.428rem;
+  height: 1.428rem;
+  border: 1px solid #cacaca;
+  border-radius: 50%;
+}
+.radio:checked {
+  border-width: 5px;
+  border-color: #000000;
+}
+/** checkbox */
+.checkbox {
+  appearance: none; /* 표준 */
+  -webkit-appearance: none; /* Safari */
+  -moz-appearances: none; /* Firefox */
+  outline: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: #9b5de5;
+  display: block;
+  width: 1.285rem;
+  height: 1.285rem;
+}
+.checkbox:checked {
+  background: #9b5de5 url("/public/images/ico_checkbox.svg") no-repeat center;
+}
+/** file */
+.file {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+.file:hover {
+  cursor: pointer;
+}
+.file svg {
+  font-size: 1.571rem;
+  color: #ccc;
+}
+.file input {
+  display: none;
+}
+/** .textarea */
+.textarea {
+  padding: 1rem;
+  height: 5rem;
+}
+
+/* Avatar */
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+.avatar_lg {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+.avatar_xl {
+  width: 5.357rem;
+  height: 5.357rem;
+}
+.avatar_xxl {
+  width: 6.428rem;
+  height: 6.428rem;
+}
+
+/* badge */
+.badge {
+  display: inline-block;
+  padding: 0 0.714rem;
+  height: 1.285rem;
+  border-radius: 1.285rem;
+  line-height: 1.285rem;
+  background-color: #2b2e4a;
+  color: #fff;
+  font-size: 0.857rem;
+  font-family: primaryBold;
+  text-align: center;
+}
+.badge_lg {
+  padding: 0 1rem;
+  height: 2rem;
+  border-radius: 2rem;
+  line-height: 2rem;
+  font-size: 1rem;
+}
+.badge_secondary {
+  background-color: #656774;
+}
+.badge_point {
+  background-color: #de26de;
+}
+.badge_point2 {
+  background-color: #0f1cf3;
+}
+.badge_point3 {
+  background-color: #0eb7dd;
+}
+
+/* likeit */
+.likeit {
+  font-size: 1.857rem;
+  background: transparent;
+}
+.likeit.active {
+  color: #f92b2f; /* 활성(찜) 시 빨강 */
+}
+
+/* 매니저 */
+.manager {
+  font-size: 3.571rem;
+  line-height: 3.571rem;
+  color: #2558ff;
+  text-shadow: 0 0 7px 7px black;
+}
+
+.manager:hover {
+  cursor: pointer;
+}

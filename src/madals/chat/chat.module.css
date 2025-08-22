@@ -1,0 +1,152 @@
+/* 플랙스 설정 */
+.container, .message_group, .message_item, .my_unit_box
+, .another_unit_box, .chat_box, .new_message_box,.unit_messge_box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Gap과 Direction 설정 */
+.message_group {
+    gap: 2rem;
+}
+.message_item, .another_unit_box, .my_unit_box, .new_message_box {
+    gap: 1rem;
+}
+.unit_messge_box {
+    gap: 0.5rem;
+}
+.container, .message_group, .message_item, .unit_messge_box {
+    flex-direction: column;
+}
+/* Flex 정렬 */
+.my_unit_box {
+    justify-content: flex-end;
+}
+.new_message_box {
+    align-items: center;
+}
+.another_unit_box {
+    align-items: flex-start;
+}
+.my_unit_box {
+    align-items: flex-end;
+}
+
+/* .container */
+.container {
+    position: relative;
+    margin: 0 auto;
+    background-color: #fff;
+    height: 100%;
+}
+
+/* 채팅방 헤더 */
+.header_box {
+    padding: 1rem;
+    font-family: primaryBold;
+    border-bottom: 1px solid #ccc;
+}
+
+/* 메세지 */
+.message_group, .chat_box, .unit_message {
+    padding: 1rem;
+}
+.unit_messge_box {
+    flex: 1;
+}
+.unit_message, .textArea {
+    background-color: #F3F3F3;
+}
+.textArea {width: 100%;}
+.date {
+    text-align: center;
+    font-family: primaryBold;
+    color: #939393;
+    font-size: 1rem;
+}
+/* 챗팅 */
+.chat_box {
+    position: relative;
+    margin-top: auto;
+    border-top: 1px solid #ccc;
+}
+.btn_send {
+    position: absolute;
+    right: 2rem;
+    bottom: 2rem;
+    font-size: 24px;
+    color: #B3B3B3;
+    cursor: pointer;
+}
+.message_box {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+.message_group {
+    flex-wrap: nowrap;
+    height: 100%;
+    overflow-y: auto;
+}
+/* unit_messge 스타일 */
+.unit_message_wrap {
+    overflow: hidden;
+    line-height: 0;
+    padding-right: 3.4285rem;
+}
+.my_unit_box .unit_message_wrap {
+    text-align: right;
+    padding-left: 3.4285rem;
+    padding-right: 0;
+}
+.unit_message {
+    position: relative;
+    display: inline-block;
+    border-radius: 18px;
+    white-space: pre-line;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+}
+.time {
+    word-break: keep-all;
+    position: absolute;
+    right: -2.4285rem;
+    bottom: 0;
+    color: #939393;
+}
+.my_unit_box .time {
+    right: 100%;
+}
+.new_message_box_wrap {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 1rem;
+    width: 100%;
+}
+.new_message_box {
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.new_message_box p {
+    overflow: hidden;
+    flex: 1;
+    min-width: 0; /* flex 자식에서 텍스트 줄바꿈 허용 */
+    white-space: nowrap;
+    text-overflow: ellipsis; /* 생략부호 처리 */
+}
+/** 사용자 이름, 시간 폰트 크기 */
+.user_name, .time {
+    font-size: 0.7857rem;
+}
+/** 텍스트 정렬 */
+.my_unit_box .user_name {
+    text-align: right;
+}
+
+
+

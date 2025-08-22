@@ -1,0 +1,123 @@
+/* 플랙스 설정 */
+.container,
+.form_box,
+.form_wrap,
+.userid_box,
+.gender_group,
+.gender_item,
+.addr_detail_box,
+.email_account_box,
+.email_addr_box,
+.email_check_box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Gap과 Direction 설정 */
+.container,
+.form_box,
+.form_wrap,
+.addr_box {
+    flex-direction: column;
+}
+
+.form_wrap {
+    gap: 2rem;
+}
+
+.userid_box,
+.addr_detail_box,
+.email_addr_box,
+.gender_group,
+.form_box,
+.gender_item,
+.email_account_box,
+.email_check_box {
+    gap: 1rem;
+}
+
+/*  flex item 정렬 */
+.gender_group {
+    align-items: center;
+}
+
+/*패스워드 창*/
+.password_box {
+    position: relative;
+    /*아이콘을 고정시키기 위한 장치*/
+}
+/*패스워드 아이콘*/
+.input_with_icon {
+    width: 100%;
+    padding-right: 2.5rem;
+    /* 아이콘이 들어갈 공간 확보 */
+}
+/*패스워드 아이콘*/
+.icon_toggle {
+    position: absolute;
+    /*아이콘 위치고정*/
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: gray;
+}
+
+.codeInputWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-grow: 1;
+}
+
+.locationbutton {
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #fafafa;
+    cursor: pointer;
+}
+
+.locationicon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.addr_detail_box {
+    display: flex; /* 이미 설정되어 있을 수 있지만, 다시 확인 */
+    align-items: center; /* 입력창과 버튼을 수직 중앙 정렬 */
+    gap: 1rem; /* 입력창과 버튼 사이에 1rem 간격 유지 (기존에 설정되어 있음) */
+    flex-wrap: nowrap; /* 입력창과 버튼이 한 줄에 있도록 합니다. */
+}
+
+/* addr 입력창에 flex-grow 적용 */
+.addr_detail_box input[type="text"] { /* Input 컴포넌트 내부의 input 태그를 명확히 지정 */
+    flex-grow: 1; /* 입력창이 사용 가능한 모든 공간을 차지하도록 함 */
+}
+
+/* Flex 크기 설정 */
+.form_box input {
+    flex: auto;
+}
+
+/* 컨테이너 스타일 */
+.container {
+    padding: 2rem 1rem;
+    margin: 0 auto;
+    max-width: 35.714rem;
+}
+
+/* label */
+.label {
+    font-family: primaryBold;
+}
+
+/* form */
+/** 이메일 */
+.email_account_box div {
+    font-size: 1.428rem;
+}
+
+/** btn_submit */
+div.btn_submit {
+    display: block;
+}

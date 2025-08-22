@@ -1,0 +1,58 @@
+
+/* 플랙스 설정 */
+.container, .reco_head_box, .btn_group, .btn_group, .ask_box, .reco_body_box, .inv_box {
+    display: flex;
+    flex-wrap: wrap;
+}
+/* Gap과 Direction 설정 */
+.container, .btn_group, .ask_box, .reco_body_box {
+    flex-direction: column;
+}
+.btn_group, .btn_group, .ask_box, .reco_body_box, .reco_head_box, .inv_box {
+    gap: 1rem;
+}
+/* Flex 정렬 */
+.reco_head_box {
+    align-items: center;
+}
+.btn_group{
+    justify-content: space-between;
+}
+.ask_box {
+    align-items: center;
+}
+
+/* .container */
+.container {
+    margin: 0 auto;
+}
+/* 추천 Head */
+.reco_head_box {
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+}
+/* 추천 Body */
+.reco_body_box {
+    padding: 1rem;
+}
+/* 버튼 그룹 */
+.btn_select_team {
+    flex: auto;
+    background-color: #0EB7DD;
+}
+
+.btn_select_member {
+    flex: auto;
+    background-color: #0F1CF3;
+}
+
+/* btn_close */
+.btn_close {
+    margin-left: auto;
+    font-size: 1rem;
+}
+.btn_close:hover {
+    cursor: pointer;
+}
+
+
