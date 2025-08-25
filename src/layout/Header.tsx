@@ -56,6 +56,12 @@ const Header: React.FC = () => {
     navi(`/search/${searchInRef.current?.value}`);
   };
 
+  // 챗봇 버튼 클릭 핸들러
+  const handleChatbotClick = () => {
+    // TODO: 챗봇 모달을 띄우는 로직 구현
+    console.log("챗봇 버튼 클릭됨");
+  };
+
   // 렌더링
   return (
     <div className={styles.header_wrap}>
@@ -107,7 +113,7 @@ const Header: React.FC = () => {
               </form>
             </div>
             <div className={styles.utils_area}>
-              <Link to={"/"}>
+              <Link to={"/alert"}>
                 <button className={styles.notice_btn}>
                   <img
                     src="/images/notice_icon.png"
@@ -117,6 +123,19 @@ const Header: React.FC = () => {
                 </button>
               </Link>
               <Badge className={styles.badge_item}>110</Badge>
+
+              {/* 챗봇 버튼 */}
+              <button
+                className={styles.chatbot_btn}
+                onClick={handleChatbotClick}
+                title="챗봇"
+              >
+                <img
+                  src="/images/chatbot.svg"
+                  className={styles.chatbot_icon_img}
+                  alt="챗봇"
+                />
+              </button>
             </div>
           </div>
         </header>

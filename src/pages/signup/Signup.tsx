@@ -1,4 +1,4 @@
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"; // 비밀번호 보이기 아이콘
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { Button, Error, File, Input, Radio, Select } from "../../components/ui";
 import { useAlert, useAPI, useDaumAddr } from "../../hooks";
-import { appConsole } from "../../utils";
 import styles from "./signup.module.css";
 
 interface UserFormData {
@@ -25,7 +24,6 @@ interface UserFormData {
   profileImage?: string | null;
 }
 
-/* 회원가입 */
 const Signup: React.FC = () => {
   const [idMessage, setIdMessage] = useState("");
   const [isIdVerified, setIsIdVerified] = useState(false);
@@ -33,18 +31,13 @@ const Signup: React.FC = () => {
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const navigate = useNavigate();
   const api = useAPI();
-
   const [showPassword, setShowPassword] = useState(false);
   const [showCheckPassword, setShowCheckPassword] = useState(false);
-
-  //코드 입력창이 false라 나타나지 않음
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [emailCodeVerified, setEmailCodeVerified] = useState("");
-
-  const getDaum = useDaumAddr(); // 다음 API 호출 훅
-  // 상세주소 ref 훅
+  const getDaum = useDaumAddr();
   const detailAddrRef = useRef<HTMLInputElement>(null);
-  const emailAddHelperRef = useRef<HTMLSelectElement>(null); // 이메일 헬퍼 엘리먼트 ref 훅
+  const emailAddHelperRef = useRef<HTMLSelectElement>(null);
   const [count, setCount] = useState(0);
   const { alertError, alertSuccess, alertWarn } = useAlert();
   const dafaultimg = "/images/img_profile.svg";
@@ -53,7 +46,6 @@ const Signup: React.FC = () => {
   );
   const [profile, setProfile] = useState<File | null>(null);
 
-  // 폼검증에 사용할 스키마
   const schema = yup
     .object({
       userAccount: yup
@@ -105,7 +97,7 @@ const Signup: React.FC = () => {
       birthday: yup.string().required("생년월일을 선택해주세요"),
     })
     .required();
-  // 폼 요소 검증을 위한 훅
+
   const {
     register,
     handleSubmit,
@@ -118,15 +110,11 @@ const Signup: React.FC = () => {
     getValues,
   } = useForm({ resolver: yupResolver(schema) });
 
-  //회원가입정보
   const onValid = async (data: any) => {
-    //가입시 이메일중복체크 필수
     if (!isIdVerified) {
       alertError({ message: "아이디 중복체크를 먼저 완료해주세요." });
       return;
     }
-
-    //가입시 이메일 인증 필수
     if (!isEmailVerified) {
       alertError({ message: "이메일 인증을 먼저 완료해주세요." });
       return;
@@ -137,7 +125,6 @@ const Signup: React.FC = () => {
       formData.append("pwd", data.password);
       formData.append("passwordCheck", data.passwordCheck);
       formData.append("userName", data.nickname);
-      //하이푼(-)을 빈칸으로 만들어서 데이터에 넣는방법
       formData.append("birthday", data.birthday.replace(/-/g, ""));
       formData.append("genderCd", data.gender);
       formData.append("phoneNumber", data.phone.replace(/-/g, ""));
@@ -148,6 +135,7 @@ const Signup: React.FC = () => {
       if (profile) {
         formData.append("profileImage", profile);
       }
+
       const resp = await api.post(`/auth/signUp`, formData);
       const data1 = resp.data;
       if (data1.code === "0000") {
@@ -156,7 +144,6 @@ const Signup: React.FC = () => {
           message: "회원가입 성공했습니다.",
           onClose: () => navigate(`/interest/${userId}`),
         });
-        console.log(userId);
       } else {
         alertError();
       }
@@ -169,16 +156,13 @@ const Signup: React.FC = () => {
     }
   };
 
-  //아이디 입력창 한글제거
   useEffect(() => {
     const idInput = watch((value, { name }) => {
-      //아이디 입력창에 한글을 쓰려고 하면 실시간으로 제거
       if (name === "userAccount") {
         const currentValue = value.userAccount || "";
         const filteredValue = currentValue.replace(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
-        setIsIdVerified(false); //아이디 변경시 중복체크 초기화
+        setIsIdVerified(false);
         setIdMessage("");
-        // 한글이 있다면 제거하고 값 업데이트
         if (currentValue !== filteredValue) {
           setValue("userAccount", filteredValue);
         }
@@ -187,19 +171,15 @@ const Signup: React.FC = () => {
     return () => idInput.unsubscribe();
   }, [watch, setValue]);
 
-  //이메일 아이디 입력창 한글제거(ustEffect두개 만들면 가독성이 좋고 수정이 쉬워짐)
   useEffect(() => {
     const emailInput = watch((value, { name }) => {
-      //이메일 아이디 입력창에 한글을 쓰려고 하면 실시간으로 제거
       if (name === "email") {
         const currentValue = value.email || "";
         const filteredValue = currentValue.replace(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g, "");
-        setIsEmailVerified(false); //이메일 변경시 이메일 인증 초기화
+        setIsEmailVerified(false);
         setEmailMessage("");
-        setShowCodeInput(false); // 이메일 변경시 인증코드 입력창 숨김
-        setEmailCodeVerified(""); // 이메일 변경시 인증코드 입력값 초기화
-        setEmailMessage("");
-        // 한글이 있다면 제거하고 값 업데이트
+        setShowCodeInput(false);
+        setEmailCodeVerified("");
         if (currentValue !== filteredValue) {
           setValue("email", filteredValue);
         }
@@ -208,51 +188,36 @@ const Signup: React.FC = () => {
     return () => emailInput.unsubscribe();
   }, [watch, setValue]);
 
-  //중복체크
   const idCheck = async () => {
     const userAccount = getValues("userAccount");
     try {
       const res = await api.get(`/auth/idCheck`, { userAccount });
-      console.log("idCheck 응답:", res.data);
       alertSuccess({ message: "사용 가능한 아이디 입니다" });
       setIdMessage("");
       setIsIdVerified(true);
     } catch (err: any) {
-      if (err.response) {
-        if (err.response.data?.code === "VD03") {
-          setIdMessage("이미 사용 중인 아이디입니다.");
-          alertError({ message: "이미 사용 중인 아이디입니다." });
-        }
+      if (err.response?.data?.code === "VD03") {
+        setIdMessage("이미 사용 중인 아이디입니다.");
+        alertError({ message: "이미 사용 중인 아이디입니다." });
       }
-      console.error(err);
       setIsIdVerified(false);
     }
   };
-  //휴대폰 번호 입력시 글자수 제한 하이푼(-)이 자동으로 입력되고 트리거로 에러메세지 조건에 맞게 자동으로 변경
+
   const onChangePhoneHelper = (e: ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, "");
-    if (value.length > 11) {
-      value = value.slice(0, 11);
-    }
-    // 하이픈을 붙이는 로직
+    if (value.length > 11) value = value.slice(0, 11);
     if (value.length <= 3) {
-      // 하이픈 없음 (예: 010)
     } else if (value.length <= 7) {
-      // 010-1234 (총 9자리)
       value = value.replace(/(\d{3})(\d{1,4})/, "$1-$2");
     } else {
-      // 010-1234-5678 (총 13자리)
       value = value.replace(/(\d{3})(\d{4})(\d{1,4})/, "$1-$2-$3");
     }
-    // 하이픈 포함 13자리를 초과하면 자르기
-    if (value.length > 13) {
-      value = value.slice(0, 13);
-    }
+    if (value.length > 13) value = value.slice(0, 13);
     setValue("phone", value);
     trigger("phone");
   };
 
-  //이메일 인증코드 발송
   const sendEmailCode = async () => {
     const fullEmail = `${getValues("email")}@${getValues("emailAddr")}`;
     try {
@@ -261,43 +226,36 @@ const Signup: React.FC = () => {
         email: fullEmail,
       });
       if (res.data.code === "0000") {
-        // 성공: 인증번호 발송
         alertSuccess({ message: "인증번호가 발송되었습니다" });
         setEmailMessage("인증 번호가 발송되었습니다");
         setIsEmailVerified(false);
-        //인증번호 발송시 인증번호 인풋창 나타남
         setShowCodeInput(true);
         setCount(180);
       } else {
-        // 예상치 못한 코드가 오면 일단 실패 처리
         alert(`인증번호 발송 실패: ${res.data.message || res.data.code}`);
         setShowCodeInput(false);
       }
     } catch (err: any) {
-      if (err.response) {
-        if (err.response.data?.code === "VD04") {
-          setEmailMessage("이미 사용 중인 이메일입니다.");
-          alertError({ message: "이미 사용 중인 이메일입니다." });
-          setShowCodeInput(false);
-        }
+      if (err.response?.data?.code === "VD04") {
+        setEmailMessage("이미 사용 중인 이메일입니다.");
+        alertError({ message: "이미 사용 중인 이메일입니다." });
+        setShowCodeInput(false);
       }
       setEmailMessage("");
       setIsEmailVerified(false);
       setEmailCodeVerified("");
-      console.error("이메일 인증 중 오류 발생", err);
     }
   };
 
-  //이메일인증시간 타이머
   useEffect(() => {
     if (count <= 0) return;
     const timer = setInterval(() => {
       setCount((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          setShowCodeInput(false); // 인증 입력창 숨기기
+          setShowCodeInput(false);
           setEmailMessage("인증 시간이 만료되었습니다. 다시 시도해주세요.");
-          setIsEmailVerified(false); // 인증 상태 초기화
+          setIsEmailVerified(false);
           setEmailCodeVerified("");
           alertError({
             message: "인증 시간이 만료되었습니다. 다시 시도해주세요.",
@@ -307,11 +265,9 @@ const Signup: React.FC = () => {
         return prev - 1;
       });
     }, 1000);
-
     return () => clearInterval(timer);
   }, [count]);
 
-  //인증번호 체크
   const checkEmailCode = async () => {
     const fullEmail = `${getValues("email")}@${getValues("emailAddr")}`;
     if (!emailCodeVerified) {
@@ -332,9 +288,8 @@ const Signup: React.FC = () => {
         alertWarn({ message: "인증 대기중입니다" });
         alertSuccess({ message: "이메일 인증 성공!" });
         setIsEmailVerified(true);
-        setCount(0); //인증성공시 카운트 삭제
+        setCount(0);
       } else if (code === "0000" && !data?.success) {
-        //0000으로 잘 진행됐지만 성공이 아님
         const reason = data?.reason || "인증 실패";
         alertError({ message: `인증 실패: ${reason}` });
         setIsEmailVerified(false);
@@ -342,25 +297,19 @@ const Signup: React.FC = () => {
         alert("알수없는 오류");
       }
     } catch (err: any) {
-      if (err.response) {
-        if (err.response.data?.code === "AU03") {
-          alertError({
-            message:
-              "3회 이상 인증번호를 틀려 더 이상 시도할 수 없습니다. 다시 인증번호를 요청하세요.",
-          });
-          appConsole("3회 이상 인증번호를");
-          setShowCodeInput(false);
-        } else if (err.response.data?.code === "AU01") {
-          appConsole("인증번호가 틀렸");
-          alertError({ message: "인증번호가 틀렸습니다." });
-          setIsEmailVerified(false);
-        } else if (err.response.data?.code === "AU02") {
-          appConsole("인증번호가 만료");
-          alertError({ message: "인증번호가 만료되었습니다." });
-          setIsEmailVerified(false);
-        }
+      if (err.response?.data?.code === "AU03") {
+        alertError({
+          message:
+            "3회 이상 인증번호를 틀려 더 이상 시도할 수 없습니다. 다시 인증번호를 요청하세요.",
+        });
+        setShowCodeInput(false);
+      } else if (err.response?.data?.code === "AU01") {
+        alertError({ message: "인증번호가 틀렸습니다." });
+        setIsEmailVerified(false);
+      } else if (err.response?.data?.code === "AU02") {
+        alertError({ message: "인증번호가 만료되었습니다." });
+        setIsEmailVerified(false);
       }
-      console.error("이메일 인증 실패:", err);
     }
   };
 
@@ -371,34 +320,23 @@ const Signup: React.FC = () => {
       return;
     }
     if (!showCodeInput) {
-      // 인증번호 입력 필드가 보이지 않으면, 인증 메일 발송
       await sendEmailCode();
-      setShowCodeInput(true); // 입력 필드 표시
+      setShowCodeInput(true);
     } else {
-      // 인증번호 입력 필드가 보이면, 인증 코드 확인
       await checkEmailCode();
     }
   };
 
-  /**
-   * 헬퍼의 도메인 선택 옵션이 변경되면 주소의 값을 변경하는 함수
-   * @param e 이벤트 객체
-   */
   const onChangeEmailAddrHelper = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.currentTarget.value;
     setValue("emailAddr", value);
     trigger("emailAddr");
   };
 
-  /**
-   * 이메일이 주소가 변경될 경우 헬퍼의 값을 변경하는 함수
-   * @param e 이벤트 객체
-   */
   const onChangeEmailAddr = (e: ChangeEvent<HTMLSelectElement>) => {
     let o;
     for (const el of emailAddHelperRef.current!.children) {
       const opt = el as HTMLOptionElement;
-      console.log(opt.value === e.currentTarget.value.toLowerCase());
       if (opt.value === e.currentTarget.value.toLowerCase()) {
         o = opt;
         break;
@@ -407,29 +345,17 @@ const Signup: React.FC = () => {
     o && (o.selected = true);
   };
 
-  /**
-   * 다음 주소 API를 활성화하는 함수
-   * @param e 이벤트 객체
-   */
   const onOpenDaumAddrAPI = (e: React.MouseEvent<HTMLElement>) => {
     const daum = getDaum();
     if (daum) {
       new daum.Postcode({
         oncomplete: function (data: any) {
-          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-          var addr = ""; // 주소 변수
-
-          //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+          var addr = "";
           if (data.userSelectedType === "R") {
-            // 사용자가 도로명 주소를 선택했을 경우
             addr = data.roadAddress;
           } else {
-            // 사용자가 지번 주소를 선택했을 경우(J)
             addr = data.jibunAddress;
           }
-          // 주소 할당
           setValue("addr", addr);
           trigger("addr");
         },
@@ -437,12 +363,10 @@ const Signup: React.FC = () => {
     }
   };
 
-  //이미지 미리보기
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
-      // const maxFileSize=1*1024;//1kb 제한 테스트용
-      const maxFileSize = 20 * 1024 * 1024; //20MB
+      const maxFileSize = 20 * 1024 * 1024;
       if (file.size > maxFileSize) {
         alertError({
           message: "첨부파일의 용량이 초과하였습니다. 작은 파일을 선택해주세요",
@@ -454,7 +378,6 @@ const Signup: React.FC = () => {
       }
       const reader = new FileReader();
       reader.onloadend = () => {
-        //파일 stream이 읽어오는 영역
         setPreview(reader.result);
       };
       reader.readAsDataURL(file);
@@ -462,184 +385,187 @@ const Signup: React.FC = () => {
     }
   };
 
-  // 렌더링
   return (
-    <div className={styles.container}>
-      <form className={styles.form_wrap} onSubmit={handleSubmit(onValid)}>
-        {/* ID */}
-        <div className={styles.form_box}>
-          <label className={styles.label}>
-            아이디<span className="required">*</span>
-          </label>
-          <div className={styles.userid_box}>
-            <Input {...register("userAccount")} />
-            <Button type="button" onClick={idCheck}>
-              중복체크
-            </Button>
-          </div>
-          <Error isError={Boolean(errors.userAccount)}>
-            {errors.userAccount && errors.userAccount.message?.toString()}
-          </Error>
-        </div>
+    <div className={styles.signup_container}>
+      <main className={styles.signup_main_box}>
+        <h1 className={styles.signup_main_h1}>회원가입</h1>
 
-        {/* 비밀번호 */}
-        <div className={styles.form_box}>
-          <label className={styles.label}>
-            비밀번호 <span className="required">*</span>
-            <p style={{ color: "gray", fontSize: "12px" }}>
+        <form
+          className={styles.signup_form_wrap}
+          onSubmit={handleSubmit(onValid)}
+        >
+          {/* 아이디 */}
+          <div className={styles.input_group}>
+            <label className={styles.label}>아이디 *</label>
+            <div className={styles.id_input_box}>
+              <Input
+                {...register("userAccount")}
+                className={styles.input_field}
+              />
+              <Button
+                type="button"
+                color="point2"
+                onClick={idCheck}
+                className={styles.id_check_button}
+              >
+                중복확인
+              </Button>
+            </div>
+            <Error isError={Boolean(errors.userAccount)}>
+              {errors.userAccount && errors.userAccount.message?.toString()}
+            </Error>
+          </div>
+
+          {/* 비밀번호 */}
+          <div className={styles.input_group}>
+            <label className={styles.label}>비밀번호 *</label>
+            <div className={styles.password_box}>
+              <Input
+                {...register("password")}
+                type={showPassword ? "text" : "password"}
+                className={styles.input_with_icon}
+              />
+              <FontAwesomeIcon
+                icon={showPassword ? faEyeSlash : faEye}
+                onClick={() => setShowPassword((prev) => !prev)}
+                className={styles.icon_toggle}
+              />
+            </div>
+            <p className={styles.password_help}>
               첫 글자가 영대문자이며, 영소문자/숫자/특수문자(!@#$%^()*)를
               포함하여 10~16자리여야 합니다.
             </p>
-          </label>
-          <div className={styles.password_box}>
+            <Error isError={Boolean(errors.password)}>
+              {errors.password && errors.password.message?.toString()}
+            </Error>
+          </div>
+
+          {/* 비밀번호 재입력 */}
+          <div className={styles.input_group}>
+            <label className={styles.label}>비밀번호 재입력 *</label>
+            <div className={styles.password_box}>
+              <Input
+                {...register("passwordCheck")}
+                type={showCheckPassword ? "text" : "password"}
+                className={styles.input_with_icon}
+              />
+              <FontAwesomeIcon
+                icon={showCheckPassword ? faEyeSlash : faEye}
+                onClick={() => setShowCheckPassword((prev) => !prev)}
+                className={styles.icon_toggle}
+              />
+            </div>
+            <Error isError={Boolean(errors.passwordCheck)}>
+              {errors.passwordCheck && errors.passwordCheck.message?.toString()}
+            </Error>
+          </div>
+
+          {/* 이름 */}
+          <div className={styles.input_group}>
+            <label className={styles.label}>이름 *</label>
+            <Input {...register("nickname")} className={styles.input_field} />
+            <Error isError={Boolean(errors.nickname)}>
+              {errors.nickname && errors.nickname.message?.toString()}
+            </Error>
+          </div>
+
+          {/* 생년월일 */}
+          <div className={styles.input_group}>
+            <label className={styles.label}>생년월일 *</label>
             <Input
-              {...register("password")}
-              type={showPassword ? "text" : "password"}
-              className={styles.input_with_icon}
+              {...register("birthday")}
+              type="date"
+              className={styles.input_field}
             />
-            <FontAwesomeIcon
-              icon={showPassword ? faEyeSlash : faEye}
-              onClick={() => setShowPassword((prev) => !prev)}
-              className={styles.icon_toggle}
-            />
+            <Error isError={Boolean(errors.birthday)}>
+              {errors.birthday && errors.birthday.message?.toString()}
+            </Error>
           </div>
-          <Error isError={Boolean(errors.password)}>
-            {errors.password && errors.password.message?.toString()}
-          </Error>
-        </div>
 
-        {/* 비밀번호 재입력 */}
-        <div className={styles.form_box}>
-          <label className={styles.label}>
-            비밀번호 재입력 <span className="required">*</span>
-          </label>
-          <div className={styles.password_box}>
+          {/* 성별 */}
+          <div className={styles.input_group}>
+            <label className={styles.label}>성별 *</label>
+            <div className={styles.gender_group}>
+              <label className={styles.gender_item}>
+                <Radio {...register("gender")} value="4001" />
+                <span>남성</span>
+              </label>
+              <label className={styles.gender_item}>
+                <Radio {...register("gender")} value="4002" />
+                <span>여성</span>
+              </label>
+            </div>
+            <Error isError={Boolean(errors.gender)}>
+              {errors.gender && errors.gender.message?.toString()}
+            </Error>
+          </div>
+
+          {/* 휴대폰번호 */}
+          <div className={styles.input_group}>
+            <label className={styles.label}>휴대폰번호 *</label>
             <Input
-              {...register("passwordCheck")}
-              type={showCheckPassword ? "text" : "password"}
-              className={styles.input_with_icon}
+              {...register("phone")}
+              onChange={onChangePhoneHelper}
+              className={styles.input_field}
             />
-            <FontAwesomeIcon
-              icon={showCheckPassword ? faEyeSlash : faEye}
-              onClick={() => setShowCheckPassword((prev) => !prev)}
-              className={styles.icon_toggle}
-            />
-          </div>
-          <Error isError={Boolean(errors.passwordCheck)}>
-            {errors.passwordCheck && errors.passwordCheck.message?.toString()}
-          </Error>
-        </div>
-
-        {/* 닉네임 */}
-        <div className={styles.form_box}>
-          <label className={styles.label}>
-            이름 <span className="required">*</span>
-          </label>
-          <Input {...register("nickname")} />
-          <Error isError={Boolean(errors.nickname)}>
-            {errors.nickname && errors.nickname.message?.toString()}
-          </Error>
-        </div>
-
-        {/* 생년월일 */}
-        <div className={styles.form_box}>
-          <label className={styles.label}>
-            생년월일 <span className="required">*</span>
-          </label>
-          <Input
-            {...register("birthday")}
-            type="date"
-            className={styles.input}
-          />
-          <Error isError={Boolean(errors.birthday)}>
-            {errors.birthday && errors.birthday.message?.toString()}
-          </Error>
-        </div>
-
-        {/* 성별 */}
-        <div className={styles.form_box}>
-          <div className={styles.label}>
-            성별 <span className="required">*</span>
-          </div>
-          <div className={styles.gender_group}>
-            <label className={styles.gender_item}>
-              {" "}
-              <Radio {...register("gender")} value="4001" /> 남성{" "}
-            </label>
-            <label className={styles.gender_item}>
-              {" "}
-              <Radio {...register("gender")} value="4002" /> 여성{" "}
-            </label>
-          </div>
-          <Error isError={Boolean(errors.gender)}>
-            {errors.gender && errors.gender.message?.toString()}
-          </Error>
-        </div>
-
-        {/* 휴대폰번호 */}
-        <div className={styles.form_box}>
-          <label className={styles.label}>
-            휴대폰번호 <span className="required">*</span>
-            <p style={{ color: "gray" }}>
+            <p className={styles.phone_help}>
               숫자를 입력하시면 하이푼(-)이 자동으로 입력됩니다
             </p>
-          </label>
-          <Input {...register("phone")} onChange={onChangePhoneHelper} />
-          <Error isError={Boolean(errors.phone)}>
-            {errors.phone && errors.phone.message?.toString()}
-          </Error>
-        </div>
+            <Error isError={Boolean(errors.phone)}>
+              {errors.phone && errors.phone.message?.toString()}
+            </Error>
+          </div>
 
-        {/* 주소 */}
-        <div className={styles.form_box}>
-          <label className={styles.label}>
-            주소 <span className="required">*</span>
-          </label>
-          <div className={styles.form_box}>
+          {/* 주소 */}
+          <div className={styles.input_group}>
+            <label className={styles.label}>주소 *</label>
             <div className={styles.addr_detail_box}>
-              <Input {...register("addr")} type="text" readOnly />
+              <Input
+                {...register("addr")}
+                type="text"
+                readOnly
+                className={styles.addr_input}
+              />
               <Button
                 type="button"
                 onClick={onOpenDaumAddrAPI}
-                className={styles.locationbutton}
+                className={styles.location_button}
               >
-                <img
-                  className={styles.locationicon}
-                  src="/images/locationicon.png"
-                  alt=""
-                />
+                주소검색
               </Button>
             </div>
-            <Input {...register("detailAddr")} type="text" />
+            <Input
+              {...register("detailAddr")}
+              type="text"
+              placeholder="상세주소"
+              className={styles.input_field}
+            />
+            <Error isError={Boolean(errors.addr)}>
+              {errors.addr && errors.addr.message?.toString()}
+            </Error>
           </div>
-          <Error isError={Boolean(errors.addr)}>
-            {errors.addr && errors.addr.message?.toString()}
-          </Error>
-        </div>
 
-        {/* 이메일 */}
-        <div className={styles.form_box}>
-          <label className={styles.label}>
-            이메일 <span className="required">*</span>
-          </label>
-          <div className={styles.form_box}>
+          {/* 이메일 */}
+          <div className={styles.input_group}>
+            <label className={styles.label}>이메일 *</label>
             <div className={styles.email_account_box}>
-              <Input {...register("email")} />
-              <div>@</div>
+              <Input {...register("email")} className={styles.email_input} />
+              <span className={styles.email_at}>@</span>
             </div>
             <Error isError={Boolean(errors.email)}>
               {errors.email && errors.email.message?.toString()}
             </Error>
-            {/* 이메일 도메인 */}
+
             <div className={styles.email_addr_box}>
               <Input
                 {...register("emailAddr", { onChange: onChangeEmailAddr })}
+                className={styles.email_domain_input}
               />
               <Select
                 {...register("emailAddr")}
                 ref={emailAddHelperRef}
                 onChange={onChangeEmailAddrHelper}
-                className={styles.select}
+                className={styles.email_select}
               >
                 <option value="">직접입력</option>
                 <option value="gmail.com">gmail.com</option>
@@ -652,15 +578,17 @@ const Signup: React.FC = () => {
             <Error isError={Boolean(errors.emailAddr)}>
               {errors.emailAddr && errors.emailAddr.message?.toString()}
             </Error>
+
             <div className={styles.email_check_box}>
               {showCodeInput && (
-                <div className={styles.codeInputWrapper}>
+                <div className={styles.code_input_wrapper}>
                   <Input
                     placeholder="인증번호를 입력하세요"
                     value={emailCodeVerified}
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       setEmailCodeVerified(e.target.value)
                     }
+                    className={styles.code_input}
                   />
                   {count > 0 && (
                     <span className={styles.timer}>
@@ -672,38 +600,39 @@ const Signup: React.FC = () => {
                   )}
                 </div>
               )}
-              <Button type="button" onClick={handleEmailVerifiedClick}>
-                {" "}
+              <Button
+                type="button"
+                color="point2"
+                onClick={handleEmailVerifiedClick}
+                className={styles.email_auth_button}
+              >
                 {showCodeInput ? "인증번호 확인" : "이메일 인증"}
               </Button>
             </div>
           </div>
-        </div>
 
-        {/* 프로필 사진 */}
-        <div className={styles.form_box}>
-          <label className={styles.label}>프로필 사진</label>
-          <File onChange={handleFileChange} />
-          <p>
-            첨부 파일은 최대 20MB까지 등록 가능합니다. 이미지 비율은 1:1입니다.
-          </p>
-          {preview && (
-            <img
-              src={preview as string}
-              alt=""
-              style={{
-                width: "4.571rem",
-                height: "4.571rem",
-                borderRadius: "50%",
-              }}
-            />
-          )}
-        </div>
+          {/* 프로필 사진 */}
+          <div className={styles.input_group}>
+            <label className={styles.label}>프로필 사진</label>
+            <File onChange={handleFileChange} className={styles.file_input} />
+            <p className={styles.file_help}>
+              첨부 파일은 최대 20MB까지 등록 가능합니다. 이미지 비율은
+              1:1입니다.
+            </p>
+            {preview && (
+              <img
+                src={preview as string}
+                alt="프로필 미리보기"
+                className={styles.profile_preview}
+              />
+            )}
+          </div>
 
-        <div className={styles.btn_group}>
-          <Button type="submit">제출</Button>
-        </div>
-      </form>
+          <Button type="submit" color="point2" className={styles.submit_button}>
+            제출
+          </Button>
+        </form>
+      </main>
     </div>
   );
 };

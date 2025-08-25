@@ -5,6 +5,7 @@ import BoardDetail from "../pages/board/BoardDetail";
 import BoardForm from "../pages/board/BoardForm";
 import BoardList from "../pages/board/BoardList";
 import Login from "../pages/login/Login";
+import FindAccount from "../pages/login/FindAccount";
 import Mypage from "../pages/mypage/Mypage";
 import Myinfo from "../pages/mypage/myinfo/Myinfo";
 import MyinfoEdit from "../pages/mypage/myinfo/MyinfoEdit";
@@ -16,6 +17,10 @@ import Signup from "../pages/signup/Signup";
 import Main from "../layout/Main";
 import Layout from "../layout/Layout";
 import FundList from "../pages/fund/FundList";
+import Myfund from "../pages/fund/Myfund";
+import FundRank from "../pages/fund/FundRank";
+import FundGuide from "../pages/guide/FundGuide";
+import Alert from "../pages/alert/Alert";
 import LeaseContract from "../pages/lease/LeaseContract";
 import LandList from "../pages/land/LandList";
 import LandRegistration from "../pages/land/LandRegistration";
@@ -25,6 +30,7 @@ import FundWrite from "../pages/fund/FundWrite";
 const AppRoutes: React.FC = () => {
   const routeList = [
     { path: "/login", element: <Login /> },
+    { path: "/findaccount", element: <FindAccount /> },
     { path: "/signup", element: <Signup /> },
     {
       path: "/mypage",
@@ -33,6 +39,22 @@ const AppRoutes: React.FC = () => {
         <Mypage />
         // </PermissionFilter>
       ),
+    },
+    {
+      path: "/myfund",
+      element: <Myfund />,
+    },
+    {
+      path: "/fund_rank",
+      element: <FundRank />,
+    },
+    {
+      path: "/fund_guide",
+      element: <FundGuide />,
+    },
+    {
+      path: "/alert",
+      element: <Alert />,
     },
     {
       path: "/fund_list/:type",

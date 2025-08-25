@@ -1,0 +1,697 @@
+/* ===== 투자 가이드 페이지 스타일 ===== */
+
+.guide_container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+/* 헤더 영역 */
+.guide_header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 3rem 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.guide_header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.3;
+}
+
+.header_content {
+  position: relative;
+  z-index: 1;
+}
+
+.page_title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 1rem 0;
+}
+
+.title_icon {
+  color: #6e9556;
+  font-size: 2.5rem;
+}
+
+.page_subtitle {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 네비게이션 탭 */
+.guide_navigation {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 16px;
+  border: 1px solid #e9ecef;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav_tab {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  background-color: transparent;
+  color: #6c757d;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.nav_tab:hover {
+  background-color: #e9ecef;
+  color: #495057;
+  transform: translateY(-2px);
+}
+
+.nav_tab_active {
+  background-color: #6e9556;
+  color: white;
+  box-shadow: 0 4px 15px rgba(110, 149, 86, 0.3);
+}
+
+.nav_tab_active:hover {
+  background-color: #5a7a45;
+  transform: translateY(-2px);
+}
+
+.tab_icon {
+  font-size: 1.1rem;
+}
+
+/* 콘텐츠 영역 */
+.guide_content {
+  margin-bottom: 4rem;
+}
+
+.section_content {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+}
+
+.content_card {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.content_card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.content_card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #6e9556;
+}
+
+.content_card p {
+  font-size: 1rem;
+  color: #495057;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* 특징 리스트 */
+.feature_list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feature_item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.feature_item:hover {
+  background-color: #e9ecef;
+  transform: translateX(5px);
+}
+
+.feature_icon {
+  color: #6e9556;
+  font-size: 1.2rem;
+  width: 20px;
+}
+
+/* 프로세스 단계 */
+.process_steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.process_step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.step_number {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #6e9556 0%, #5a7a45 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.step_content h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem 0;
+}
+
+.step_content p {
+  margin: 0;
+  color: #6c757d;
+}
+
+/* 전략 팁 */
+.strategy_tips {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.strategy_tip {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #6e9556;
+}
+
+.tip_icon {
+  color: #28a745;
+  font-size: 1.2rem;
+  margin-top: 0.25rem;
+}
+
+.strategy_tip h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem 0;
+}
+
+.strategy_tip p {
+  margin: 0;
+  color: #6c757d;
+}
+
+/* 타이밍 전략 */
+.timing_strategy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.timing_item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.timing_icon {
+  color: #ffc107;
+  font-size: 1.2rem;
+  margin-top: 0.25rem;
+}
+
+.timing_item h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem 0;
+}
+
+.timing_item p {
+  margin: 0;
+  color: #6c757d;
+}
+
+/* 위험 요소 */
+.risk_factors {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.risk_factor {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #fff5f5;
+  border-radius: 8px;
+  border-left: 4px solid #dc3545;
+}
+
+.risk_icon {
+  color: #dc3545;
+  font-size: 1.2rem;
+  margin-top: 0.25rem;
+}
+
+.risk_factor h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem 0;
+}
+
+.risk_factor p {
+  margin: 0 0 1rem 0;
+  color: #6c757d;
+}
+
+.risk_mitigation {
+  background-color: #ffffff;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+/* 위험 관리 */
+.risk_management {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.management_method {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #6e9556;
+}
+
+.management_method h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.75rem 0;
+}
+
+.management_method p {
+  margin: 0 0 1rem 0;
+  color: #6c757d;
+}
+
+.recommendation {
+  background-color: #ffffff;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #495057;
+  border: 1px solid #e9ecef;
+}
+
+/* 계산 예시 */
+.calculation_example {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.example_scenario {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.example_scenario h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 1rem 0;
+}
+
+.scenario_details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.detail_label {
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.detail_value {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.calculation_formula {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.calculation_formula h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 1rem 0;
+}
+
+.formula {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: "Courier New", monospace;
+  font-weight: 600;
+  color: #6e9556;
+  text-align: center;
+  margin-bottom: 1rem;
+  border: 2px solid #e9ecef;
+}
+
+.formula_example {
+  background-color: #ffffff;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #495057;
+  text-align: center;
+}
+
+/* 수익 요소 */
+.profit_factors {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profit_factor {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #17a2b8;
+}
+
+.profit_factor h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.75rem 0;
+}
+
+.profit_factor p {
+  margin: 0;
+  color: #6c757d;
+}
+
+/* 초보자 팁 */
+.beginner_tips {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tip_item {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #6e9556;
+}
+
+.tip_number {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #6e9556 0%, #5a7a45 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.tip_content h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem 0;
+}
+
+.tip_content p {
+  margin: 0;
+  color: #6c757d;
+}
+
+/* 체크리스트 */
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checklist_item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.checklist_item:hover {
+  background-color: #e9ecef;
+}
+
+.checklist_item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #6e9556;
+}
+
+.checklist_item label {
+  font-weight: 500;
+  color: #495057;
+  cursor: pointer;
+  flex: 1;
+}
+
+/* 액션 영역 */
+.action_section {
+  background: linear-gradient(135deg, #6e9556 0%, #5a7a45 100%);
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  color: white;
+}
+
+.action_content h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+}
+
+.action_content p {
+  font-size: 1.1rem;
+  margin: 0 0 2rem 0;
+  opacity: 0.9;
+}
+
+.action_buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.primary_action,
+.secondary_action {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  min-width: 160px;
+}
+
+.primary_action:hover,
+.secondary_action:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.button_icon {
+  font-size: 1rem;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+  .guide_container {
+    padding: 1.5rem;
+  }
+
+  .page_title {
+    font-size: 2.5rem;
+  }
+
+  .content_grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calculation_example {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .guide_container {
+    padding: 1rem;
+  }
+
+  .page_title {
+    font-size: 2rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .title_icon {
+    font-size: 2rem;
+  }
+
+  .guide_navigation {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav_tab {
+    min-width: auto;
+  }
+
+  .action_section {
+    padding: 2rem 1.5rem;
+  }
+
+  .action_content h2 {
+    font-size: 1.5rem;
+  }
+
+  .action_buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .primary_action,
+  .secondary_action {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .guide_header {
+    padding: 2rem 1rem;
+  }
+
+  .page_title {
+    font-size: 1.75rem;
+  }
+
+  .page_subtitle {
+    font-size: 1rem;
+  }
+
+  .content_card {
+    padding: 1.5rem;
+  }
+
+  .action_section {
+    padding: 1.5rem 1rem;
+  }
+}

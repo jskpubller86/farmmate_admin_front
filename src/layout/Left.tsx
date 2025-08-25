@@ -144,7 +144,7 @@ const Left: React.FC = () => {
           </div>
           <div className={styles.left_navigation_box}>
             <Link to="/" className={styles.left_navigation_item}>
-              <span>시청 중인 임차건</span>
+              <span>내 임대 / 임차</span>
               <img
                 src="/images/triangle_icon.svg"
                 className={styles.left_triangle_icon_img}
@@ -153,17 +153,7 @@ const Left: React.FC = () => {
             </Link>
           </div>
           <div className={styles.left_navigation_box}>
-            <Link to="/" className={styles.left_navigation_item}>
-              <span>내가 등록한 임대건</span>
-              <img
-                src="/images/triangle_icon.svg"
-                className={styles.left_triangle_icon_img}
-                alt="화살표"
-              />
-            </Link>
-          </div>
-          <div className={styles.left_navigation_box}>
-            <Link to="/" className={styles.left_navigation_item}>
+            <Link to="/myfund" className={styles.left_navigation_item}>
               <span>내 펀드</span>
               <img
                 src="/images/triangle_icon.svg"
@@ -173,8 +163,18 @@ const Left: React.FC = () => {
             </Link>
           </div>
           <div className={styles.left_navigation_box}>
-            <Link to="/fund_write" className={styles.left_navigation_item}>
-              <span>펀드 등록</span>
+            <Link to="/fund_rank" className={styles.left_navigation_item}>
+              <span>펀드 랭킹</span>
+              <img
+                src="/images/triangle_icon.svg"
+                className={styles.left_triangle_icon_img}
+                alt="화살표"
+              />
+            </Link>
+          </div>
+          <div className={styles.left_navigation_box}>
+            <Link to="/fund_guide" className={styles.left_navigation_item}>
+              <span>투자 가이드</span>
               <img
                 src="/images/triangle_icon.svg"
                 className={styles.left_triangle_icon_img}
