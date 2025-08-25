@@ -45,9 +45,9 @@ const LandList: React.FC = () => {
   const [lands, setLands] = useState<LandItem[]>([]);
   
   // URL 경로에 따라 기본 탭 설정
-  const getDefaultTab = () => {
+  const getDefaultTab = (): "my-rent-out" | "my-rent-in" | "my-wish" => {
     if (location.pathname === "/land/my-rent") {
-      return "my-rent-in"; // 내 임차 탭
+      return "my-rent-out"; // 내 임대 탭
     }
     return "my-rent-out"; // 기본값: 내 임대 탭
   };
@@ -93,12 +93,13 @@ const LandList: React.FC = () => {
             </button>
           </div>
           
-          {/* 임대추가 버튼 - my-rent 탭일 때만 표시 */}
-          {activeTab === "my-rent-in" && (
+          {/* 임차추가 버튼 - my-rent-out 탭일 때만 표시 */}
+          {activeTab === "my-rent-out" && (
             <div className={styles.rent_button_container}>
               <Button 
                 className={styles.rent_button} 
                 type="button"
+                onClick={() => navigate("/land/rent-add")}
               >
                 임대추가
               </Button>
