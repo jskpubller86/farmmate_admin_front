@@ -1,8 +1,5 @@
 .container {
   padding: 1rem 0;
-  /* 고정 레이아웃(main_layout) 안에서 자체 스크롤 되도록 최대 높이 지정 */
-  max-height: calc(100vh - var(--header-h) - var(--footer-h) - var(--dock-h));
-  overflow: auto;
 }
 @media (min-width: 760px) {
   .container {
@@ -10,15 +7,76 @@
   }
 }
 
+/* 페이지 제목 */
+.page_header {
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.page_title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #000000;
+  margin-bottom: 1rem;
+  font-family: "NanumGothic", sans-serif;
+}
+
+/* 상단 툴바 및 계약서 정보 섹션 */
+.toolbar_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
 /* 상단 툴바 */
 .toolbar {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 1rem;
 }
 .btn_prev {
 }
 .btn_print {
+}
+
+/* 계약서 정보 */
+.page_info {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  font-size: 0.875rem;
+  color: #000000;
+  font-family: "NanumGothic", sans-serif;
+  text-align: right;
+}
+
+/* 2컬럼 레이아웃 */
+.content_wrapper {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .content_wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 왼쪽 사이드바 */
+.sidebar {
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  min-height: 200px;
+}
+
+/* 메인 콘텐츠 */
+.main_content {
+  flex: 1;
 }
 
 /* 섹션 기본 */
@@ -27,34 +85,42 @@
   border: none;
   border-radius: 0;
   padding: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
 }
 .section_title {
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  color: #000000;
+  font-family: "NanumGothic", sans-serif;
 }
 
 /* 체결 문구 섹션 */
 .section_note {
-  padding: 0.25rem 0 1rem;
+  padding: 0.25rem 0 2rem;
 }
 .center_text {
   text-align: center;
   font-weight: 600;
+  font-size: 1.25rem;
+  color: #000000;
+  font-family: "NanumGothic", sans-serif;
 }
 
 /* 공통 테이블 베이스 (grid) */
 .table {
   display: grid;
-  grid-template-columns: 120px 1fr 120px 1fr 120px 1fr;
-  border-top: 1px solid #e5e7eb;
-  border-left: 1px solid #e5e7eb;
+  grid-template-columns: 179px 1fr 179px 1fr 179px 1fr;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  background: #ffffff;
 }
 .table_col2 {
   display: grid;
-  grid-template-columns: 160px 1fr;
-  border-top: 1px solid #e5e7eb;
-  border-left: 1px solid #e5e7eb;
+  grid-template-columns: 179px 1fr;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  background: #ffffff;
 }
 .table_col1 {
   display: flex;
@@ -64,17 +130,21 @@
 
 .th,
 .td {
-  padding: 0.75rem;
-  border-right: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 1.5rem 0.75rem;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
 }
 .th {
-  background: #fff; /* 하늘색에서 흰색으로 변경 */
-  font-weight: normal; /* 볼드체에서 일반체로 변경 */
+  background: #ffffff;
+  font-weight: 400;
   text-align: center;
-  padding: 0.75rem;
-  border-right: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
+  font-size: 1.125rem;
+  color: #000000;
+  font-family: "NanumGothic", sans-serif;
+  justify-content: center;
 }
 .td_full {
   grid-column: span 5;
@@ -88,6 +158,7 @@
 /* 중도금, 잔금만 가운데 정렬 */
 .center_align {
   text-align: center;
+  justify-content: center;
 }
 
 /* 전체 채우는 인풋 (주소 등) */
@@ -98,29 +169,54 @@
 /* 금액 표 */
 .table_money {
   display: grid;
-  grid-template-columns: 160px 1fr 160px 1fr;
-  border-top: 1px solid #e5e7eb;
-  border-left: 1px solid #e5e7eb;
+  grid-template-columns: 179px 1fr 179px 1fr;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  background: #ffffff;
 }
 .td_inline {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.5rem 0.75rem;
-  border-right: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
+  gap: 1rem;
+  padding: 1.5rem 0.75rem;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  min-height: 72px;
+  font-size: 0.875rem;
+  color: #000000;
+  font-family: "NanumGothic", sans-serif;
 }
 .row_inline {
   display: grid;
-  grid-template-columns: 160px 1fr;
+  grid-template-columns: 179px 1fr;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  background: #ffffff;
+}
+
+.row_text {
+  display: grid;
+  grid-template-columns: 179px 1fr;
+  background: transparent;
+  margin-bottom: 0.5rem;
 }
 
 /* 입력 폭 보조 */
 .input_sm {
   width: 8rem;
+  height: 34px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  padding: 0.5rem;
+  background: #ffffff;
 }
 .input_xs {
   width: 4rem;
+  height: 34px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  padding: 0.5rem;
+  background: #ffffff;
 }
 
 /* 테이블 셀 내 인풋이 셀을 넘지 않도록 강제 */
@@ -140,16 +236,51 @@
 
 /* 안내문 박스 */
 .notice_box {
-  padding: 0;
-  border: none;
-  background: transparent;
+  padding: 1.5rem 0.75rem;
+  border: 1px solid #cccccc;
+  background: #ffffff;
   border-radius: 0;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   margin-bottom: 0.5rem;
+  color: #000000;
+  font-family: "NanumGothic", sans-serif;
 }
 
 /* 서명/도장 */
+.signature_section {
+  margin-top: 2rem;
+}
+
+.signature_row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.signature_item {
+  text-align: center;
+}
+
+.signature_title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #000000;
+  margin-bottom: 1rem;
+  font-family: "NanumGothic", sans-serif;
+}
+
+.signature_box {
+  height: 279px;
+  border: 1px solid #cccccc;
+  border-radius: 0;
+  background: #ffffff;
+  margin: 0 auto;
+}
+
+/* 기존 서명 스타일 유지 (하위 호환성) */
 .sign_row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -160,4 +291,54 @@
   border: 1px dashed #cbd5e1;
   border-radius: 8px;
   background: #f8fafc;
+}
+
+/* 테두리 없는 텍스트 레이아웃 */
+.text_content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* 조항/메모 섹션은 간격을 좁게 */
+.text_content.compact {
+  gap: 1rem;
+}
+
+.text_row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.label {
+  min-width: 179px;
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: #000000;
+  font-family: "NanumGothic", sans-serif;
+}
+
+.text {
+  flex: 1;
+  font-size: 0.875rem;
+  color: #000000;
+  font-family: "NanumGothic", sans-serif;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* 줄바꿈이 있는 텍스트용 */
+.text.multiline {
+  display: block;
+  white-space: pre-line;
+}
+
+.signature_image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
 }
