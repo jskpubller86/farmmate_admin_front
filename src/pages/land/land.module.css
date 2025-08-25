@@ -41,6 +41,29 @@
   color: #111827;              /* 진한 텍스트 컬러 */
 }
 
+/* 임대하기 버튼 컨테이너 */
+.rent_button_container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.rent_button {
+  background: #6a9357 !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.rent_button:hover {
+  background: #5a7a47 !important;
+}
+
 .filter_row{
   display: flex;
   gap: 10px;

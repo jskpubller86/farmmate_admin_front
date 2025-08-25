@@ -1,6 +1,7 @@
 import styles from "./index.module.css";
 import { Avatar, Button, LikeIt } from "../ui";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // 나중에 DB에 더미 데이터를 넣으면 활성화
 export interface FundCardProps {
@@ -180,8 +181,14 @@ export const LandCard: React.FC<LandCardProps> = ({
   currentMember,
   endMember,
 }) => {
+  const navigate = useNavigate();
   // 참여인원
   const [Member] = useState<number>(currentMember);
+
+  // 카드 클릭 핸들러
+  const handleCardClick = () => {
+    navigate(`/land/${id}`);
+  };
 
   // 찜 버튼
   // const [wish, setWish] = useState<boolean>(false);
@@ -221,7 +228,7 @@ export const LandCard: React.FC<LandCardProps> = ({
     hour12: false, // 12시간제 대신 24시간제
   };
   return (
-    <section className={styles.fund_land_card}>
+    <section className={styles.fund_land_card} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
       {/* 토자명 */}
       <h3 className={styles.fund_land_title}>{landName}</h3>
 

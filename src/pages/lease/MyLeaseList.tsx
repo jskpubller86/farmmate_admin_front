@@ -282,11 +282,11 @@ const MyLeaseList: React.FC = () => {
                 {filteredLands.map((l) => (
                   <LandCard
                     key={`land-${l.id}`}
-                    id={`${l.id}`}
+                    id={l.id.toString()}
                     landName={l.landName}
                     landImageUrl={l.landImageUrl}
-                    landOwnerName={l.landOwnerName}
                     landOwnerImageUrl={l.landOwnerImageUrl}
+                    landOwnerName={l.landOwnerName}
                     startDatetime={l.startDatetime}
                     endDatetime={l.endDatetime}
                     addr={l.addr}

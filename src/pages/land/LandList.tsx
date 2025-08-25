@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./land.module.css";
 import layout from "../../layout/layout.module.css";
 import { LandCard, DUMMY_FUND_CARD } from "../../components/sets";
@@ -39,8 +40,24 @@ const makeDummy = (pageNum: number, size: number): LandItem[] =>
   });
 
 const LandList: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [lands, setLands] = useState<LandItem[]>([]);
-  const [activeTab, setActiveTab] = useState<"my-rent-out" | "my-rent-in" | "my-wish">("my-rent-out");
+  
+  // URL 경로에 따라 기본 탭 설정
+  const getDefaultTab = () => {
+    if (location.pathname === "/land/my-rent") {
+      return "my-rent-in"; // 내 임차 탭
+    }
+    return "my-rent-out"; // 기본값: 내 임대 탭
+  };
+  
+  const [activeTab, setActiveTab] = useState<"my-rent-out" | "my-rent-in" | "my-wish">(getDefaultTab());
+
+  useEffect(() => {
+    // URL이 변경될 때마다 탭 업데이트
+    setActiveTab(getDefaultTab());
+  }, [location.pathname]);
 
   useEffect(() => {
     setLands(makeDummy(1, PAGE_SIZE));
@@ -75,6 +92,19 @@ const LandList: React.FC = () => {
               찜한 임대
             </button>
           </div>
+          
+          {/* 임대추가 버튼 - my-rent 탭일 때만 표시 */}
+          {activeTab === "my-rent-in" && (
+            <div className={styles.rent_button_container}>
+              <Button 
+                className={styles.rent_button} 
+                type="button"
+              >
+                임대추가
+              </Button>
+            </div>
+          )}
+          
           <div className={styles.filter_row}>
             <Select className={styles.search_sel}>
               <option value="전체">전체</option>

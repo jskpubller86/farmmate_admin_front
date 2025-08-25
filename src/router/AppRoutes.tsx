@@ -18,6 +18,7 @@ import Layout from "../layout/Layout";
 import FundList from "../pages/fund/FundList";
 import LeaseContract from "../pages/lease/LeaseContract";
 import LandList from "../pages/land/LandList";
+import LandRegistration from "../pages/land/LandRegistration";
 import FundDetail from "../pages/fund/FundDetail";
 import FundWrite from "../pages/fund/FundWrite";
 
@@ -47,6 +48,8 @@ const AppRoutes: React.FC = () => {
     },
     { path: "/lease/contract", element: <LeaseContract /> },
     { path: "/land", element: <LandList /> },
+    { path: "/land/registration", element: <LandRegistration /> },
+    { path: "/land/my-rent", element: <LandList /> },
 
     {
       path: "/form",
