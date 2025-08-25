@@ -3,7 +3,7 @@ import styles from "./fund.module.css";
 // 서버 연동 시 사용
 // import { Fund } from "./fund";
 // import { useAlert, useAPI } from "../../hooks";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FundCard, DUMMY_FUND_CARD, Pagination } from "../../components/sets";
 import type { PageInfoProps } from "../../components/sets";
 import Slider from "react-slick";
@@ -218,6 +218,13 @@ const FundList: React.FC = () => {
   // }, [inView]);
   // ----------------------------------------------------------------------
 
+  const navigate = useNavigate();
+
+  // 펀드 작성 페이지로 이동
+  const handleCreateFund = () => {
+    navigate("/fund_write");
+  };
+
   // 렌더링
   return (
     <div className={styles.fund_container}>
@@ -298,9 +305,9 @@ const FundList: React.FC = () => {
       {/* 카드 그리드 영역 - 스크롤 가능 */}
       <section className={styles.cards_scroll} aria-label="펀드 카드 목록">
         <div className={styles.fundlist_group}>
-          {/* 임시 */}
+          {/* 임시 - 더 많은 카드 표시 */}
           {funds.length === 0
-            ? Array.from({ length: 6 }).map((_, i) => (
+            ? Array.from({ length: 12 }).map((_, i) => (
                 <Link
                   key={`placeholder-${i}`}
                   to={`/fund_detail/${DUMMY_FUND_CARD.id}`}
@@ -330,6 +337,16 @@ const FundList: React.FC = () => {
         {hasMore && <div ref={sentinelRef} className={styles.sentinel} />}
         {isFetching && <div className={styles.loader}>불러오는 중…</div>}
       </section>
+
+      {/* 플로팅 액션 버튼 - 펀드 작성 */}
+      <button
+        className={styles.floating_action_button}
+        onClick={handleCreateFund}
+        aria-label="펀드 작성하기"
+        title="펀드 작성하기"
+      >
+        <span className={styles.fab_icon}>+</span>
+      </button>
     </div>
   );
 };

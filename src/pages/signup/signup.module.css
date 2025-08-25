@@ -1,123 +1,303 @@
-/* 플랙스 설정 */
-.container,
-.form_box,
-.form_wrap,
-.userid_box,
-.gender_group,
-.gender_item,
-.addr_detail_box,
-.email_account_box,
-.email_addr_box,
-.email_check_box {
-    display: flex;
-    flex-wrap: wrap;
+/* 회원가입 컨테이너 */
+.signup_container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
 }
 
-/* Gap과 Direction 설정 */
-.container,
-.form_box,
-.form_wrap,
-.addr_box {
-    flex-direction: column;
+/* 메인 콘텐츠 */
+.signup_main_box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 758px;
+  width: 100%;
 }
 
-.form_wrap {
-    gap: 2rem;
+.signup_main_h1 {
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  font-family: "NanumGothic", sans-serif;
 }
 
-.userid_box,
-.addr_detail_box,
-.email_addr_box,
-.gender_group,
-.form_box,
-.gender_item,
-.email_account_box,
-.email_check_box {
-    gap: 1rem;
+/* 회원가입 폼 */
+.signup_form_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 500px;
 }
 
-/*  flex item 정렬 */
-.gender_group {
-    align-items: center;
+.input_group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-/*패스워드 창*/
-.password_box {
-    position: relative;
-    /*아이콘을 고정시키기 위한 장치*/
-}
-/*패스워드 아이콘*/
-.input_with_icon {
-    width: 100%;
-    padding-right: 2.5rem;
-    /* 아이콘이 들어갈 공간 확보 */
-}
-/*패스워드 아이콘*/
-.icon_toggle {
-    position: absolute;
-    /*아이콘 위치고정*/
-    right: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: gray;
-}
-
-.codeInputWrapper {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-grow: 1;
-}
-
-.locationbutton {
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: #fafafa;
-    cursor: pointer;
-}
-
-.locationicon {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.addr_detail_box {
-    display: flex; /* 이미 설정되어 있을 수 있지만, 다시 확인 */
-    align-items: center; /* 입력창과 버튼을 수직 중앙 정렬 */
-    gap: 1rem; /* 입력창과 버튼 사이에 1rem 간격 유지 (기존에 설정되어 있음) */
-    flex-wrap: nowrap; /* 입력창과 버튼이 한 줄에 있도록 합니다. */
-}
-
-/* addr 입력창에 flex-grow 적용 */
-.addr_detail_box input[type="text"] { /* Input 컴포넌트 내부의 input 태그를 명확히 지정 */
-    flex-grow: 1; /* 입력창이 사용 가능한 모든 공간을 차지하도록 함 */
-}
-
-/* Flex 크기 설정 */
-.form_box input {
-    flex: auto;
-}
-
-/* 컨테이너 스타일 */
-.container {
-    padding: 2rem 1rem;
-    margin: 0 auto;
-    max-width: 35.714rem;
-}
-
-/* label */
 .label {
-    font-family: primaryBold;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+  color: #000000;
+  font-family: "NanumGothic", sans-serif;
 }
 
-/* form */
-/** 이메일 */
-.email_account_box div {
-    font-size: 1.428rem;
+.input_field {
+  width: 100%;
+  height: 34px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  padding: 0 1rem;
+  font-size: 14px;
+  font-family: "NanumGothic", sans-serif;
 }
 
-/** btn_submit */
-div.btn_submit {
-    display: block;
+.input_field:focus {
+  outline: none;
+  border-color: #6e9556;
+}
+
+/* 아이디 입력 영역 */
+.id_input_box {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.id_check_button {
+  min-width: 80px !important;
+  height: 34px !important;
+  font-size: 0.7rem !important;
+  padding: 0 1rem !important;
+}
+
+/* 비밀번호 영역 */
+.password_box {
+  position: relative;
+}
+
+.input_with_icon {
+  width: 100%;
+  height: 34px;
+  padding-right: 2.5rem;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: "NanumGothic", sans-serif;
+}
+
+.icon_toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.password_help {
+  color: #6b7280;
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0;
+  font-family: "NanumGothic", sans-serif;
+}
+
+.phone_help {
+  color: #6b7280;
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0;
+  font-family: "NanumGothic", sans-serif;
+}
+
+/* 성별 선택 */
+.gender_group {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.gender_item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 14px;
+  font-family: "NanumGothic", sans-serif;
+  cursor: pointer;
+}
+
+/* 주소 영역 */
+.addr_detail_box {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.addr_input {
+  flex: 1;
+}
+
+.location_button {
+  min-width: 81px !important;
+  height: 34px !important;
+  font-size: 14px !important;
+  padding: 0 1rem !important;
+  background: #2c2c2c !important;
+  color: #ffffff !important;
+}
+
+/* 이메일 영역 */
+.email_account_box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.email_input {
+  flex: 1;
+  height: 36px;
+}
+
+.email_at {
+  font-size: 20px;
+  color: #000000;
+  font-family: "NanumGothic", sans-serif;
+}
+
+.email_addr_box {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.email_domain_input {
+  flex: 1;
+  height: 36px;
+}
+
+.email_select {
+  flex: 1;
+  height: 36px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  padding: 0 1rem;
+  font-size: 14px;
+  font-family: "NanumGothic", sans-serif;
+}
+
+/* 이메일 인증 */
+.email_check_box {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.code_input_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.code_input {
+  flex: 1;
+  height: 34px;
+}
+
+.timer {
+  color: #f60101;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "NanumGothic", sans-serif;
+  min-width: 40px;
+}
+
+.email_auth_button {
+  min-width: 98px !important;
+  height: 34px !important;
+  font-size: 14px !important;
+  padding: 0 1rem !important;
+}
+
+/* 파일 업로드 */
+.file_input {
+  width: 100%;
+  height: 34px;
+}
+
+.file_help {
+  color: #484848;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0.5rem 0;
+  font-family: "NanumGothic", sans-serif;
+}
+
+.profile_preview {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+/* 제출 버튼 */
+.submit_button {
+  width: 63px !important;
+  height: 40px !important;
+  font-size: 16px !important;
+  padding: 0 1rem !important;
+  background: #4c5928 !important;
+  color: #ffffff !important;
+  align-self: flex-start;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+  .signup_container {
+    padding: 1rem;
+  }
+
+  .signup_main_box {
+    max-width: 100%;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .signup_container {
+    padding: 1rem;
+  }
+
+  .signup_main_h1 {
+    font-size: 16px;
+  }
+
+  .signup_form_wrap {
+    max-width: 100%;
+  }
+
+  .id_input_box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .id_check_button {
+    width: 100% !important;
+  }
+
+  .email_addr_box {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
