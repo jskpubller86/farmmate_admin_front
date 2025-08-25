@@ -11,7 +11,6 @@ import {
 import { useAuth, useAlert, useAPI } from "../../hooks";
 import { appConsole, rememberMeHelper } from "../../utils";
 import axios from "axios";
-import { Team } from "../team/team";
 
 interface UserProfile {
   userName: string;
