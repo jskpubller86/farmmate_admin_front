@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Badge } from '../../components/ui';
-import { FundCard, LandCard, SortTabs, Pagination } from '../../components/sets';
+import { MarketCard ,LandCard, SortTabs, Pagination } from '../../components/sets';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { 
   faArrowUp, 
@@ -282,24 +282,6 @@ export default function Homepage() {
             인기 상승 펀딩
           </h2>
           <div className={styles.funding_grid}>
-            <FundCard 
-              fundName="유기농 상추 재배 프로젝트"
-              fundContents="친환경 농법으로 재배하는 상추 프로젝트입니다."
-              currentPercent={85}
-              currentMember={23}
-            />
-            <FundCard 
-              fundName="김장 배추 특화 재배"
-              fundContents="전통 김장용 배추를 특화 재배하는 프로젝트입니다."
-              currentPercent={92}
-              currentMember={31}
-            />
-            <FundCard 
-              fundName="무 농장 확장 프로젝트"
-              fundContents="무 농장을 확장하여 안정적인 공급을 목표로 합니다."
-              currentPercent={78}
-              currentMember={18}
-            />
           </div>
         </div>
       </section>
