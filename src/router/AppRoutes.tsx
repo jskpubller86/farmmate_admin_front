@@ -22,15 +22,21 @@ import LandRegistration from "../pages/land/LandRegistration";
 import LandRentAdd from "../pages/land/LandRentAdd";
 import LandDetail from "../pages/land/LandDetail";
 import MypageEdit from "../pages/mypage/MypageEdit";
+
 // import ModalSample from "../pages/sample/ModalSample";
 import QandA from "../pages/community/qanda/QandA";
 import MarketList from "../pages/market/MarketList";
 import MarketDetail from "../pages/market/MarketDetail";
 import MarketWrite from "../pages/market/MarketWrite";
 import Mycart from "../pages/cart/Mycart";
+import ModalSample from "../pages/sample/ModalSample";
+import Homepage from "../pages/main/homepage";
+
 
 const AppRoutes: React.FC = () => {
   const routeList = [
+    { path: "/", element: <Homepage /> },
+    { path: "/main", element: <Homepage /> },
     { path: "/login", element: <Login /> },
     { path: "/findaccount", element: <FindAccount /> },
     { path: "/signup", element: <Signup /> },
@@ -162,7 +168,6 @@ const AppRoutes: React.FC = () => {
         </PermissionFilter>
       ),
     },
-    { path: "/", element: <Main /> },
     { path: "/toast", element: <Toast /> },
     { path: "/board/boardList", element: <BoardList /> },
     { path: "/board/detail/:id", element: <BoardDetail /> },
