@@ -3,155 +3,214 @@ import { Avatar, Button, LikeIt } from "../ui";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// 나중에 DB에 더미 데이터를 넣으면 활성화
-export interface FundCardProps {
+// 마켓 카드 컴포넌트
+export interface MarketCardProps {
   id: number;
-  fundName: string;
-  fundImageUrl?: string | null;
-  farmOwnerName: string;
-  farmOwnerImageUrl?: string | null;
-  fundContents: string;
-  startDatetime: string;
-  endDatetime: string;
-  currentPercent: number;
-  currentMember: number;
+  productName: string;
+  productImage: string;
+  sellerImage: string;
+  sellerName: string;
+  price: number;
+  originalPrice?: number;
+  rating: number;
+  reviewCount: number;
+  location: string;
+  category: string;
+  isOrganic: boolean;
+  isLocal: boolean;
+  stock: number;
+  unit: string;
+  description: string;
+  createdAt: string;
+  isLiked: boolean;
+  distance?: number;
+  deliveryOption?: string;
+  minOrder?: number;
 }
 
-// 프론트 임시 데이터
-export const DUMMY_FUND_CARD: FundCardProps = {
+// 더미 데이터
+export const DUMMY_MARKET_CARD: MarketCardProps = {
   id: 1,
-  fundName: "깻잎과 관련된 펀딩 내용 제목",
-  fundImageUrl: "/images/fundcard_img.svg",
-  farmOwnerName: "테스형",
-  farmOwnerImageUrl: "/images/farmowner_img.svg",
-  fundContents: "깻잎과 관련된 펀딩 내용 제목",
-  startDatetime: "2025-05-31T07:00:10",
-  endDatetime: "2025-06-01T07:00:10",
-  currentPercent: 80,
-  currentMember: 15,
+  productName: "신선한 채소 제품 1호",
+  productImage: "/images/fundcard_img.svg",
+  sellerImage: "/images/farmowner_img.svg",
+  sellerName: "농장주 1호",
+  price: 15000,
+  originalPrice: 20000,
+  rating: 4,
+  reviewCount: 25,
+  location: "경기도",
+  category: "채소",
+  isOrganic: true,
+  isLocal: true,
+  stock: 30,
+  unit: "kg",
+  description: "농장에서 직접 재배한 신선하고 맛있는 농산물입니다.",
+  createdAt: new Date().toISOString(),
+  isLiked: false,
+  distance: 5,
+  deliveryOption: "직접방문",
+  minOrder: 10000,
 };
 
-// 부분 props 허용 + 기본값을 더미데이터로 교체
-type FundCardInput = Partial<FundCardProps> &
-  Omit<React.HTMLAttributes<HTMLDivElement>, "id">;
+export const MarketCard: React.FC<MarketCardProps> = ({
+  id,
+  productName,
+  productImage,
+  sellerImage,
+  sellerName,
+  price,
+  originalPrice,
+  rating,
+  reviewCount,
+  location,
+  category,
+  isOrganic,
+  isLocal,
+  stock,
+  unit,
+  description,
+  createdAt,
+  isLiked,
+  distance,
+  deliveryOption,
+  minOrder,
+}) => {
+  const navigate = useNavigate();
 
-export const FundCard: React.FC<FundCardInput> = (
-  // 임시 데이터를 위한 주석
-  // {id,
-  // fundName,
-  // fundImageUrl,
-  // farmOwnerName,
-  // farmOwnerImageUrl,
-  // fundContents,
-  // startDatetime,
-  // endDatetime,
-  // currentPercent,
-  // currentMember,}
-  props
-) => {
-  const {
-    // id = DUMMY_FUND_CARD.id,
-    fundName = DUMMY_FUND_CARD.fundName,
-    fundImageUrl = DUMMY_FUND_CARD.fundImageUrl,
-    farmOwnerName = DUMMY_FUND_CARD.farmOwnerName,
-    farmOwnerImageUrl = DUMMY_FUND_CARD.farmOwnerImageUrl,
-    fundContents = DUMMY_FUND_CARD.fundContents,
-    startDatetime = DUMMY_FUND_CARD.startDatetime,
-    endDatetime = DUMMY_FUND_CARD.endDatetime,
-    currentPercent = DUMMY_FUND_CARD.currentPercent,
-    currentMember = DUMMY_FUND_CARD.currentMember,
-  } = props;
+  // 가격 포맷팅
+  const formatPrice = (price: number) => {
+    return price.toLocaleString("ko-KR");
+  };
 
-  // 달성률
-  const [Percent] = useState<number>(currentPercent);
-  // 참여인원
-  const [Member] = useState<number>(currentMember);
+  // 평점별 별점 렌더링
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <span
+        key={i}
+        className={`${styles.star} ${
+          i < rating ? styles.star_filled : styles.star_empty
+        }`}
+      >
+        ★
+      </span>
+    ));
+  };
 
-  // 찜 버튼
-  // const [wish, setWish] = useState<boolean>(false);
-  // useEffect(() => {
-  //   // API 연동 시 활성화
-  //   // api.get('/team/readTeamDetail', { teamId: id })
-  //   // .then(res => {})
-  //   // .catch(err => {
-  //   //   console.error(err.response ?? err.message);
-  //   // });
-  // }, [id]);
+  // 거리 포맷팅
+  const formatDistance = (distance: number) => {
+    if (distance < 1) {
+      return `${Math.round(distance * 1000)}m`;
+    }
+    return `${distance.toFixed(1)}km`;
+  };
 
-  // // 찜 토글 핸들러
-  // const handleWish = async (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   try {
-  //     if (wish) {
-  //       // JSON 포맷으로 요청
-  //       // await api.postWithJson("/team/unLikeIt", { teamId: id });
-  //     } else {
-  //       // await api.postWithJson("/team/likeIt",   { teamId: id });
-  //     }
-  //     setWish(prev => !prev);
-  //   } catch (err) {
-  //     console.error("찜 상태 업데이트 실패", err);
-  //   }
-  // };
-
-  // 날짜 표시
-  const formatOptions: Intl.DateTimeFormatOptions = {
-    year: "numeric", // 4자리 연도
-    month: "2-digit", // 2자리 월 (01~12)
-    day: "2-digit", // 2자리 일 (01~31)
-    hour: "2-digit", // 2자리 시 (00~23)
-    minute: "2-digit", // 2자리 분 (00~59)
-    hour12: false, // 12시간제 대신 24시간제
+  // 카드 클릭 핸들러
+  const handleCardClick = () => {
+    navigate(`/market_detail/${id}`);
   };
 
   return (
-    <section className={styles.fund_land_card}>
-      {/* 펀드명 */}
-      <h3 className={styles.fund_land_title}>{fundName}</h3>
-
-      {/* 펀드 사진 */}
-      {fundImageUrl ? (
+    <div className={styles.market_card} onClick={handleCardClick}>
+      <div className={styles.product_image_container}>
         <img
-          className={styles.fund_land_image}
-          src={fundImageUrl}
-          alt={`${fundName} 펀드 사진`}
+          src={productImage}
+          alt={productName}
+          className={styles.product_image}
         />
-      ) : null}
-
-      {/* 농장주 정보 */}
-      <div className={styles.fund_land_avatar}>
-        {/* Avatar 컴포넌트도 src에 null을 넘기면 디폴트 이미지를 보여줄 수 있도록 */}
-        <Avatar src={farmOwnerImageUrl ?? undefined} />
-        <strong>{farmOwnerName}</strong>
+        <div className={styles.product_badges}>
+          {isOrganic && <span className={styles.badge_organic}>유기농</span>}
+          {isLocal && <span className={styles.badge_local}>지역특산</span>}
+        </div>
+        <div className={styles.product_actions_overlay}>
+          <button
+            className={styles.share_button}
+            title="공유하기"
+            onClick={(e) => e.stopPropagation()}
+          >
+            📤
+          </button>
+        </div>
       </div>
 
-      {/* 달성률 & 좋아요 */}
-      <div className={styles.fund_land_bottom}>
-        <strong>
-          <span className={styles.fund_land_percent}>{Percent}% 달성</span>
-        </strong>
-        {/* <LikeIt isLiked={wish} onClick={handleWish} /> */}
-        {/* 참여 인원 */}
-        <p>
-          <span className={styles.fund_land_member}>{Member}명 참여 중</span>
-        </p>
+      <div className={styles.product_info}>
+        <div className={styles.product_header}>
+          <h3 className={styles.product_name}>{productName}</h3>
+          <div className={styles.product_rating}>
+            {renderStars(rating)}
+            <span className={styles.review_count}>({reviewCount})</span>
+          </div>
+        </div>
+
+        <div className={styles.seller_info}>
+          <img
+            src={sellerImage}
+            alt={sellerName}
+            className={styles.seller_image}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <span className={styles.seller_name}>{sellerName}</span>
+          <span className={styles.location}>
+            📍 {location}
+            {distance && (
+              <span className={styles.distance}>
+                ({formatDistance(distance)})
+              </span>
+            )}
+          </span>
+        </div>
+
+        <div className={styles.product_details}>
+          <div className={styles.price_info}>
+            {originalPrice && (
+              <span className={styles.original_price}>
+                {formatPrice(originalPrice)}원
+              </span>
+            )}
+            <span className={styles.current_price}>{formatPrice(price)}원</span>
+            <span className={styles.unit}>/{unit}</span>
+          </div>
+          <div className={styles.stock_info}>
+            재고: {stock}
+            {unit}
+          </div>
+          {minOrder && (
+            <div className={styles.min_order_info}>
+              최소주문: {formatPrice(minOrder)}원
+            </div>
+          )}
+          <div className={styles.delivery_info}>배송: {deliveryOption}</div>
+        </div>
+
+        <div className={styles.product_actions}>
+          <button
+            className={styles.cart_button}
+            onClick={(e) => e.stopPropagation()}
+          >
+            🛒 장바구니
+          </button>
+          <button
+            className={styles.detail_button}
+            onClick={(e) => e.stopPropagation()}
+          >
+            상세보기
+          </button>
+        </div>
+
+        <div className={styles.product_footer}>
+          <button
+            className={styles.review_button}
+            onClick={(e) => e.stopPropagation()}
+          >
+            리뷰 작성
+          </button>
+        </div>
       </div>
-
-      {/* 펀딩 내용 */}
-      <p>
-        <span>{fundContents}</span>
-      </p>
-
-      {/* 날짜 */}
-      <p>
-        {new Date(startDatetime).toLocaleString("ko-KR", formatOptions)} ~{" "}
-        {new Date(endDatetime).toLocaleString("ko-KR", formatOptions)}
-      </p>
-    </section>
+    </div>
   );
 };
 
+// 토지 카드 컴포넌트트
 export interface LandCardProps {
   id: string;
   landName: string;
@@ -228,7 +287,11 @@ export const LandCard: React.FC<LandCardProps> = ({
     hour12: false, // 12시간제 대신 24시간제
   };
   return (
-    <section className={styles.fund_land_card} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
+    <section
+      className={styles.fund_land_card}
+      onClick={handleCardClick}
+      style={{ cursor: "pointer" }}
+    >
       {/* 토자명 */}
       <h3 className={styles.fund_land_title}>{landName}</h3>
 

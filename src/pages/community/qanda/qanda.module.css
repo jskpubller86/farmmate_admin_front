@@ -1,0 +1,678 @@
+/* ===== Q&A 페이지 스타일 ===== */
+
+/* 컨테이너 */
+.qanda_container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+/* 헤더 영역 */
+.qanda_header {
+  background: linear-gradient(135deg, #6e9556 0%, #5a7a45 100%);
+  color: white;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.header_content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.page_title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.title_icon {
+  font-size: 2rem;
+  opacity: 0.9;
+}
+
+.page_description {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* 전문가 소개 섹션 */
+.experts_section {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 16px;
+  border: 1px solid #e9ecef;
+}
+
+.section_title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 1.5rem 0;
+}
+
+.section_title svg {
+  color: #6e9556;
+  font-size: 1.25rem;
+}
+
+.experts_list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.expert_card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease;
+}
+
+.expert_card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.expert_avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #6e9556;
+}
+
+.expert_info {
+  flex: 1;
+}
+
+.expert_name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem 0;
+}
+
+.expert_expertise {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.expertise_badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+/* 검색 및 필터 영역 */
+.search_filter_area {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.search_section {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+}
+
+.search_box {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search_input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.search_input:focus {
+  outline: none;
+  border-color: #6e9556;
+  box-shadow: 0 0 0 3px rgba(110, 149, 86, 0.1);
+}
+
+.search_button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.search_button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(110, 149, 86, 0.3);
+}
+
+.filter_section {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+}
+
+.filter_controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.filter_select {
+  min-width: 140px;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter_select:focus {
+  outline: none;
+  border-color: #6e9556;
+  box-shadow: 0 0 0 3px rgba(110, 149, 86, 0.1);
+}
+
+/* 질문 목록 영역 */
+.qanda_list_area {
+  margin-bottom: 2rem;
+}
+
+/* 로딩 상태 */
+.loading_state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #f8f9fa;
+  border-radius: 16px;
+  border: 2px dashed #dee2e6;
+}
+
+.loading_spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e9ecef;
+  border-top: 4px solid #6e9556;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 빈 상태 */
+.empty_state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #f8f9fa;
+  border-radius: 16px;
+  border: 2px dashed #dee2e6;
+}
+
+.empty_icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.empty_title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.75rem;
+}
+
+.empty_description {
+  color: #6c757d;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.empty_action_button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.empty_action_button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(110, 149, 86, 0.3);
+}
+
+/* 질문 카드 */
+.qanda_cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.5rem;
+}
+
+.qanda_card {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.qanda_card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* 카드 헤더 */
+.card_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.header_left {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.status_badge,
+.priority_badge {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.header_right {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bookmark_button,
+.share_button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+.bookmark_button:hover,
+.share_button:hover {
+  background-color: #f8f9fa;
+  color: #6e9556;
+}
+
+.bookmark_button.bookmarked {
+  color: #ffc107;
+}
+
+/* 카드 내용 */
+.card_content {
+  margin-bottom: 1.5rem;
+}
+
+.question_title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.4;
+}
+
+.question_title a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.question_title a:hover {
+  color: #6e9556;
+}
+
+.question_excerpt {
+  color: #495057;
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 태그 */
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 0.25rem 0.5rem;
+  background-color: #e9ecef;
+  color: #6c757d;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background-color: #6e9556;
+  color: white;
+}
+
+/* 카드 푸터 */
+.card_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+  margin-bottom: 1rem;
+}
+
+.author_info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.author_avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e9ecef;
+}
+
+.author_details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.author_name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.expert_icon {
+  color: #6e9556;
+  font-size: 0.8rem;
+}
+
+.post_date {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* 카드 통계 */
+.card_stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat_item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.stat_item svg {
+  font-size: 0.75rem;
+}
+
+/* 카드 액션 */
+.card_actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.like_button,
+.view_button {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.like_button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(108, 117, 125, 0.3);
+}
+
+.view_button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(110, 149, 86, 0.3);
+}
+
+/* 질문하기 버튼 영역 */
+.write_button_area {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.write_button {
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.write_button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(110, 149, 86, 0.3);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .qanda_container {
+    padding: 1rem 0.5rem;
+  }
+
+  .qanda_header {
+    padding: 2rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .page_title {
+    font-size: 2rem;
+  }
+
+  .experts_section {
+    padding: 1.5rem;
+  }
+
+  .experts_list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .search_section,
+  .filter_section {
+    padding: 1rem;
+  }
+
+  .search_box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter_controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter_select {
+    width: 100%;
+  }
+
+  .qanda_cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .qanda_card {
+    padding: 1rem;
+  }
+
+  .card_header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .header_left {
+    order: 2;
+  }
+
+  .header_right {
+    order: 1;
+    align-self: flex-end;
+  }
+
+  .card_footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .card_stats {
+    align-self: flex-end;
+  }
+
+  .card_actions {
+    flex-direction: column;
+  }
+
+  .empty_state,
+  .loading_state {
+    padding: 2rem 1rem;
+  }
+
+  .empty_icon {
+    font-size: 3rem;
+  }
+
+  .empty_title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .qanda_container {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .qanda_header {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .page_title {
+    font-size: 1.75rem;
+  }
+
+  .experts_section {
+    padding: 1rem;
+  }
+
+  .expert_card {
+    padding: 1rem;
+  }
+
+  .expert_avatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .search_section,
+  .filter_section {
+    padding: 0.75rem;
+  }
+
+  .qanda_card {
+    padding: 0.75rem;
+  }
+
+  .status_badge,
+  .priority_badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .question_title {
+    font-size: 1rem;
+  }
+
+  .question_excerpt {
+    font-size: 0.8rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+}

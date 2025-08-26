@@ -6,7 +6,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
-  min-height: 100vh;
+  min-height: 500px;
 }
 
 /* 좌측 이미지 영역 */
@@ -18,6 +18,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  max-width: 500px;
 }
 
 .login_left_img_item {
@@ -36,7 +37,7 @@
 }
 
 .login_main_h1 {
-  font-size: 42px;
+  font-size: 2.7rem;
   line-height: 1.5;
   font-weight: 700;
   color: #000000;
