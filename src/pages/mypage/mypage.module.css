@@ -333,6 +333,155 @@
   box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
 }
 
+/* ===== MypageEdit 페이지 스타일 ===== */
+
+/* 편집 헤더 */
+.edit_header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.back_button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.back_button:hover {
+  background-color: #f8f9fa;
+  border-color: #6e9556;
+  color: #6e9556;
+}
+
+/* 편집 액션 버튼들 */
+.edit_actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.edit_button,
+.save_button,
+.cancel_button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.edit_button {
+  background-color: #6e9556;
+  color: white;
+  border: none;
+}
+
+.edit_button:hover {
+  background-color: #5a7a45;
+  transform: translateY(-2px);
+}
+
+.save_button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+.save_button:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.cancel_button {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+}
+
+.cancel_button:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* 편집 입력 필드들 */
+.edit_input,
+.edit_select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+}
+
+.edit_input:focus,
+.edit_select:focus {
+  outline: none;
+  border-color: #6e9556;
+  box-shadow: 0 0 0 3px rgba(110, 149, 86, 0.1);
+}
+
+.edit_input::placeholder {
+  color: #adb5bd;
+}
+
+.edit_select {
+  cursor: pointer;
+}
+
+/* 주소 입력 필드들 */
+.address_inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* 관심사 섹션 */
+.interest_section {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 20px;
+}
+
+.section_title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.interest_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.interest_tag {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 1200px) {
   .container {
@@ -389,5 +538,42 @@
 
   .page_title {
     font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .edit_header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .edit_actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .edit_button,
+  .save_button,
+  .cancel_button {
+    width: 100%;
+  }
+
+  .address_inputs {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mypage_main_box {
+    padding: 1.5rem;
+  }
+
+  .profile_section {
+    padding: 1.5rem;
+  }
+
+  .interest_section {
+    padding: 1.5rem;
   }
 }

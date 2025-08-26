@@ -85,23 +85,11 @@ const FundDetail: React.FC = () => {
 
       {/* Image Slider */}
       <div className={styles.image_slider}>
-        <button
-          className={`${styles.slider_arrow} ${styles.slider_arrow_left}`}
-          onClick={prevImage}
-        >
-          ‹
-        </button>
         <img
           src={images[currentImageIndex]}
           alt="Fund Image"
           className={styles.slider_image}
         />
-        <button
-          className={`${styles.slider_arrow} ${styles.slider_arrow_right}`}
-          onClick={nextImage}
-        >
-          ›
-        </button>
       </div>
 
       {/* Farm Owner Info */}
@@ -156,6 +144,64 @@ const FundDetail: React.FC = () => {
         <div className={styles.stat_item}>
           <span className={styles.stat_label}>기간 :</span>
           <span className={styles.stat_value}>2025.09.01 ~ 2025.09.10</span>
+        </div>
+      </div>
+
+      {/* Fund Achievement Progress */}
+      <div className={styles.fund_achievement_section}>
+        <h3 className={styles.achievement_title}>펀딩 달성 현황</h3>
+
+        {/* 달성률 프로그레스 바 */}
+        <div className={styles.progress_container}>
+          <div className={styles.progress_info}>
+            <span className={styles.progress_label}>전체 달성률</span>
+            <span className={styles.progress_percentage}>25%</span>
+          </div>
+          <div className={styles.progress_bar}>
+            <div
+              className={styles.progress_fill}
+              style={{ width: "25%" }}
+            ></div>
+          </div>
+        </div>
+
+        {/* 상세 달성 현황 */}
+        <div className={styles.achievement_details}>
+          <div className={styles.achievement_item}>
+            <div className={styles.achievement_circle}>
+              <span className={styles.achievement_number}>25</span>
+              <span className={styles.achievement_unit}>포기</span>
+            </div>
+            <span className={styles.achievement_label}>달성한 수량</span>
+          </div>
+
+          <div className={styles.achievement_item}>
+            <div className={styles.achievement_circle}>
+              <span className={styles.achievement_number}>10</span>
+              <span className={styles.achievement_unit}>포기</span>
+            </div>
+            <span className={styles.achievement_label}>펀딩한 수량</span>
+          </div>
+
+          <div className={styles.achievement_item}>
+            <div className={styles.achievement_circle}>
+              <span className={styles.achievement_number}>100</span>
+              <span className={styles.achievement_unit}>만원</span>
+            </div>
+            <span className={styles.achievement_label}>펀딩한 금액</span>
+          </div>
+        </div>
+
+        {/* 목표 달성까지 남은 수량 */}
+        <div className={styles.remaining_info}>
+          <div className={styles.remaining_item}>
+            <span className={styles.remaining_label}>목표까지 남은 수량</span>
+            <span className={styles.remaining_value}>75 포기</span>
+          </div>
+          <div className={styles.remaining_item}>
+            <span className={styles.remaining_label}>목표까지 남은 금액</span>
+            <span className={styles.remaining_value}>750,000 원</span>
+          </div>
         </div>
       </div>
 

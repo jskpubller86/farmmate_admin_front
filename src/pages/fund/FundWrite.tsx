@@ -133,10 +133,10 @@ const FundWrite: React.FC = () => {
       >
         {/* 제목 */}
         <div className={styles.form_group}>
-          <label className={styles.form_label}>제목 *</label>
+          <label className={styles.form_label}>📝 제목 *</label>
           <Input
             {...register("title")}
-            placeholder="text"
+            placeholder="펀드 제목을 입력하세요"
             className={`${styles.form_input} ${
               errors.title ? styles.input_error : ""
             }`}
@@ -146,10 +146,10 @@ const FundWrite: React.FC = () => {
 
         {/* 내용 */}
         <div className={styles.form_group}>
-          <label className={styles.form_label}>내용 *</label>
+          <label className={styles.form_label}>📄 내용 *</label>
           <TextArea
             {...register("content")}
-            placeholder="text"
+            placeholder="펀드에 대한 상세한 설명을 입력하세요"
             className={styles.form_textarea}
           />
           <Error isError={Boolean(errors.content)}>
@@ -157,77 +157,80 @@ const FundWrite: React.FC = () => {
           </Error>
         </div>
 
-        {/* 품목 */}
-        <div className={styles.form_group}>
-          <label className={styles.form_label}>품목 *</label>
-          <Select {...register("item")} className={styles.form_select}>
-            <option value="">품목을 선택하세요</option>
-            <option value="cabbage">배추</option>
-            <option value="radish">무</option>
-            <option value="apple">사과</option>
-            <option value="banana">바나나</option>
-            <option value="carrot">당근</option>
-            <option value="eggplant">가지</option>
-            <option value="other">기타</option>
-          </Select>
-          <Error isError={Boolean(errors.item)}>{errors.item?.message}</Error>
-        </div>
+        {/* 품목, 단가, 단위, 수량을 그리드로 배치 */}
+        <div className={styles.form_grid}>
+          {/* 품목 */}
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>🥬 품목 *</label>
+            <Select {...register("item")} className={styles.form_select}>
+              <option value="">품목을 선택하세요</option>
+              <option value="cabbage">배추</option>
+              <option value="radish">무</option>
+              <option value="apple">사과</option>
+              <option value="banana">바나나</option>
+              <option value="carrot">당근</option>
+              <option value="eggplant">가지</option>
+              <option value="other">기타</option>
+            </Select>
+            <Error isError={Boolean(errors.item)}>{errors.item?.message}</Error>
+          </div>
 
-        {/* 단가 */}
-        <div className={styles.form_group}>
-          <label className={styles.form_label}>단가 *</label>
-          <Input
-            {...register("unitPrice")}
-            type="number"
-            placeholder="text"
-            className={styles.form_input}
-          />
-          <Error isError={Boolean(errors.unitPrice)}>
-            {errors.unitPrice?.message}
-          </Error>
-        </div>
+          {/* 단가 */}
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>💰 단가 *</label>
+            <Input
+              {...register("unitPrice")}
+              type="number"
+              placeholder="단가를 입력하세요"
+              className={styles.form_input}
+            />
+            <Error isError={Boolean(errors.unitPrice)}>
+              {errors.unitPrice?.message}
+            </Error>
+          </div>
 
-        {/* 단위 */}
-        <div className={styles.form_group}>
-          <label className={styles.form_label}>단위 *</label>
-          <Select {...register("unit")} className={styles.form_select}>
-            <option value="">단위를 선택하세요</option>
-            <option value="kg">kg</option>
-            <option value="g">g</option>
-            <option value="개">개</option>
-            <option value="포기">포기</option>
-            <option value="근">근</option>
-          </Select>
-          <Error isError={Boolean(errors.unit)}>{errors.unit?.message}</Error>
-        </div>
+          {/* 단위 */}
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>📏 단위 *</label>
+            <Select {...register("unit")} className={styles.form_select}>
+              <option value="">단위를 선택하세요</option>
+              <option value="kg">kg</option>
+              <option value="g">g</option>
+              <option value="개">개</option>
+              <option value="포기">포기</option>
+              <option value="근">근</option>
+            </Select>
+            <Error isError={Boolean(errors.unit)}>{errors.unit?.message}</Error>
+          </div>
 
-        {/* 수량 */}
-        <div className={styles.form_group}>
-          <label className={styles.form_label}>수량 *</label>
-          <Input
-            {...register("quantity")}
-            type="number"
-            placeholder="text"
-            className={styles.form_input}
-          />
-          <Error isError={Boolean(errors.quantity)}>
-            {errors.quantity?.message}
-          </Error>
+          {/* 수량 */}
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>🔢 수량 *</label>
+            <Input
+              {...register("quantity")}
+              type="number"
+              placeholder="수량을 입력하세요"
+              className={styles.form_input}
+            />
+            <Error isError={Boolean(errors.quantity)}>
+              {errors.quantity?.message}
+            </Error>
+          </div>
         </div>
 
         {/* 주소 */}
         <div className={styles.form_group}>
-          <label className={styles.form_label}>주소 *</label>
+          <label className={styles.form_label}>📍 주소 *</label>
           <div className={styles.address_inputs}>
             <Input
               {...register("address1")}
-              placeholder="text"
+              placeholder="기본 주소를 입력하세요"
               className={styles.form_input}
             />
             <div className={styles.address_row}>
               <Input
                 {...register("address2")}
-                placeholder="text"
+                placeholder="상세 주소를 입력하세요"
                 className={styles.form_input}
               />
               <Button
@@ -236,7 +239,7 @@ const FundWrite: React.FC = () => {
                 onClick={handleAddressSearch}
                 className={styles.address_search_btn}
               >
-                주소검색
+                🔍 주소검색
               </Button>
             </div>
           </div>
@@ -247,7 +250,7 @@ const FundWrite: React.FC = () => {
 
         {/* 시작일시 */}
         <div className={styles.form_group}>
-          <label className={styles.form_label}>시작일시 *</label>
+          <label className={styles.form_label}>🚀 시작일시 *</label>
           <div className={styles.datetime_inputs}>
             <Input
               {...register("startDate")}
@@ -267,7 +270,7 @@ const FundWrite: React.FC = () => {
 
         {/* 종료일시 */}
         <div className={styles.form_group}>
-          <label className={styles.form_label}>종료일시 *</label>
+          <label className={styles.form_label}>🏁 종료일시 *</label>
           <div className={styles.datetime_inputs}>
             <Input
               {...register("endDate")}
@@ -287,20 +290,20 @@ const FundWrite: React.FC = () => {
 
         {/* 파일 */}
         <div className={styles.form_group}>
-          <label className={styles.form_label}>파일</label>
+          <label className={styles.form_label}>📎 파일</label>
           <div className={styles.file_section}>
             <Input
-              placeholder="파일 선택"
+              placeholder="파일을 선택하려면 클릭하세요"
               className={styles.form_input}
               readOnly
               onClick={handleFileUpload}
             />
             <p className={styles.file_info}>
-              첨부 파일은 최대 20MB까지 등록 가능합니다.
+              📎 첨부 파일은 최대 20MB까지 등록 가능합니다.
             </p>
 
             {/* 파일 미리보기 */}
-            <div className={styles.file_preview}>
+            <div className={styles.file_preview} onClick={handleFileUpload}>
               {filePreview ? (
                 <img
                   src={filePreview}
@@ -309,7 +312,8 @@ const FundWrite: React.FC = () => {
                 />
               ) : (
                 <div className={styles.preview_placeholder}>
-                  <span className={styles.preview_icon}>🏔️</span>
+                  <span className={styles.preview_icon}>📁</span>
+                  <p>클릭하여 파일을 선택하세요</p>
                 </div>
               )}
             </div>
@@ -324,7 +328,7 @@ const FundWrite: React.FC = () => {
             disabled={isSubmitting}
             className={styles.submit_button}
           >
-            {isSubmitting ? "등록 중..." : "등록"}
+            {isSubmitting ? "⏳ 등록 중..." : "🚀 펀드 등록하기"}
           </Button>
         </div>
       </form>
