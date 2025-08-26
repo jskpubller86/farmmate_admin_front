@@ -543,7 +543,12 @@ const MarketDetail: React.FC = () => {
         <h3 className={styles.section_title}>이런 상품은 어떠세요?</h3>
         <div className={styles.related_products_grid}>
           {Array.from({ length: 4 }, (_, i) => (
-            <div key={i} className={styles.related_product_card}>
+            <div
+              key={i}
+              className={styles.related_product_card}
+              onClick={() => navigate(`/market_detail/${100 + i}`)} // 더미 상품 ID
+              style={{ cursor: "pointer" }}
+            >
               <img
                 src="/images/fundcard_img.svg"
                 alt={`관련 상품 ${i + 1}`}
