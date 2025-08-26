@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./land.module.css";
 import layout from "../../layout/layout.module.css";
+import { Button, Avatar, Badge, LikeIt } from "../../components/ui";
 
 interface LandDetailData {
   id: string;
@@ -106,92 +107,70 @@ const LandDetail: React.FC = () => {
       <div className={styles.land_detail_container}>
         {/* 뒤로가기 버튼 */}
         <div className={styles.back_section}>
-          <button
+          <Button
             type="button"
             onClick={() => navigate(-1)}
             className={styles.back_button}
+            color="secondary"
+            size="sm"
           >
             ← 이전으로
-          </button>
+          </Button>
         </div>
         
         {/* 상태 배지 */}
         <div className={styles.status_badge}>
-          <span className={`${styles.status} ${styles[`status_${landData.status}`]}`}>
+          <Badge 
+            color={landData.status === "모집중" ? "point2" : landData.status === "계약중" ? "point3" : "secondary"}
+            size="lg"
+          >
             {landData.status}
-          </span>
+          </Badge>
         </div>
 
         {/* 제목 */}
         <h1 className={styles.land_detail_title}>{landData.title}</h1>
 
-        {/* 이미지 캐러셀 */}
-        <div className={styles.image_carousel}>
+        {/* 이미지 슬라이더 */}
+        <div className={styles.image_slider}>
           <button 
-            className={styles.carousel_arrow} 
+            className={styles.slider_arrow} 
             onClick={prevImage}
             aria-label="이전 이미지"
           >
             &lt;
           </button>
           
-          <div className={styles.carousel_image_container}>
+          <div className={styles.slider_image_container}>
             <img
               src={landData.images[currentImageIndex]}
               alt={`${landData.title} 이미지 ${currentImageIndex + 1}`}
-              className={styles.carousel_image}
+              className={styles.slider_image}
             />
           </div>
           
           <button 
-            className={styles.carousel_arrow} 
+            className={styles.slider_arrow} 
             onClick={nextImage}
             aria-label="다음 이미지"
           >
             &gt;
           </button>
-          
-          {/* 이미지 인디케이터 */}
-          <div className={styles.image_indicators}>
-            {landData.images.map((_, index) => (
-              <button
-                key={index}
-                className={`${styles.indicator} ${index === currentImageIndex ? styles.indicator_active : ''}`}
-                onClick={() => setCurrentImageIndex(index)}
-                aria-label={`이미지 ${index + 1}로 이동`}
-              />
-            ))}
-          </div>
         </div>
 
         {/* 작성자 정보 */}
         <div className={styles.owner_info}>
-          <img
+          <Avatar
             src={landData.ownerImage}
-            alt={`${landData.ownerName} 프로필`}
-            className={styles.owner_avatar}
+            size="lg"
           />
           <span className={styles.owner_name}>{landData.ownerName}</span>
         </div>
 
-        {/* 주요 정보 카드 */}
-        <div className={styles.info_cards}>
-          <div className={styles.info_card}>
-            <div className={styles.info_label}>가격</div>
-            <div className={styles.info_value}>{landData.price.toLocaleString()}원</div>
-          </div>
-          <div className={styles.info_card}>
-            <div className={styles.info_label}>면적</div>
-            <div className={styles.info_value}>{landData.area}평</div>
-          </div>
-          <div className={styles.info_card}>
-            <div className={styles.info_label}>카테고리</div>
-            <div className={styles.info_value}>{landData.category}</div>
-          </div>
-          <div className={styles.info_card}>
-            <div className={styles.info_label}>참여인원</div>
-            <div className={styles.info_value}>{landData.currentMember}/{landData.endMember}</div>
-          </div>
+        {/* 참여인원 정보 */}
+        <div className={styles.participant_info}>
+          <div className={styles.participant_label}>참여인원</div>
+          <div className={styles.participant_value}>{landData.currentMember}/{landData.endMember}</div>
         </div>
 
         {/* 소개 섹션 */}
@@ -218,30 +197,16 @@ const LandDetail: React.FC = () => {
           </div>
         </div>
 
-        {/* 액션 버튼들 */}
-        <div className={styles.action_buttons}>
-          <button 
-            className={`${styles.action_button} ${styles.wish_button} ${isWished ? styles.wished : ''}`}
-            onClick={handleWish}
-          >
-            {isWished ? '❤️' : '🤍'} 찜하기
-          </button>
-          <button 
-            className={`${styles.action_button} ${styles.share_button}`}
-            onClick={handleShare}
-          >
-            📤 공유하기
-          </button>
-        </div>
-
         {/* 신청하기 버튼 */}
-        <div className={styles.apply_section}>
-          <button 
+        <div className={styles.action_buttons}>
+          <Button 
             className={styles.apply_button}
             onClick={handleApply}
+            color="point2"
+            size="lg"
           >
             신청하기
-          </button>
+          </Button>
         </div>
       </div>
     </div>

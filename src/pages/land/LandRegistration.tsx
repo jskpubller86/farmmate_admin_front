@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./land.module.css";
-import { Input, Button, TextArea } from "../../components/ui";
+import layout from "../../layout/layout.module.css";
+import { Input, Button, TextArea, Error } from "../../components/ui";
 
 interface FormData {
   title: string;
@@ -98,7 +99,8 @@ const LandRegistration: React.FC = () => {
   };
 
   return (
-    <div className={styles.land_registration_container}>
+    <div className={layout.container_full}>
+      <div className={styles.land_registration_container}>
       {/* 뒤로가기 버튼 */}
       <div className={styles.back_section}>
         <Button
@@ -125,11 +127,9 @@ const LandRegistration: React.FC = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('title', e.target.value)}
             className={styles.form_input}
           />
-          {errors.title && (
-            <div className={styles.error_message}>
-              {errors.title}
-            </div>
-          )}
+          <Error isError={!!errors.title}>
+            {errors.title}
+          </Error>
         </div>
 
         {/* 내용 필드 */}
@@ -143,11 +143,9 @@ const LandRegistration: React.FC = () => {
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleInputChange('content', e.target.value)}
             className={styles.form_textarea}
           />
-          {errors.content && (
-            <div className={styles.error_message}>
-              {errors.content}
-            </div>
-          )}
+          <Error isError={!!errors.content}>
+            {errors.content}
+          </Error>
         </div>
 
         {/* 주소 필드 */}
@@ -171,11 +169,9 @@ const LandRegistration: React.FC = () => {
               주소검색
             </Button>
           </div>
-          {errors.address && (
-            <div className={styles.error_message}>
-              {errors.address}
-            </div>
-          )}
+          <Error isError={!!errors.address}>
+            {errors.address}
+          </Error>
         </div>
 
         {/* 상세주소 필드 */}
@@ -231,6 +227,7 @@ const LandRegistration: React.FC = () => {
           </Button>
         </div>
       </form>
+      </div>
     </div>
   );
 };

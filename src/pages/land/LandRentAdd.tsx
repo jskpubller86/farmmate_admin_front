@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./land.module.css";
 import layout from "../../layout/layout.module.css";
-import { Button, Input, Select } from "../../components/ui";
+import { Button, Input, Select, TextArea } from "../../components/ui";
 
 interface RentFormData {
   landName: string;
@@ -56,13 +56,13 @@ const LandRentAdd: React.FC = () => {
       <div className={styles.land_rent_add_container}>
         {/* 헤더 */}
         <div className={styles.rent_add_header}>
-          <button
+          <Button
             type="button"
             onClick={() => navigate(-1)}
             className={styles.back_button}
           >
             ← 이전으로
-          </button>
+          </Button>
           <h1 className={styles.rent_add_title}>임대 등록</h1>
         </div>
 
@@ -189,12 +189,11 @@ const LandRentAdd: React.FC = () => {
             
             <div className={styles.form_group}>
               <label className={styles.form_label}>상세 설명</label>
-              <textarea
+              <TextArea
                 className={styles.form_textarea}
                 value={formData.description}
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleInputChange("description", e.target.value)}
                 placeholder="토지에 대한 상세한 설명을 입력하세요"
-                rows={4}
               />
             </div>
             
