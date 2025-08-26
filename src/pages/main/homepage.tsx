@@ -1,37 +1,83 @@
-import React from 'react';
-import { Button, Badge } from '../../components/ui';
-import { MarketCard ,LandCard, SortTabs, Pagination } from '../../components/sets';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Button, Badge } from "../../components/ui";
+import {
+  MarketCard,
+  LandCard,
+  SortTabs,
+  Pagination,
+} from "../../components/sets";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { 
-  faArrowUp, 
-  faMapMarkerAlt, 
-  faCamera, 
-  faChartLine, 
-  faSun, 
-  faCloud, 
-  faCloudRain, 
-  faCloudSun 
+import {
+  faArrowUp,
+  faMapMarkerAlt,
+  faCamera,
+  faChartLine,
+  faSun,
+  faCloud,
+  faCloudRain,
+  faCloudSun,
 } from "@fortawesome/free-solid-svg-icons";
-import styles from './main.module.css';
+import styles from "./main.module.css";
 
 export default function Homepage() {
+  const navigate = useNavigate();
+
+  // 페이지 이동 함수들
+  const handleStartNow = () => {
+    navigate("/market_list"); // 마켓 목록으로 이동
+  };
+
+  const handleLearnMore = () => {
+    navigate("/qanda"); // Q&A 페이지로 이동
+  };
+
+  const handleCropDetail = () => {
+    navigate("/market_list"); // 작물 상세 정보는 마켓에서 확인
+  };
+
+  const handleCropGuide = () => {
+    navigate("/qanda"); // 재배 가이드는 Q&A에서 확인
+  };
+
+  const handlePhotoCapture = () => {
+    navigate("/market_write"); // 사진 촬영은 상품 등록 페이지로
+  };
+
+  const handleTreatmentGuide = () => {
+    navigate("/qanda"); // 치료법은 Q&A에서 확인
+  };
+
+  const handleInvestment = () => {
+    navigate("/lease"); // 투자는 임대 페이지로
+  };
+
   return (
     <div className={styles.container}>
       {/* Hero Section */}
       <section className={styles.hero_section}>
         <div className={styles.hero_background}></div>
         <div className={styles.hero_content}>
-          <h1 className={styles.hero_title}>
-            FARM MATE
-          </h1>
+          <h1 className={styles.hero_title}>FARM MATE</h1>
           <p className={styles.hero_description}>
-            AI 기술로 농업을 혁신합니다. 위치 기반 작물 추천부터 병충해 진단까지, 스마트한 농업 솔루션을 경험하세요.
+            AI 기술로 농업을 혁신합니다. 위치 기반 작물 추천부터 병충해
+            진단까지, 스마트한 농업 솔루션을 경험하세요.
           </p>
           <div className={styles.hero_buttons}>
-            <Button size="lg" color="point" className="px-8 py-3">
+            <Button
+              size="lg"
+              color="point"
+              className="px-8 py-3"
+              onClick={handleStartNow}
+            >
               지금 시작하기
             </Button>
-            <Button size="lg" color="secondary" className="px-8 py-3">
+            <Button
+              size="lg"
+              color="secondary"
+              className="px-8 py-3"
+              onClick={handleLearnMore}
+            >
               더 알아보기
             </Button>
           </div>
@@ -41,32 +87,66 @@ export default function Homepage() {
       {/* Data Visualization Section */}
       <section className={styles.data_section}>
         <div className={styles.data_container}>
-          <h2 className={styles.data_title}>
-            데이터 분석
-          </h2>
+          <h2 className={styles.data_title}>데이터 분석</h2>
           <div className={styles.data_grid}>
             {/* 과거 판매량 */}
             <div className={styles.data_card}>
               <div className={styles.data_header}>
                 <h3 className={styles.data_card_title}>과거 판매량</h3>
-                <p className={styles.data_card_subtitle}>지난 6개월 판매 실적</p>
+                <p className={styles.data_card_subtitle}>
+                  지난 6개월 판매 실적
+                </p>
               </div>
               <div className={styles.data_content}>
                 <div className={styles.chart_container}>
                   {/* Line Chart */}
                   <div className={styles.chart_svg}>
-                    <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <svg
+                      className="w-full h-full"
+                      viewBox="0 0 100 100"
+                      preserveAspectRatio="none"
+                    >
                       <polyline
                         className={styles.chart_line}
                         points="0,80 20,65 40,50 60,35 80,20 100,5"
                       />
                       {/* Data Points */}
-                      <circle cx="0" cy="80" r="3" className={styles.chart_point} />
-                      <circle cx="20" cy="65" r="3" className={styles.chart_point} />
-                      <circle cx="40" cy="50" r="3" className={styles.chart_point} />
-                      <circle cx="60" cy="35" r="3" className={styles.chart_point} />
-                      <circle cx="80" cy="20" r="3" className={styles.chart_point} />
-                      <circle cx="100" cy="5" r="3" className={styles.chart_point} />
+                      <circle
+                        cx="0"
+                        cy="80"
+                        r="3"
+                        className={styles.chart_point}
+                      />
+                      <circle
+                        cx="20"
+                        cy="65"
+                        r="3"
+                        className={styles.chart_point}
+                      />
+                      <circle
+                        cx="40"
+                        cy="50"
+                        r="3"
+                        className={styles.chart_point}
+                      />
+                      <circle
+                        cx="60"
+                        cy="35"
+                        r="3"
+                        className={styles.chart_point}
+                      />
+                      <circle
+                        cx="80"
+                        cy="20"
+                        r="3"
+                        className={styles.chart_point}
+                      />
+                      <circle
+                        cx="100"
+                        cy="5"
+                        r="3"
+                        className={styles.chart_point}
+                      />
                     </svg>
                   </div>
                   {/* Y-axis labels */}
@@ -94,40 +174,26 @@ export default function Homepage() {
             <div className={styles.data_card}>
               <div className={styles.data_header}>
                 <h3 className={styles.data_card_title}>현재 재배량</h3>
-                <p className={styles.data_card_subtitle}>지역별 주요 작물 재배 현황</p>
+                <p className={styles.data_card_subtitle}>
+                  지역별 주요 작물 재배 현황
+                </p>
               </div>
               <div className={styles.data_content}>
                 <div className={styles.chart_container}>
                   {/* Bar Chart */}
-                  <div className={styles.bar_chart_container}>
-                    <div className={styles.bar_item}>
-                      <div className={styles.bar} style={{ height: '100%' }}></div>
-                      <span className={styles.bar_label}>배추</span>
-                      <span className={styles.bar_value}>600</span>
+                  <div className={styles.chart_bars}>
+                    <div className={styles.chart_bar} style={{ height: "60%" }}>
+                      <span className={styles.chart_bar_label}>배추</span>
                     </div>
-                    <div className={styles.bar_item}>
-                      <div className={styles.bar} style={{ height: '75%' }}></div>
-                      <span className={styles.bar_label}>무</span>
-                      <span className={styles.bar_value}>450</span>
+                    <div className={styles.chart_bar} style={{ height: "40%" }}>
+                      <span className={styles.chart_bar_label}>무</span>
                     </div>
-                    <div className={styles.bar_item}>
-                      <div className={styles.bar} style={{ height: '60%' }}></div>
-                      <span className={styles.bar_label}>상추</span>
-                      <span className={styles.bar_value}>360</span>
+                    <div className={styles.chart_bar} style={{ height: "80%" }}>
+                      <span className={styles.chart_bar_label}>상추</span>
                     </div>
-                    <div className={styles.bar_item}>
-                      <div className={styles.bar} style={{ height: '40%' }}></div>
-                      <span className={styles.bar_label}>당근</span>
-                      <span className={styles.bar_value}>240</span>
+                    <div className={styles.chart_bar} style={{ height: "30%" }}>
+                      <span className={styles.chart_bar_label}>시금치</span>
                     </div>
-                  </div>
-                  {/* Y-axis labels */}
-                  <div className={styles.y_axis_labels}>
-                    <span>600</span>
-                    <span>450</span>
-                    <span>300</span>
-                    <span>150</span>
-                    <span>0</span>
                   </div>
                 </div>
               </div>
@@ -137,24 +203,60 @@ export default function Homepage() {
             <div className={styles.data_card}>
               <div className={styles.data_header}>
                 <h3 className={styles.data_card_title}>미래 예측</h3>
-                <p className={styles.data_card_subtitle}>향후 6개월 판매량 예측</p>
+                <p className={styles.data_card_subtitle}>
+                  향후 6개월 판매량 예측
+                </p>
               </div>
               <div className={styles.data_content}>
                 <div className={styles.chart_container}>
                   {/* Dotted Line Chart */}
                   <div className={styles.chart_svg}>
-                    <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <svg
+                      className="w-full h-full"
+                      viewBox="0 0 100 100"
+                      preserveAspectRatio="none"
+                    >
                       <polyline
                         className={styles.chart_dotted_line}
                         points="0,70 20,50 40,30 60,10 80,40 100,60"
                       />
                       {/* Data Points */}
-                      <circle cx="0" cy="70" r="3" className={styles.chart_point_blue} />
-                      <circle cx="20" cy="50" r="3" className={styles.chart_point_blue} />
-                      <circle cx="40" cy="30" r="3" className={styles.chart_point_blue} />
-                      <circle cx="60" cy="10" r="3" className={styles.chart_point_blue} />
-                      <circle cx="80" cy="40" r="3" className={styles.chart_point_blue} />
-                      <circle cx="100" cy="60" r="3" className={styles.chart_point_blue} />
+                      <circle
+                        cx="0"
+                        cy="70"
+                        r="3"
+                        className={styles.chart_point_blue}
+                      />
+                      <circle
+                        cx="20"
+                        cy="50"
+                        r="3"
+                        className={styles.chart_point_blue}
+                      />
+                      <circle
+                        cx="40"
+                        cy="30"
+                        r="3"
+                        className={styles.chart_point_blue}
+                      />
+                      <circle
+                        cx="60"
+                        cy="10"
+                        r="3"
+                        className={styles.chart_point_blue}
+                      />
+                      <circle
+                        cx="80"
+                        cy="40"
+                        r="3"
+                        className={styles.chart_point_blue}
+                      />
+                      <circle
+                        cx="100"
+                        cy="60"
+                        r="3"
+                        className={styles.chart_point_blue}
+                      />
                     </svg>
                   </div>
                   {/* Y-axis labels */}
@@ -181,15 +283,17 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* Recommended Crops TOP 5 */}
+      {/* Crop Recommendation Section */}
       <section className={styles.crops_section}>
         <div className={styles.crops_container}>
-          <h2 className={styles.crops_title}>
-            Recommended Crops TOP 4
-          </h2>
+          <h2 className={styles.crops_title}>작물 추천</h2>
           <div className={styles.crops_grid}>
             {/* Cabbage */}
-            <div className={styles.crop_card}>
+            <div
+              className={styles.crop_card}
+              onClick={handleCropDetail}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles.crop_content}>
                 <div className={styles.crop_icon}>
                   <span>🥬</span>
@@ -197,7 +301,10 @@ export default function Homepage() {
                 <h3 className={styles.crop_name}>배추</h3>
                 <div className={styles.crop_score}>
                   <span className={styles.crop_score_value}>95</span>
-                  <FontAwesomeIcon icon={faArrowUp} className={styles.crop_score_icon} />
+                  <FontAwesomeIcon
+                    icon={faArrowUp}
+                    className={styles.crop_score_icon}
+                  />
                 </div>
                 <Badge color="point" size="sm" className={styles.crop_badge}>
                   🍃 높음
@@ -210,7 +317,11 @@ export default function Homepage() {
             </div>
 
             {/* Radish */}
-            <div className={styles.crop_card}>
+            <div
+              className={styles.crop_card}
+              onClick={handleCropDetail}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles.crop_content}>
                 <div className={styles.crop_icon}>
                   <span>🥕</span>
@@ -218,9 +329,16 @@ export default function Homepage() {
                 <h3 className={styles.crop_name}>무</h3>
                 <div className={styles.crop_score}>
                   <span className={styles.crop_score_value}>88</span>
-                  <FontAwesomeIcon icon={faArrowUp} className={styles.crop_score_icon} />
+                  <FontAwesomeIcon
+                    icon={faArrowUp}
+                    className={styles.crop_score_icon}
+                  />
                 </div>
-                <Badge color="secondary" size="sm" className={styles.crop_badge}>
+                <Badge
+                  color="secondary"
+                  size="sm"
+                  className={styles.crop_badge}
+                >
                   🍃 중간
                 </Badge>
                 <p className={styles.crop_description}>
@@ -231,7 +349,11 @@ export default function Homepage() {
             </div>
 
             {/* Lettuce */}
-            <div className={styles.crop_card}>
+            <div
+              className={styles.crop_card}
+              onClick={handleCropDetail}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles.crop_content}>
                 <div className={styles.crop_icon}>
                   <span>🥬</span>
@@ -239,9 +361,16 @@ export default function Homepage() {
                 <h3 className={styles.crop_name}>상추</h3>
                 <div className={styles.crop_score}>
                   <span className={styles.crop_score_value}>82</span>
-                  <FontAwesomeIcon icon={faArrowUp} className={styles.crop_score_icon} />
+                  <FontAwesomeIcon
+                    icon={faArrowUp}
+                    className={styles.crop_score_icon}
+                  />
                 </div>
-                <Badge color="secondary" size="sm" className={styles.crop_badge}>
+                <Badge
+                  color="secondary"
+                  size="sm"
+                  className={styles.crop_badge}
+                >
                   🍃 중간
                 </Badge>
                 <p className={styles.crop_description}>
@@ -252,7 +381,11 @@ export default function Homepage() {
             </div>
 
             {/* Spinach */}
-            <div className={styles.crop_card}>
+            <div
+              className={styles.crop_card}
+              onClick={handleCropDetail}
+              style={{ cursor: "pointer" }}
+            >
               <div className={styles.crop_content}>
                 <div className={styles.crop_icon}>
                   <span>🥬</span>
@@ -260,9 +393,16 @@ export default function Homepage() {
                 <h3 className={styles.crop_name}>시금치</h3>
                 <div className={styles.crop_score}>
                   <span className={styles.crop_score_value}>76</span>
-                  <FontAwesomeIcon icon={faArrowUp} className={styles.crop_score_icon} />
+                  <FontAwesomeIcon
+                    icon={faArrowUp}
+                    className={styles.crop_score_icon}
+                  />
                 </div>
-                <Badge color="secondary" size="sm" className={styles.crop_badge}>
+                <Badge
+                  color="secondary"
+                  size="sm"
+                  className={styles.crop_badge}
+                >
                   🍃 중간
                 </Badge>
                 <p className={styles.crop_description}>
@@ -278,20 +418,15 @@ export default function Homepage() {
       {/* Popular Funding Section */}
       <section className={styles.funding_section}>
         <div className={styles.funding_container}>
-          <h2 className={styles.funding_title}>
-            인기 상승 펀딩
-          </h2>
-          <div className={styles.funding_grid}>
-          </div>
+          <h2 className={styles.funding_title}>인기 상승 펀딩</h2>
+          <div className={styles.funding_grid}></div>
         </div>
       </section>
 
       {/* Main Features */}
       <section className={styles.features_section}>
         <div className={styles.features_container}>
-          <h2 className={styles.features_title}>
-            주요 기능
-          </h2>
+          <h2 className={styles.features_title}>주요 기능</h2>
           <div className={styles.features_grid}>
             {/* Location-based Recommendation */}
             <div className={styles.feature_card}>
@@ -300,7 +435,9 @@ export default function Homepage() {
                   <div className={styles.feature_icon}>
                     <FontAwesomeIcon icon={faMapMarkerAlt} />
                   </div>
-                  <h3 className={styles.feature_title}>위치 기반 농산물 추천</h3>
+                  <h3 className={styles.feature_title}>
+                    위치 기반 농산물 추천
+                  </h3>
                 </div>
               </div>
               <div className={styles.feature_content}>
@@ -311,14 +448,23 @@ export default function Homepage() {
                   <p className={styles.feature_info_title}>추천 작물: 배추</p>
                   <p className={styles.feature_info_subtitle}>적합도: 95%</p>
                   <p className={styles.feature_info_description}>
-                    현재 지역의 토양과 기후 조건이 배추 재배에 매우 적합합니다. 11월 파종 시 최고 품질의 김장배추를 수확할 수 있습니다.
+                    현재 지역의 토양과 기후 조건이 배추 재배에 매우 적합합니다.
+                    11월 파종 시 최고 품질의 김장배추를 수확할 수 있습니다.
                   </p>
                 </div>
                 <div className={styles.feature_buttons}>
-                  <Button color="point" className={styles.feature_button}>
+                  <Button
+                    color="point"
+                    className={styles.feature_button}
+                    onClick={handleCropDetail}
+                  >
                     상세 정보
                   </Button>
-                  <Button color="secondary" className={styles.feature_button}>
+                  <Button
+                    color="secondary"
+                    className={styles.feature_button}
+                    onClick={handleCropGuide}
+                  >
                     재배 가이드
                   </Button>
                 </div>
@@ -340,17 +486,28 @@ export default function Homepage() {
                   작물 사진을 촬영하면 AI가 병충해를 자동으로 진단합니다
                 </p>
                 <div className={styles.feature_info}>
-                  <p className={styles.feature_info_title}>최근 진단: 토마토 잎마름병</p>
+                  <p className={styles.feature_info_title}>
+                    최근 진단: 토마토 잎마름병
+                  </p>
                   <p className={styles.feature_info_subtitle}>치료 가능</p>
                   <p className={styles.feature_info_description}>
-                    토마토 잎에서 잎마름병 초기 증상이 발견되었습니다. 즉시 구리 계열 살균제를 살포하시면 확산을 막을 수 있습니다.
+                    토마토 잎에서 잎마름병 초기 증상이 발견되었습니다. 즉시 구리
+                    계열 살균제를 살포하시면 확산을 막을 수 있습니다.
                   </p>
                 </div>
                 <div className={styles.feature_buttons}>
-                  <Button color="point" className={styles.feature_button}>
+                  <Button
+                    color="point"
+                    className={styles.feature_button}
+                    onClick={handlePhotoCapture}
+                  >
                     사진 촬영
                   </Button>
-                  <Button color="secondary" className={styles.feature_button}>
+                  <Button
+                    color="secondary"
+                    className={styles.feature_button}
+                    onClick={handleTreatmentGuide}
+                  >
                     치료법 보기
                   </Button>
                 </div>
@@ -377,15 +534,38 @@ export default function Homepage() {
                       <span>🌱</span>
                     </div>
                     <div>
-                      <p className={styles.feature_info_title}>유기농 상추 재배 프로젝트</p>
-                      <div style={{ width: '100%', height: '8px', backgroundColor: '#e5e7eb', borderRadius: '4px', marginBottom: '8px' }}>
-                        <div style={{ width: '80%', height: '8px', backgroundColor: '#16a34a', borderRadius: '4px' }}></div>
+                      <p className={styles.feature_info_title}>
+                        유기농 상추 재배 프로젝트
+                      </p>
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "8px",
+                          backgroundColor: "#e5e7eb",
+                          borderRadius: "4px",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "80%",
+                            height: "8px",
+                            backgroundColor: "#16a34a",
+                            borderRadius: "4px",
+                          }}
+                        ></div>
                       </div>
-                      <p className={styles.feature_info_subtitle}>진행률: 80%</p>
+                      <p className={styles.feature_info_subtitle}>
+                        진행률: 80%
+                      </p>
                     </div>
                   </div>
                 </div>
-                <Button color="point" className={styles.feature_button}>
+                <Button
+                  color="point"
+                  className={styles.feature_button}
+                  onClick={handleInvestment}
+                >
                   투자하기
                 </Button>
               </div>
@@ -400,9 +580,7 @@ export default function Homepage() {
           <div className={styles.weather_widget}>
             <div className={styles.weather_header}>
               <div className={styles.weather_title_content}>
-                <div className={styles.weather_title_icon}>
-                  🌤️
-                </div>
+                <div className={styles.weather_title_icon}>🌤️</div>
                 <h2 className={styles.weather_title}>날씨 예보</h2>
               </div>
             </div>

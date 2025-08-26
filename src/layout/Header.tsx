@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { Badge } from "../components/ui";
+import { Badge, Button } from "../components/ui";
 import { useLeftLayout } from "../hooks";
 
 /**
@@ -23,6 +23,8 @@ const Header: React.FC = () => {
   const [wordHints, setWordHints] = useState<string[]>([]);
   // 검색어 상태
   const [searchValue, setSearchValue] = useState<string>("");
+  // 메뉴 탭 상태
+  const [activeTab, setActiveTab] = useState<"fund" | "lease">("fund");
 
   // 단어 힌트 출력 함수
   const showHint = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,12 +50,31 @@ const Header: React.FC = () => {
     setWordHints([]);
   };
 
+  // 메뉴 탭 클릭 핸들러
+  const handleTabClick = (tab: "fund" | "lease") => {
+    setActiveTab(tab);
+    // 해당 탭에 맞는 페이지로 이동
+    if (tab === "fund") {
+      navi("/market_list"); // 펀드는 마켓 목록으로
+    } else {
+      navi("/lease"); // 임대/임차는 임대 페이지로
+    }
+  };
+
   // 검색 submit 함수
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
     autoCompleteRef.current?.classList.remove(styles.active);
-    navi(`/search/${searchInRef.current?.value}`);
+
+    const searchTerm = searchInRef.current?.value;
+    if (searchTerm && searchTerm.trim()) {
+      // 검색어가 있으면 마켓 목록 페이지로 이동하고 검색어 전달
+      navi(`/market_list?search=${encodeURIComponent(searchTerm.trim())}`);
+    } else {
+      // 검색어가 없으면 마켓 목록 페이지로 이동
+      navi("/market_list");
+    }
   };
 
   // 챗봇 버튼 클릭 핸들러
@@ -68,7 +89,7 @@ const Header: React.FC = () => {
       <div className={styles.header_inner}>
         <header className={styles.header_box}>
           <h1 className={styles.logo_area}>
-            <Link to={"/home"}>
+            <Link to={"/"}>
               <img
                 src="/images/logo.png"
                 className={styles.logo_img}
@@ -76,7 +97,28 @@ const Header: React.FC = () => {
               />
             </Link>
           </h1>
+
           <div className={styles.srch_utils_area}>
+            {/* 메뉴 탭 - 360px 이하에서만 표시 */}
+            <div className={styles.menu_tabs}>
+              <button
+                className={`${styles.menu_tab} ${
+                  activeTab === "fund" ? styles.menu_tab_active : ""
+                }`}
+                onClick={() => handleTabClick("fund")}
+              >
+                펀드
+              </button>
+              <button
+                className={`${styles.menu_tab} ${
+                  activeTab === "lease" ? styles.menu_tab_active : ""
+                }`}
+                onClick={() => handleTabClick("lease")}
+              >
+                임대/임차
+              </button>
+            </div>
+
             <div className={styles.srch_area}>
               <form className={styles.search_wrap} onSubmit={submit}>
                 <input
@@ -112,7 +154,26 @@ const Header: React.FC = () => {
                 </button>
               </form>
             </div>
+
             <div className={styles.utils_area}>
+              {/* 로그인/회원가입 버튼 - 360px 이하에서만 표시 */}
+              <div className={styles.auth_buttons}>
+                <Button
+                  color="point2"
+                  className={styles.header_login_button}
+                  onClick={() => navi("/login")}
+                >
+                  로그인
+                </Button>
+                <Button
+                  color="point2"
+                  className={styles.header_signup_button}
+                  onClick={() => navi("/signup")}
+                >
+                  회원가입
+                </Button>
+              </div>
+
               <Link to={"/alert"}>
                 <button className={styles.notice_btn}>
                   <img

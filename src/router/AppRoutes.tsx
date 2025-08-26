@@ -10,8 +10,6 @@ import Mypage from "../pages/mypage/Mypage";
 import Form from "../pages/sample/Form";
 import Toast from "../pages/sample/Toast";
 import Signup from "../pages/signup/Signup";
-import Main from "../layout/Main";
-import Layout from "../layout/Layout";
 import Alert from "../pages/alert/Alert";
 import LeaseContract from "../pages/lease/LeaseContract";
 import LeaseDetail from "../pages/lease/LeaseDetail";
@@ -22,8 +20,6 @@ import LandRegistration from "../pages/land/LandRegistration";
 import LandRentAdd from "../pages/land/LandRentAdd";
 import LandDetail from "../pages/land/LandDetail";
 import MypageEdit from "../pages/mypage/MypageEdit";
-
-// import ModalSample from "../pages/sample/ModalSample";
 import QandA from "../pages/community/qanda/QandA";
 import MarketList from "../pages/market/MarketList";
 import MarketDetail from "../pages/market/MarketDetail";
@@ -31,7 +27,6 @@ import MarketWrite from "../pages/market/MarketWrite";
 import Mycart from "../pages/cart/Mycart";
 import ModalSample from "../pages/sample/ModalSample";
 import Homepage from "../pages/main/homepage";
-
 
 const AppRoutes: React.FC = () => {
   const routeList = [
