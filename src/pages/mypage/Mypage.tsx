@@ -104,14 +104,8 @@ const Mypage: React.FC = () => {
               src={profile?.imageBasePath || "/images/img_profile.svg"}
               className={styles.profile_photo}
             />
-            <div className={styles.edit_overlay}>
-              <FontAwesomeIcon
-                icon={faPencilAlt}
-                className={styles.edit_icon}
-              />
-            </div>
           </div>
-          <Link to="/myinfo" className={styles.edit_link}>
+          <Link to="/mypage_edit" className={styles.edit_link}>
             수정
           </Link>
         </div>
@@ -144,36 +138,6 @@ const Mypage: React.FC = () => {
             <span className={styles.info_value}>
               {profile?.addr} {profile?.detailAddr || "서울시 강남구"}
             </span>
-          </div>
-        </div>
-
-        {/* 메뉴 리스트 */}
-        <div className={styles.menu_section}>
-          <h3 className={styles.section_title}>메뉴</h3>
-          <div className={styles.menu_list}>
-            <Link to="/myinfo" className={styles.menu_item}>
-              <span className={styles.menu_text}>내 정보 수정</span>
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className={styles.menu_icon}
-              />
-            </Link>
-
-            <Link to="/team_list_wish" className={styles.menu_item}>
-              <span className={styles.menu_text}>찜한 펀드</span>
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className={styles.menu_icon}
-              />
-            </Link>
-
-            <Link to="/team_list/2" className={styles.menu_item}>
-              <span className={styles.menu_text}>신청한 펀드 </span>
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className={styles.menu_icon}
-              />
-            </Link>
           </div>
         </div>
 

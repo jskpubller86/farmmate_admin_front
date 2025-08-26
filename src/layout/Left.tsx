@@ -25,6 +25,8 @@ const Left: React.FC = () => {
   const api = useAPI();
   const { alertError, alertSuccess } = useAlert();
   const navi = useNavigate();
+  const [guideDropdownOpen, setGuideDropdownOpen] = useState(false);
+  const [mypageDropdownOpen, setMypageDropdownOpen] = useState(false);
 
   const handleDeactive = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -133,34 +135,32 @@ const Left: React.FC = () => {
         {/* 네비게이션 */}
         <div className={styles.left_navigation_wrap}>
           <div className={styles.left_navigation_box}>
-            <Link to="/mypage" className={styles.left_navigation_item}>
-              <span>내 정보</span>
+            <div
+              className={styles.left_navigation_item}
+              onClick={() => setMypageDropdownOpen(!mypageDropdownOpen)}
+            >
+              <span>마이페이지</span>
               <img
                 src="/images/triangle_icon.svg"
-                className={styles.left_triangle_icon_img}
+                className={`${styles.left_triangle_icon_img} ${
+                  mypageDropdownOpen ? styles.rotate_down : ""
+                }`}
                 alt="화살표"
               />
-            </Link>
-          </div>
-          <div className={styles.left_navigation_box}>
-            <Link to="/" className={styles.left_navigation_item}>
-              <span>내 임대 / 임차</span>
-              <img
-                src="/images/triangle_icon.svg"
-                className={styles.left_triangle_icon_img}
-                alt="화살표"
-              />
-            </Link>
-          </div>
-          <div className={styles.left_navigation_box}>
-            <Link to="/myfund" className={styles.left_navigation_item}>
-              <span>내 펀드</span>
-              <img
-                src="/images/triangle_icon.svg"
-                className={styles.left_triangle_icon_img}
-                alt="화살표"
-              />
-            </Link>
+            </div>
+            {mypageDropdownOpen && (
+              <div className={styles.mypage_dropdown}>
+                <Link to="/mypage" className={styles.mypage_dropdown_item}>
+                  <span>내 정보</span>
+                </Link>
+                <Link to="/" className={styles.mypage_dropdown_item}>
+                  <span>내 임대 / 임차</span>
+                </Link>
+                <Link to="/myfund" className={styles.mypage_dropdown_item}>
+                  <span>내 펀드</span>
+                </Link>
+              </div>
+            )}
           </div>
           <div className={styles.left_navigation_box}>
             <Link to="/fund_rank" className={styles.left_navigation_item}>
@@ -173,14 +173,29 @@ const Left: React.FC = () => {
             </Link>
           </div>
           <div className={styles.left_navigation_box}>
-            <Link to="/fund_guide" className={styles.left_navigation_item}>
-              <span>투자 가이드</span>
+            <div
+              className={styles.left_navigation_item}
+              onClick={() => setGuideDropdownOpen(!guideDropdownOpen)}
+            >
+              <span>가이드</span>
               <img
                 src="/images/triangle_icon.svg"
-                className={styles.left_triangle_icon_img}
+                className={`${styles.left_triangle_icon_img} ${
+                  guideDropdownOpen ? styles.rotate_down : ""
+                }`}
                 alt="화살표"
               />
-            </Link>
+            </div>
+            {guideDropdownOpen && (
+              <div className={styles.guide_dropdown}>
+                <Link to="/fund_guide" className={styles.guide_dropdown_item}>
+                  <span>투자 가이드</span>
+                </Link>
+                <Link to="/land_guide" className={styles.guide_dropdown_item}>
+                  <span>법률 가이드</span>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -7,25 +7,23 @@ import BoardList from "../pages/board/BoardList";
 import Login from "../pages/login/Login";
 import FindAccount from "../pages/login/FindAccount";
 import Mypage from "../pages/mypage/Mypage";
-import Myinfo from "../pages/mypage/myinfo/Myinfo";
-import MyinfoEdit from "../pages/mypage/myinfo/MyinfoEdit";
 import Form from "../pages/sample/Form";
 import Toast from "../pages/sample/Toast";
 import Signup from "../pages/signup/Signup";
-// import TeamList from "../pages/team/TeamList";
-// import TeamListWish from "../pages/team/TeamListWish";
 import Main from "../layout/Main";
 import Layout from "../layout/Layout";
 import FundList from "../pages/fund/FundList";
 import Myfund from "../pages/fund/Myfund";
 import FundRank from "../pages/fund/FundRank";
 import FundGuide from "../pages/guide/FundGuide";
+import LandGuide from "../pages/guide/LandGuide";
 import Alert from "../pages/alert/Alert";
 import LeaseContract from "../pages/lease/LeaseContract";
 import LandList from "../pages/land/LandList";
 import LandRegistration from "../pages/land/LandRegistration";
 import FundDetail from "../pages/fund/FundDetail";
 import FundWrite from "../pages/fund/FundWrite";
+import MypageEdit from "../pages/mypage/MypageEdit";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
@@ -41,6 +39,14 @@ const AppRoutes: React.FC = () => {
       ),
     },
     {
+      path: "/mypage_edit",
+      element: (
+        // <PermissionFilter>
+        <MypageEdit />
+        // </PermissionFilter>
+      ),
+    },
+    {
       path: "/myfund",
       element: <Myfund />,
     },
@@ -51,6 +57,10 @@ const AppRoutes: React.FC = () => {
     {
       path: "/fund_guide",
       element: <FundGuide />,
+    },
+    {
+      path: "/land_guide",
+      element: <LandGuide />,
     },
     {
       path: "/alert",
@@ -86,23 +96,6 @@ const AppRoutes: React.FC = () => {
     { path: "/board/boardList", element: <BoardList /> },
     { path: "/board/detail/:id", element: <BoardDetail /> },
     { path: "/board/add", element: <BoardForm /> },
-
-    {
-      path: "/myinfo",
-      element: (
-        <PermissionFilter>
-          <Myinfo />
-        </PermissionFilter>
-      ),
-    },
-    {
-      path: "/myinfoedit",
-      element: (
-        <PermissionFilter>
-          <MyinfoEdit />
-        </PermissionFilter>
-      ),
-    },
   ];
 
   return (
