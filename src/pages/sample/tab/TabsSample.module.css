@@ -1,0 +1,227 @@
+.sample_container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.sample_wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sample_title {
+  font-family: 'NanumGothic', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.example_area {
+  margin-bottom: 48px;
+  padding: 24px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.example_title {
+  font-family: 'NanumGothic', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #495057;
+  margin-bottom: 20px;
+}
+
+.example_desc {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #e3f2fd;
+  border-radius: 6px;
+  font-family: 'NanumGothic', sans-serif;
+  font-size: 14px;
+  color: #1976d2;
+}
+
+.usage_area {
+  margin-top: 48px;
+  padding: 24px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.usage_title {
+  font-family: 'NanumGothic', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #495057;
+  margin-bottom: 20px;
+}
+
+.usage_content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.code_box,
+.props_box {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+}
+
+.code_box h4,
+.props_box h4 {
+  font-family: 'NanumGothic', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #495057;
+  margin-bottom: 12px;
+}
+
+.code_text {
+  background-color: #f8f9fa;
+  padding: 16px;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #495057;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.props_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.props_list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+  font-family: 'NanumGothic', sans-serif;
+  font-size: 14px;
+  color: #495057;
+}
+
+.props_list li:last-child {
+  border-bottom: none;
+}
+
+.props_list strong {
+  color: #2c3e50;
+}
+
+/* 콘텐츠 영역 스타일 */
+.content_box {
+  padding: 20px;
+}
+
+.content_box h3 {
+  font-family: 'NanumGothic', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #2c3e50;
+  margin-bottom: 16px;
+}
+
+.content_box p {
+  font-family: 'NanumGothic', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #495057;
+  margin-bottom: 16px;
+}
+
+.content_box ul {
+  margin: 16px 0;
+  padding-left: 20px;
+}
+
+.content_box li {
+  font-family: 'NanumGothic', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #495057;
+  margin-bottom: 8px;
+}
+
+.info_group {
+  margin-top: 16px;
+}
+
+.info_item {
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  font-family: 'NanumGothic', sans-serif;
+  font-size: 14px;
+  color: #495057;
+}
+
+.progress_area {
+  margin-top: 16px;
+}
+
+.progress_bar {
+  width: 100%;
+  height: 20px;
+  background-color: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progress_fill {
+  height: 100%;
+  background: linear-gradient(90deg, #28a745, #20c997);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.progress_text {
+  font-family: 'NanumGothic', sans-serif;
+  font-size: 14px;
+  color: #495057;
+  text-align: center;
+  margin: 0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .sample_wrapper {
+    padding: 20px;
+  }
+  
+  .usage_content {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .example_area,
+  .usage_area {
+    padding: 16px;
+  }
+  
+  .sample_title {
+    font-size: 24px;
+  }
+  
+  .example_title,
+  .usage_title {
+    font-size: 18px;
+  }
+}

@@ -142,8 +142,8 @@
   cursor: pointer;
 }
 .sort_tab_item_active {
-  color: #111;
-  font-weight: 700;
+  font-family: primaryBold;
+  color: #000;
 }
 .sort_tab_item + .sort_tab_item {
   padding-left: 0;
@@ -159,6 +159,7 @@
   height: 0.9rem;
   background: #e0e0e0;
 }
+
 .page {
   width: 1.5rem;
   height: 1.5rem;

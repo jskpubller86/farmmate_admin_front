@@ -2,6 +2,7 @@ import styles from "./index.module.css";
 import { Avatar, Button, LikeIt } from "../ui";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Tabs, { TabItemProps } from './Tabs';
 
 // 나중에 DB에 더미 데이터를 넣으면 활성화
 export interface FundCardProps {
@@ -491,5 +492,5 @@ const Pagination: React.FC<PaginationProps> = ({
   );
 };
 
-export { Pagination };
-export { SortTabs };
+export { Pagination, SortTabs, Tabs};
+export type { TabItemProps};

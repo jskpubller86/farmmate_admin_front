@@ -1,0 +1,199 @@
+/* flex style */
+.container {display: flex;}
+
+/* flex-direction style */
+.container {flex-direction: column;}
+
+/* flex-Gap style */
+.container {gap: 2rem;}
+
+/* container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* 제목 */
+.title {
+  font-size: 1.28571rem;
+}
+
+/* Tabs */
+.tabs_container {
+  display: flex;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.tab_item {
+  flex: 1;
+  min-width: 58px;
+  height: 35px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #cccccc;
+  font-family: 'NanumGothic', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.tab_item:last-child {
+  border-right: none;
+}
+
+.tab_item:hover {
+  background: #e8e8e8;
+}
+
+.tab_item_active {
+  background: #ffffff;
+  color: #000000;
+}
+
+.tab_item_inactive {
+  background: #f3f3f3;
+  color: #939393;
+}
+
+/* 검색 영역 */
+.search_container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+  align-items: center;
+}
+
+/* 정렬 옵션 */
+.sort_container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+  align-items: center;
+}
+
+.sort_option {
+  background: none;
+  border: none;
+  font-family: 'NanumGothic', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  color: #939393;
+  transition: color 0.2s ease;
+}
+
+.sort_option_active {
+  color: #000000;
+  font-weight: 700;
+}
+
+.sort_option:hover {
+  color: #000000;
+}
+
+/* 계약 카드 그리드 */
+.cards_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+/* 계약 카드 래퍼 */
+.contract_card_wrapper {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+.contract_card_wrapper:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 상태 뱃지 */
+.status_badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 10;
+  display: inline-block;
+  padding: 0 8px;
+  height: 18px;
+  border-radius: 999px;
+  color: #ffffff;
+  font-family: 'NanumGothic', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+/* 카드 액션 버튼들 */
+.card_actions {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cancel_button {
+  background-color: #f60101;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: 'NanumGothic', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancel_button:hover {
+  background-color: #d40000;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+  .cards_grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  
+  .search_container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search_select,
+  .search_input {
+    width: 100%;
+  }
+  
+  .cards_grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .tabs_container {
+    flex-wrap: wrap;
+  }
+  
+  .tab_item {
+    min-width: auto;
+    flex: 1 1 50%;
+  }
+}

@@ -1,0 +1,78 @@
+.tabs {
+  width: 100%;
+}
+
+.tabs_container {
+  display: flex;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.tabs_item {
+  flex: 1;
+  min-width: 58px;
+  height: 35px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #cccccc;
+}
+
+.tabs_item:last-child {
+  border-right: none;
+}
+
+.tabs_item:hover {
+  background: #e8e8e8;
+}
+
+.tabs_item_active {
+  background: #ffffff;
+}
+
+.tabs_item_inactive {
+  background: #f3f3f3;
+}
+
+.tabs_text {
+  font-family: 'NanumGothic', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0;
+  text-align: center;
+  user-select: none;
+}
+
+.tabs_item_active .tabs_text {
+  color: #000000;
+}
+
+.tabs_item_inactive .tabs_text {
+  color: #939393;
+}
+
+.tabs_content {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .tabs_item {
+    min-width: auto;
+    padding: 0 8px;
+  }
+  
+  .tabs_text {
+    font-size: 13px;
+    line-height: 18px;
+  }
+}
