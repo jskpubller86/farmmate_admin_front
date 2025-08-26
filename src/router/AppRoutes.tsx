@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import PermissionFilter from "../filters/PermissionFilter";
-import BoardDetail from "../pages/board/BoardDetail";
-import BoardForm from "../pages/board/BoardForm";
-import BoardList from "../pages/board/BoardList";
+import BoardDetail from "../pages/community/board/BoardDetail";
+import BoardForm from "../pages/community/board/BoardForm";
+import BoardList from "../pages/community/board/BoardList";
 import Login from "../pages/login/Login";
 import FindAccount from "../pages/login/FindAccount";
 import Mypage from "../pages/mypage/Mypage";
@@ -29,7 +29,11 @@ import LandDetail from "../pages/land/LandDetail";
 import FundDetail from "../pages/fund/FundDetail";
 import FundWrite from "../pages/fund/FundWrite";
 import MypageEdit from "../pages/mypage/MypageEdit";
-import ModalSample from "../pages/sample/ModalSample";
+// import ModalSample from "../pages/sample/ModalSample";
+import QandA from "../pages/community/qanda/QandA";
+import MarketList from "../pages/market/MarketList";
+import MarketDetail from "../pages/market/MarketDetail";
+import Mycart from "../pages/cart/Mycart";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
@@ -53,6 +57,18 @@ const AppRoutes: React.FC = () => {
       ),
     },
     {
+      path: "/market_list",
+      element: <MarketList />,
+    },
+    {
+      path: "/market_detail/:productId",
+      element: <MarketDetail />,
+    },
+    {
+      path: "/mycart",
+      element: <Mycart />,
+    },
+    {
       path: "/myfund",
       element: <Myfund />,
     },
@@ -61,7 +77,7 @@ const AppRoutes: React.FC = () => {
       element: <FundRank />,
     },
     {
-      path: "/fund_guide",
+      path: "/farming_guide",
       element: <FundGuide />,
     },
     {
@@ -87,21 +103,86 @@ const AppRoutes: React.FC = () => {
     // Lease routes
     { path: "/lease/contract", element: <LeaseContract /> },
     { path: "/lease/applicants", element: <ApplicantList /> },
-    { path: "/lease", element: <LandLeaseList mode="lease" enableInfiniteScroll={true} showRegistrationButton={true} /> },
-    { path: "/lease/my-lease", element: <LandLeaseList mode="lease" enableInfiniteScroll={true} showRegistrationButton={true} /> },
-    { path: "/lease/my-rent", element: <LandLeaseList mode="lease" enableInfiniteScroll={true} showRegistrationButton={true} /> },
-    { path: "/lease/wish", element: <LandLeaseList mode="lease" enableInfiniteScroll={true} showRegistrationButton={true} /> },
+    {
+      path: "/lease",
+      element: (
+        <LandLeaseList
+          mode="lease"
+          enableInfiniteScroll={true}
+          showRegistrationButton={true}
+        />
+      ),
+    },
+    {
+      path: "/lease/my-lease",
+      element: (
+        <LandLeaseList
+          mode="lease"
+          enableInfiniteScroll={true}
+          showRegistrationButton={true}
+        />
+      ),
+    },
+    {
+      path: "/lease/my-rent",
+      element: (
+        <LandLeaseList
+          mode="lease"
+          enableInfiniteScroll={true}
+          showRegistrationButton={true}
+        />
+      ),
+    },
+    {
+      path: "/lease/wish",
+      element: (
+        <LandLeaseList
+          mode="lease"
+          enableInfiniteScroll={true}
+          showRegistrationButton={true}
+        />
+      ),
+    },
     { path: "/lease/:id", element: <LeaseDetail /> },
     { path: "/lease/my-lease/:id", element: <MyLeaseDetail /> },
     { path: "/lease/:id/applicants", element: <ApplicantList /> },
-    
+
     // Land routes
-    { path: "/land", element: <LandLeaseList mode="land" enableInfiniteScroll={false} showRegistrationButton={true} /> },
-    { path: "/land/my-rent", element: <LandLeaseList mode="land" enableInfiniteScroll={false} showRegistrationButton={true} /> },
-    { path: "/land/wish", element: <LandLeaseList mode="land" enableInfiniteScroll={false} showRegistrationButton={true} /> },
+    {
+      path: "/land",
+      element: (
+        <LandLeaseList
+          mode="land"
+          enableInfiniteScroll={false}
+          showRegistrationButton={true}
+        />
+      ),
+    },
+    {
+      path: "/land/my-rent",
+      element: (
+        <LandLeaseList
+          mode="land"
+          enableInfiniteScroll={false}
+          showRegistrationButton={true}
+        />
+      ),
+    },
+    {
+      path: "/land/wish",
+      element: (
+        <LandLeaseList
+          mode="land"
+          enableInfiniteScroll={false}
+          showRegistrationButton={true}
+        />
+      ),
+    },
     { path: "/land/registration", element: <LandRegistration /> },
+
     { path: "/land/rent-add", element: <LandRentAdd /> },
     { path: "/land/:id", element: <LandDetail /> },
+    { path: "/qanda", element: <QandA /> },
 
     {
       path: "/form",

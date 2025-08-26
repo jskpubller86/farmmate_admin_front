@@ -1,4 +1,6 @@
 /* ===== Alert 페이지 스타일 ===== */
+
+/* 컨테이너 */
 .alert_container {
   max-width: 800px;
   margin: 0 auto;
@@ -24,10 +26,18 @@
 }
 
 .page_title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   font-size: 2rem;
   font-weight: 700;
   color: #1a1a1a;
   margin: 0;
+}
+
+.title_icon {
+  color: #6e9556;
+  font-size: 1.5rem;
 }
 
 .unread_badge {
@@ -46,7 +56,8 @@
   align-items: center;
 }
 
-.filter_toggle_btn {
+.filter_toggle_btn,
+.mark_all_read_btn {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -56,11 +67,28 @@
   transition: all 0.2s ease;
 }
 
-.mark_all_read_btn {
-  padding: 0.75rem 1.25rem;
+/* 정렬 영역 */
+.sort_area {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.sort_select {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e9ecef;
   border-radius: 8px;
-  font-weight: 600;
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
   transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.sort_select:focus {
+  outline: none;
+  border-color: #6e9556;
+  box-shadow: 0 0 0 3px rgba(110, 149, 86, 0.1);
 }
 
 /* 필터 영역 */
@@ -95,6 +123,7 @@
 .filter_btn:hover {
   background-color: #e9ecef;
   border-color: #adb5bd;
+  transform: translateY(-1px);
 }
 
 .filter_active {
@@ -162,6 +191,14 @@
   background-color: #f8f9fa;
 }
 
+.alert_type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
 .alert_success {
   color: #28a745;
 }
@@ -208,7 +245,15 @@
   flex-shrink: 0;
 }
 
-.category_badge {
+.meta_top {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.category_badge,
+.priority_badge {
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
   font-size: 0.75rem;
@@ -345,6 +390,11 @@
   .page_title {
     font-size: 1.75rem;
     text-align: center;
+    justify-content: center;
+  }
+
+  .sort_area {
+    justify-content: center;
   }
 
   .filter_buttons {
@@ -369,6 +419,10 @@
 
   .alert_meta {
     align-items: flex-start;
+  }
+
+  .meta_top {
+    justify-content: flex-start;
   }
 
   .alert_actions {
