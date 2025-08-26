@@ -1,5 +1,5 @@
-/* LeaseDetail 스타일 */
-.lease_detail_container {
+/* MyLeaseDetail 스타일 */
+.my_lease_detail_container {
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem 1rem;
@@ -30,7 +30,7 @@
   margin-bottom: 1rem;
 }
 
-.lease_detail_title {
+.my_lease_detail_title {
   font-size: 1.75rem;
   font-weight: 700;
   color: #111827;
@@ -207,66 +207,33 @@
   color: #5a7a47;
 }
 
-/* 액션 버튼들 */
-.action_buttons {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.action_button {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background: white;
-  color: #374151;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.action_button:hover {
-  background-color: #f9fafb;
-  border-color: #9ca3af;
-}
-
-.wish_button {
-  background-color: #fef2f2;
-  border-color: #fca5a5;
-  color: #dc2626;
-}
-
-/* 신청 섹션 */
-.apply_section {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.apply_button {
-  background-color: #6a9357 !important;
-  color: white !important;
-  border: none !important;
-  padding: 1rem 2rem !important;
-  border-radius: 8px !important;
-  font-size: 1.125rem !important;
-  font-weight: 600 !important;
-  cursor: pointer !important;
-  transition: background-color 0.2s ease !important;
-  min-width: 200px !important;
-}
-
-.apply_button:hover {
-  background-color: #5a7a47 !important;
-}
-
 /* 관리자 액션 */
 .admin_actions {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 1.5rem;
   margin-top: 2rem;
   padding-top: 1.5rem;
   border-top: 1px solid #f3f4f6;
+}
+
+.view_applicants_button {
+  width: 100%;
+  padding: 1rem 2rem !important;
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+}
+
+.edit_delete_actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.edit_button,
+.delete_button {
+  flex: 1;
+  padding: 0.75rem 1rem !important;
+  font-weight: 600 !important;
 }
 
 /* 로딩 및 에러 상태 */
@@ -284,11 +251,11 @@
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
-  .lease_detail_container {
+  .my_lease_detail_container {
     padding: 1rem;
   }
   
-  .lease_detail_title {
+  .my_lease_detail_title {
     font-size: 1.5rem;
   }
   
@@ -300,11 +267,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .action_buttons {
-    flex-direction: column;
-  }
-  
-  .admin_actions {
+  .edit_delete_actions {
     flex-direction: column;
   }
 }
@@ -320,7 +283,8 @@
     font-size: 1rem;
   }
   
-  .apply_button {
-    min-width: 100% !important;
+  .view_applicants_button {
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
   }
 }

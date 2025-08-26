@@ -1,0 +1,295 @@
+/* 임대차 계약서 작성 페이지 스타일 */
+.contract_container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+/* 페이지 헤더 */
+.page_header {
+  margin-bottom: 40px;
+}
+
+.page_title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c2c2c;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.header_buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.btn_prev,
+.btn_print {
+  min-width: 84px;
+  height: 40px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.contract_info {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  font-size: 14px;
+  color: #666;
+}
+
+/* 섹션 */
+.section {
+  margin-bottom: 50px;
+  padding: 25px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.section_title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #6e9556;
+}
+
+/* 계약 체결 문구 */
+.contract_statement {
+  text-align: center;
+  font-size: 16px;
+  color: #2c2c2c;
+  margin: 40px 0;
+  padding: 25px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+
+/* 정보 테이블 */
+.info_table {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.table_row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  min-height: 72px;
+}
+
+.label_cell {
+  flex: 0 0 179px;
+  font-weight: 500;
+  color: #2c2c2c;
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.input_cell {
+  flex: 1;
+  margin-left: 16px;
+}
+
+.input_cell_wide {
+  flex: 1;
+  margin-left: 16px;
+}
+
+/* 결제 테이블 */
+.payment_table {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.payment_row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.payment_label {
+  flex: 0 0 179px;
+  font-weight: 500;
+  color: #2c2c2c;
+  padding: 12px 16px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.payment_input_group {
+  flex: 1;
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.payment_input_group span {
+  font-size: 14px;
+  color: #2c2c2c;
+  white-space: nowrap;
+}
+
+.payment_input {
+  width: 120px;
+  height: 34px;
+}
+
+/* 약정 테이블 */
+.terms_table {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.terms_row {
+  margin-bottom: 25px;
+}
+
+.terms_content {
+  line-height: 1.6;
+  color: #2c2c2c;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 72px;
+  flex-wrap: wrap;
+}
+
+.terms_content span {
+  font-size: 14px;
+  color: #2c2c2c;
+  white-space: nowrap;
+}
+
+.terms_input {
+  width: 80px;
+  height: 34px;
+  margin: 0 8px;
+}
+
+/* 서명 섹션 */
+.signature_section {
+  margin: 50px 0;
+}
+
+.signature_container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.signature_box {
+  text-align: center;
+}
+
+.signature_title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #2c2c2c;
+  margin-bottom: 25px;
+}
+
+.signature_area {
+  width: 200px;
+  height: 100px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+/* 하단 액션 */
+.bottom_actions {
+  margin-top: 50px;
+  padding: 25px;
+  text-align: center;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.btn_save {
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0 32px;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .contract_container {
+    padding: 16px;
+  }
+  
+  .header_buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .section {
+    padding: 20px;
+  }
+  
+  .table_row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .label_cell {
+    flex: none;
+    margin-bottom: 8px;
+  }
+  
+  .input_cell,
+  .input_cell_wide {
+    margin-left: 0;
+  }
+  
+  .payment_row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .payment_label {
+    flex: none;
+    margin-bottom: 8px;
+  }
+  
+  .payment_input_group {
+    margin-left: 0;
+    justify-content: center;
+  }
+  
+  .terms_content {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  
+  .signature_container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .signature_area {
+    width: 100%;
+    max-width: 200px;
+  }
+}

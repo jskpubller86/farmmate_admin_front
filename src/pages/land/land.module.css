@@ -645,10 +645,203 @@
   background-color: #5a7a47 !important;
 }
 
+/* 등록 버튼 섹션 */
+.registration_section {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.registration_button {
+  background: #6a9357 !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.registration_button:hover {
+  background: #5a7a47 !important;
+}
+
+/* 정렬 옵션 */
+.sort_options {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.sort_tabs {
+  /* SortTabs 컴포넌트 스타일은 기본 컴포넌트에서 처리 */
+}
+
+/* 데이터 없음 상태 */
+.no_data {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6b7280;
+  font-size: 1.125rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+/* 무한 스크롤 관련 스타일 */
+.scroll_trigger {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  min-height: 80px;
+}
+
+.loading_more {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #6a9357;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* LandRegistration 전용 스타일 */
+.land_registration_container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.registration_title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+  margin: 1rem 0 2rem;
+}
+
+.registration_form {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.form_field {
+  margin-bottom: 1.5rem;
+}
+
+.form_label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.form_input,
+.form_textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form_input:focus,
+.form_textarea:focus {
+  outline: none;
+  border-color: #6a9357;
+  box-shadow: 0 0 0 3px rgba(106, 147, 87, 0.1);
+}
+
+.address_input_group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.address_input {
+  flex: 1;
+}
+
+.address_search_btn {
+  background: #6a9357 !important;
+  color: white !important;
+  border: none !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+}
+
+.address_search_btn:hover {
+  background: #5a7a47 !important;
+}
+
+.file_input_group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.file_input {
+  width: 100%;
+}
+
+.file_info {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.selected_files {
+  margin-top: 0.5rem;
+}
+
+.file_item {
+  padding: 0.5rem;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.submit_section {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.error_message {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .land_detail_container,
-  .land_rent_add_container {
+  .land_rent_add_container,
+  .land_registration_container {
     padding: 1rem;
   }
   
@@ -673,12 +866,22 @@
     gap: 1rem;
   }
   
-  .rent_add_form {
+  .rent_add_form,
+  .registration_form {
     padding: 1.5rem;
   }
   
-  .rent_add_title {
+  .rent_add_title,
+  .registration_title {
     font-size: 1.75rem;
+  }
+
+  .address_input_group {
+    flex-direction: column;
+  }
+
+  .landlist_grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -697,8 +900,291 @@
     flex-direction: column;
   }
   
-  .rent_add_form {
+  .rent_add_form,
+  .registration_form {
     padding: 1rem;
+  }
+
+  .filter_row {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .search_input {
+    width: 100%;
+  }
+}
+
+/* 토지 상세 페이지 스타일 */
+.land_detail_container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.status_badge {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.land_detail_title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2c2c2c;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* 이미지 슬라이더 */
+.image_slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.slider_image_container {
+  width: 269px;
+  height: 113px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.slider_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider_arrow {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.2s;
+}
+
+.slider_arrow:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* 작성자 정보 */
+.owner_info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.owner_name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c2c2c;
+}
+
+/* 참여인원 정보 */
+.participant_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.participant_label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c2c2c;
+}
+
+.participant_value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #6e9556;
+}
+
+/* 소개 섹션 */
+.description_section {
+  margin-bottom: 30px;
+  padding: 25px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.description_title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin-bottom: 15px;
+}
+
+.description_text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #2c2c2c;
+  white-space: pre-line;
+}
+
+/* 기간 정보 */
+.period_info {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.info_section_title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin-bottom: 10px;
+}
+
+.period_content {
+  font-size: 14px;
+  color: #1e1e1e;
+  line-height: 1.4;
+}
+
+/* 장소 정보 */
+.location_info {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.location_content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.location_main {
+  font-size: 14px;
+  color: #000000;
+  line-height: 1.4;
+}
+
+.location_detail {
+  font-size: 14px;
+  color: #000000;
+  line-height: 1.4;
+}
+
+.map_icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #6e9556;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* 하단 액션 버튼들 */
+.action_buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 40px;
+  padding: 25px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.apply_button {
+  background-color: #9bb86e !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 24px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s !important;
+}
+
+.apply_button:hover {
+  background-color: #8aa85d !important;
+}
+
+.edit_button {
+  background-color: #939393 !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 24px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s !important;
+}
+
+.edit_button:hover {
+  background-color: #7a7a7a !important;
+}
+
+.cancel_button,
+.delete_button {
+  background-color: #f60101 !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 24px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s !important;
+}
+
+.cancel_button:hover,
+.delete_button:hover {
+  background-color: #d40000 !important;
+}
+
+/* 토지 상세 페이지 반응형 */
+@media (max-width: 768px) {
+  .land_detail_container {
+    padding: 16px;
+  }
+  
+  .image_slider {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .slider_image_container {
+    width: 100%;
+    max-width: 269px;
+  }
+  
+  .action_buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .apply_button,
+  .edit_button,
+  .cancel_button,
+  .delete_button {
+    width: 100%;
   }
 }
 
