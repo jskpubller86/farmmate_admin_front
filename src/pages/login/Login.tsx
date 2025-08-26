@@ -18,8 +18,7 @@ const schema = yup
   .required();
 
 const Login: React.FC = () => {
-  const { alertWarn, alertSuccess, alertError } = useAlert();
-  const { openModal, closeModal } = useModal();
+  const { alertSuccess, alertError } = useAlert();
   const api = useAPI();
   const { user, login, logout } = useAuth();
   const navigate = useNavigate();
