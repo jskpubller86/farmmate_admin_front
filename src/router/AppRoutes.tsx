@@ -12,11 +12,6 @@ import Toast from "../pages/sample/Toast";
 import Signup from "../pages/signup/Signup";
 import Main from "../layout/Main";
 import Layout from "../layout/Layout";
-import FundList from "../pages/fund/FundList";
-import Myfund from "../pages/fund/Myfund";
-import FundRank from "../pages/fund/FundRank";
-import FundGuide from "../pages/guide/FundGuide";
-import LandGuide from "../pages/guide/LandGuide";
 import Alert from "../pages/alert/Alert";
 import LeaseContract from "../pages/lease/LeaseContract";
 import LeaseDetail from "../pages/lease/LeaseDetail";
@@ -26,14 +21,13 @@ import LandLeaseList from "../pages/land/LandLeaseList";
 import LandRegistration from "../pages/land/LandRegistration";
 import LandRentAdd from "../pages/land/LandRentAdd";
 import LandDetail from "../pages/land/LandDetail";
-import FundDetail from "../pages/fund/FundDetail";
-import FundWrite from "../pages/fund/FundWrite";
 import MypageEdit from "../pages/mypage/MypageEdit";
 
 // import ModalSample from "../pages/sample/ModalSample";
 import QandA from "../pages/community/qanda/QandA";
 import MarketList from "../pages/market/MarketList";
 import MarketDetail from "../pages/market/MarketDetail";
+import MarketWrite from "../pages/market/MarketWrite";
 import Mycart from "../pages/cart/Mycart";
 import ModalSample from "../pages/sample/ModalSample";
 import Homepage from "../pages/main/homepage";
@@ -75,36 +69,12 @@ const AppRoutes: React.FC = () => {
       element: <Mycart />,
     },
     {
-      path: "/myfund",
-      element: <Myfund />,
-    },
-    {
-      path: "/fund_rank",
-      element: <FundRank />,
-    },
-    {
-      path: "/farming_guide",
-      element: <FundGuide />,
-    },
-    {
-      path: "/land_guide",
-      element: <LandGuide />,
-    },
-    {
       path: "/alert",
       element: <Alert />,
     },
     {
-      path: "/fund_list/:type",
-      element: <FundList />,
-    },
-    {
-      path: "/fund_detail/:fundId",
-      element: <FundDetail />,
-    },
-    {
-      path: "/fund_write",
-      element: <FundWrite />,
+      path: "/market_write",
+      element: <MarketWrite />,
     },
     // Lease routes
     { path: "/lease/contract", element: <LeaseContract /> },
