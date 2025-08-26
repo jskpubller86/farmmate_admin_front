@@ -1104,16 +1104,25 @@
 }
 
 /* 반응형 디자인 */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   .funds_grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.25rem;
+    max-width: 1200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .funds_grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    max-width: 1000px;
   }
 }
 
 @media (max-width: 768px) {
   .myfund_container {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .tab_row {
@@ -1135,6 +1144,8 @@
   .funds_grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+    max-width: 100%;
+    padding: 0 0.5rem;
   }
 
   .fund_card {
@@ -1154,12 +1165,16 @@
 
 @media (max-width: 480px) {
   .myfund_container {
-    padding: 0.5rem;
+    padding: 0.25rem;
   }
 
   .tab {
     font-size: 0.8rem;
     padding: 0.5rem 1rem;
+  }
+
+  .funds_grid {
+    padding: 0 0.25rem;
   }
 
   .fund_info {

@@ -5,8 +5,8 @@ import { Button, Badge } from "../../components/ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBook,
-  faChartLine,
-  faLightbulb,
+  faSeedling,
+  faLeaf,
   faShieldAlt,
   faCalculator,
   faHandshake,
@@ -17,6 +17,9 @@ import {
   faUsers,
   faClock,
   faMapMarkerAlt,
+  faWater,
+  faSun,
+  faThermometerHalf,
 } from "@fortawesome/free-solid-svg-icons";
 
 type GuideSection = {
@@ -32,72 +35,73 @@ const FundGuide: React.FC = () => {
   const guideSections: GuideSection[] = [
     {
       id: "basics",
-      title: "펀드 투자 기초",
+      title: "농업 기초 지식",
       icon: faBook,
       content: (
         <div className={styles.section_content}>
           <div className={styles.content_grid}>
             <div className={styles.content_card}>
-              <h3>펀드란 무엇인가요?</h3>
+              <h3>농업이란 무엇인가요?</h3>
               <p>
-                펀드는 여러 투자자들이 모여서 전문가가 관리하는 투자 상품입니다.
-                농업 펀드의 경우, 농작물 재배나 농장 운영에 필요한 자금을 모으고
-                수익을 공유하는 방식으로 운영됩니다.
+                농업은 식량 생산을 위한 가장 기본적인 산업으로, 토지에서 작물을
+                재배하고 가축을 사육하여 인간의 생존에 필요한 식량을 제공합니다.
+                현대 농업은 과학적 지식과 기술을 바탕으로 지속가능한 발전을
+                추구합니다.
               </p>
               <div className={styles.feature_list}>
                 <div className={styles.feature_item}>
                   <FontAwesomeIcon
-                    icon={faUsers}
+                    icon={faSeedling}
                     className={styles.feature_icon}
                   />
-                  <span>공동 투자로 위험 분산</span>
+                  <span>지속가능한 식량 생산</span>
                 </div>
                 <div className={styles.feature_item}>
                   <FontAwesomeIcon
                     icon={faShieldAlt}
                     className={styles.feature_icon}
                   />
-                  <span>전문가 관리로 안정성 확보</span>
+                  <span>환경 보호와 생태계 유지</span>
                 </div>
                 <div className={styles.feature_item}>
                   <FontAwesomeIcon
-                    icon={faChartLine}
+                    icon={faUsers}
                     className={styles.feature_icon}
                   />
-                  <span>투명한 수익 공유</span>
+                  <span>농촌 지역 활성화</span>
                 </div>
               </div>
             </div>
 
             <div className={styles.content_card}>
-              <h3>투자 과정 이해하기</h3>
+              <h3>농작물 재배 과정 이해하기</h3>
               <div className={styles.process_steps}>
                 <div className={styles.process_step}>
                   <div className={styles.step_number}>1</div>
                   <div className={styles.step_content}>
-                    <h4>펀드 선택</h4>
-                    <p>투자하고 싶은 농작물과 농장을 선택합니다</p>
+                    <h4>토양 준비</h4>
+                    <p>작물 재배에 적합한 토양을 준비하고 비료를 시비합니다</p>
                   </div>
                 </div>
                 <div className={styles.process_step}>
                   <div className={styles.step_number}>2</div>
                   <div className={styles.step_content}>
-                    <h4>투자 신청</h4>
-                    <p>원하는 금액을 입력하고 투자를 신청합니다</p>
+                    <h4>씨앗 파종</h4>
+                    <p>적절한 시기에 씨앗을 심거나 모종을 심습니다</p>
                   </div>
                 </div>
                 <div className={styles.process_step}>
                   <div className={styles.step_number}>3</div>
                   <div className={styles.step_content}>
-                    <h4>운영 모니터링</h4>
-                    <p>펀드 진행 상황을 실시간으로 확인합니다</p>
+                    <h4>재배 관리</h4>
+                    <p>물주기, 병해충 방제, 잡초 제거 등을 관리합니다</p>
                   </div>
                 </div>
                 <div className={styles.process_step}>
                   <div className={styles.step_number}>4</div>
                   <div className={styles.step_content}>
-                    <h4>수익 분배</h4>
-                    <p>수확 후 투자 비율에 따라 수익을 받습니다</p>
+                    <h4>수확</h4>
+                    <p>적절한 시기에 수확하여 품질 좋은 농산물을 얻습니다</p>
                   </div>
                 </div>
               </div>
@@ -108,13 +112,13 @@ const FundGuide: React.FC = () => {
     },
     {
       id: "strategy",
-      title: "투자 전략",
-      icon: faLightbulb,
+      title: "재배 전략",
+      icon: faLeaf,
       content: (
         <div className={styles.section_content}>
           <div className={styles.content_grid}>
             <div className={styles.content_card}>
-              <h3>포트폴리오 구성 전략</h3>
+              <h3>작물 선택 전략</h3>
               <div className={styles.strategy_tips}>
                 <div className={styles.strategy_tip}>
                   <FontAwesomeIcon
@@ -122,8 +126,8 @@ const FundGuide: React.FC = () => {
                     className={styles.tip_icon}
                   />
                   <div>
-                    <h4>다양화 전략</h4>
-                    <p>여러 농작물과 농장에 분산 투자하여 위험을 줄입니다</p>
+                    <h4>지역별 적합 작물</h4>
+                    <p>기후와 토질에 맞는 작물을 선택하여 생산성을 높입니다</p>
                   </div>
                 </div>
                 <div className={styles.strategy_tip}>
@@ -132,10 +136,9 @@ const FundGuide: React.FC = () => {
                     className={styles.tip_icon}
                   />
                   <div>
-                    <h4>계절별 투자</h4>
+                    <h4>계절별 작물 배치</h4>
                     <p>
-                      계절에 따라 다른 농작물에 투자하여 연중 수익을
-                      안정화합니다
+                      계절에 따라 다른 작물을 재배하여 연중 생산을 안정화합니다
                     </p>
                   </div>
                 </div>
@@ -145,15 +148,15 @@ const FundGuide: React.FC = () => {
                     className={styles.tip_icon}
                   />
                   <div>
-                    <h4>지역 분산</h4>
-                    <p>다양한 지역의 농장에 투자하여 기후 위험을 분산합니다</p>
+                    <h4>시장 수요 분석</h4>
+                    <p>소비자 선호도와 시장 가격을 고려한 작물을 선택합니다</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className={styles.content_card}>
-              <h3>투자 타이밍 전략</h3>
+              <h3>재배 계획 수립</h3>
               <div className={styles.timing_strategy}>
                 <div className={styles.timing_item}>
                   <FontAwesomeIcon
@@ -161,8 +164,8 @@ const FundGuide: React.FC = () => {
                     className={styles.timing_icon}
                   />
                   <div>
-                    <h4>장기 투자</h4>
-                    <p>1년 이상의 장기 투자로 안정적인 수익을 추구합니다</p>
+                    <h4>장기 계획</h4>
+                    <p>3-5년 단위로 작물 순환과 토양 관리를 계획합니다</p>
                   </div>
                 </div>
                 <div className={styles.timing_item}>
@@ -171,8 +174,8 @@ const FundGuide: React.FC = () => {
                     className={styles.timing_icon}
                   />
                   <div>
-                    <h4>프리미엄 상품</h4>
-                    <p>고품질 농작물과 검증된 농장에 우선 투자합니다</p>
+                    <h4>품질 중심 재배</h4>
+                    <p>양보다는 질을 중시하여 고품질 농산물을 생산합니다</p>
                   </div>
                 </div>
               </div>
@@ -198,9 +201,23 @@ const FundGuide: React.FC = () => {
                   />
                   <div>
                     <h4>기후 위험</h4>
-                    <p>가뭄, 홍수, 태풍 등 자연재해로 인한 수확량 감소</p>
+                    <p>가뭄, 홍수, 태풍, 서리 등 자연재해로 인한 작물 피해</p>
                     <div className={styles.risk_mitigation}>
-                      <strong>대응 방안:</strong> 다양한 지역에 분산 투자
+                      <strong>대응 방안:</strong> 기상 정보 모니터링 및 보험
+                      가입
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.risk_factor}>
+                  <FontAwesomeIcon
+                    icon={faExclamationTriangle}
+                    className={styles.risk_icon}
+                  />
+                  <div>
+                    <h4>병해충 위험</h4>
+                    <p>작물 질병과 해충으로 인한 수확량 감소</p>
+                    <div className={styles.risk_mitigation}>
+                      <strong>대응 방안:</strong> 예방적 방제와 친환경 농법 적용
                     </div>
                   </div>
                 </div>
@@ -213,21 +230,7 @@ const FundGuide: React.FC = () => {
                     <h4>시장 위험</h4>
                     <p>농산물 가격 변동으로 인한 수익성 변화</p>
                     <div className={styles.risk_mitigation}>
-                      <strong>대응 방안:</strong> 안정적인 수요가 있는 작물 선택
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.risk_factor}>
-                  <FontAwesomeIcon
-                    icon={faExclamationTriangle}
-                    className={styles.risk_icon}
-                  />
-                  <div>
-                    <h4>운영 위험</h4>
-                    <p>농장 운영자의 경험과 능력에 따른 성과 차이</p>
-                    <div className={styles.risk_mitigation}>
-                      <strong>대응 방안:</strong> 검증된 농장과 경험 있는 농장주
-                      선택
+                      <strong>대응 방안:</strong> 다양한 작물 재배와 계약 재배
                     </div>
                   </div>
                 </div>
@@ -238,18 +241,18 @@ const FundGuide: React.FC = () => {
               <h3>위험 관리 방법</h3>
               <div className={styles.risk_management}>
                 <div className={styles.management_method}>
-                  <h4>투자 한도 설정</h4>
+                  <h4>다양화 전략</h4>
                   <p>
-                    전체 자산의 일정 비율만 펀드에 투자하여 위험을 제한합니다
+                    여러 작물을 동시에 재배하여 특정 작물의 위험을 분산합니다
                   </p>
                   <div className={styles.recommendation}>
-                    <strong>권장 비율:</strong> 전체 자산의 20-30%
+                    <strong>권장 방법:</strong> 3-5개 작물 동시 재배
                   </div>
                 </div>
                 <div className={styles.management_method}>
-                  <h4>단계별 투자</h4>
+                  <h4>기술 개발 투자</h4>
                   <p>
-                    처음에는 소액으로 시작하여 점진적으로 투자 금액을 늘립니다
+                    최신 농업 기술과 장비를 도입하여 생산성과 안정성을 높입니다
                   </p>
                 </div>
               </div>
@@ -260,42 +263,40 @@ const FundGuide: React.FC = () => {
     },
     {
       id: "calculation",
-      title: "수익 계산",
+      title: "수익성 분석",
       icon: faCalculator,
       content: (
         <div className={styles.section_content}>
           <div className={styles.content_grid}>
             <div className={styles.content_card}>
-              <h3>수익률 계산 방법</h3>
+              <h3>수익성 계산 방법</h3>
               <div className={styles.calculation_example}>
                 <div className={styles.example_scenario}>
-                  <h4>투자 시나리오 예시</h4>
+                  <h4>재배 시나리오 예시</h4>
                   <div className={styles.scenario_details}>
                     <div className={styles.detail_item}>
-                      <span className={styles.detail_label}>투자 금액:</span>
-                      <span className={styles.detail_value}>100만원</span>
+                      <span className={styles.detail_label}>재배 면적:</span>
+                      <span className={styles.detail_value}>1,000㎡</span>
                     </div>
                     <div className={styles.detail_item}>
-                      <span className={styles.detail_label}>투자 기간:</span>
-                      <span className={styles.detail_value}>12개월</span>
+                      <span className={styles.detail_label}>재배 기간:</span>
+                      <span className={styles.detail_value}>6개월</span>
                     </div>
                     <div className={styles.detail_item}>
-                      <span className={styles.detail_label}>예상 수익률:</span>
-                      <span className={styles.detail_value}>15%</span>
+                      <span className={styles.detail_label}>예상 수확량:</span>
+                      <span className={styles.detail_value}>3톤</span>
                     </div>
                     <div className={styles.detail_item}>
                       <span className={styles.detail_label}>예상 수익:</span>
-                      <span className={styles.detail_value}>15만원</span>
+                      <span className={styles.detail_value}>450만원</span>
                     </div>
                   </div>
                 </div>
                 <div className={styles.calculation_formula}>
-                  <h4>수익률 공식</h4>
-                  <div className={styles.formula}>
-                    수익률 = (수익금액 ÷ 투자금액) × 100
-                  </div>
+                  <h4>수익성 공식</h4>
+                  <div className={styles.formula}>순수익 = 총수익 - 총비용</div>
                   <div className={styles.formula_example}>
-                    예시: (15만원 ÷ 100만원) × 100 = 15%
+                    예시: 450만원 - 200만원 = 250만원
                   </div>
                 </div>
               </div>
@@ -305,23 +306,23 @@ const FundGuide: React.FC = () => {
               <h3>수익에 영향을 주는 요소</h3>
               <div className={styles.profit_factors}>
                 <div className={styles.profit_factor}>
-                  <h4>농작물 종류</h4>
+                  <h4>작물 종류</h4>
                   <p>
                     작물별로 수익성이 다르며, 시장 수요와 공급에 따라 가격이
                     결정됩니다
                   </p>
                 </div>
                 <div className={styles.profit_factor}>
-                  <h4>농장 위치</h4>
+                  <h4>재배 환경</h4>
                   <p>
                     토질, 기후, 물 공급 등 환경 조건이 수확량과 품질에 영향을
                     줍니다
                   </p>
                 </div>
                 <div className={styles.profit_factor}>
-                  <h4>운영 효율성</h4>
+                  <h4>재배 기술</h4>
                   <p>
-                    농장주의 경험과 기술력이 수익성에 직접적인 영향을 미칩니다
+                    농업인의 경험과 기술력이 수익성에 직접적인 영향을 미칩니다
                   </p>
                 </div>
               </div>
@@ -332,20 +333,20 @@ const FundGuide: React.FC = () => {
     },
     {
       id: "tips",
-      title: "투자 팁",
+      title: "재배 팁",
       icon: faHandshake,
       content: (
         <div className={styles.section_content}>
           <div className={styles.content_grid}>
             <div className={styles.content_card}>
-              <h3>초보자를 위한 투자 팁</h3>
+              <h3>초보자를 위한 재배 팁</h3>
               <div className={styles.beginner_tips}>
                 <div className={styles.tip_item}>
                   <div className={styles.tip_number}>01</div>
                   <div className={styles.tip_content}>
-                    <h4>작은 금액으로 시작하기</h4>
+                    <h4>작은 면적으로 시작하기</h4>
                     <p>
-                      처음에는 10-50만원 정도의 소액으로 시작하여 펀드 투자에
+                      처음에는 100-200㎡ 정도의 작은 면적으로 시작하여 재배에
                       익숙해집니다
                     </p>
                   </div>
@@ -353,19 +354,20 @@ const FundGuide: React.FC = () => {
                 <div className={styles.tip_item}>
                   <div className={styles.tip_number}>02</div>
                   <div className={styles.tip_content}>
-                    <h4>다양한 정보 확인하기</h4>
+                    <h4>기초 정보 학습하기</h4>
                     <p>
-                      농장 정보, 작물 정보, 시장 동향 등 다양한 정보를
-                      종합적으로 검토합니다
+                      토양, 기후, 작물 특성 등 기초적인 농업 지식을 충분히
+                      학습합니다
                     </p>
                   </div>
                 </div>
                 <div className={styles.tip_item}>
                   <div className={styles.tip_number}>03</div>
                   <div className={styles.tip_content}>
-                    <h4>장기적 관점 유지하기</h4>
+                    <h4>지역 농업인과 소통하기</h4>
                     <p>
-                      단기적인 가격 변동보다는 장기적인 성장 가능성을 고려합니다
+                      경험 있는 지역 농업인과의 소통을 통해 실용적인 지식을
+                      얻습니다
                     </p>
                   </div>
                 </div>
@@ -374,8 +376,8 @@ const FundGuide: React.FC = () => {
                   <div className={styles.tip_content}>
                     <h4>정기적인 모니터링</h4>
                     <p>
-                      투자한 펀드의 진행 상황을 정기적으로 확인하고 필요시
-                      조정합니다
+                      작물의 생육 상황을 정기적으로 확인하고 필요시 관리 조치를
+                      취합니다
                     </p>
                   </div>
                 </div>
@@ -383,36 +385,36 @@ const FundGuide: React.FC = () => {
             </div>
 
             <div className={styles.content_card}>
-              <h3>성공적인 투자를 위한 체크리스트</h3>
+              <h3>성공적인 재배를 위한 체크리스트</h3>
               <div className={styles.checklist}>
                 <div className={styles.checklist_item}>
                   <input type="checkbox" id="check1" />
                   <label htmlFor="check1">
-                    투자 목표와 기간을 명확히 설정했는가?
+                    재배 목표와 계획을 명확히 설정했는가?
                   </label>
                 </div>
                 <div className={styles.checklist_item}>
                   <input type="checkbox" id="check2" />
                   <label htmlFor="check2">
-                    투자 가능한 금액을 현실적으로 산정했는가?
+                    토양 상태와 기후 조건을 파악했는가?
                   </label>
                 </div>
                 <div className={styles.checklist_item}>
                   <input type="checkbox" id="check3" />
                   <label htmlFor="check3">
-                    선택한 펀드의 위험도를 이해하고 있는가?
+                    적합한 작물과 품종을 선택했는가?
                   </label>
                 </div>
                 <div className={styles.checklist_item}>
                   <input type="checkbox" id="check4" />
                   <label htmlFor="check4">
-                    다양한 펀드에 분산 투자하고 있는가?
+                    필요한 자재와 장비를 준비했는가?
                   </label>
                 </div>
                 <div className={styles.checklist_item}>
                   <input type="checkbox" id="check5" />
                   <label htmlFor="check5">
-                    정기적으로 투자 현황을 점검하고 있는가?
+                    정기적인 관리 계획을 수립했는가?
                   </label>
                 </div>
               </div>
@@ -434,11 +436,11 @@ const FundGuide: React.FC = () => {
         <div className={styles.header_content}>
           <h1 className={styles.page_title}>
             <FontAwesomeIcon icon={faBook} className={styles.title_icon} />
-            투자 가이드
+            농업 가이드
           </h1>
           <p className={styles.page_subtitle}>
-            펀드 투자 기초부터 전략까지, 안전하고 수익성 있는 투자를 위한 모든
-            정보
+            농업 기초부터 재배 전략까지, 지속가능하고 수익성 있는 농업을 위한
+            모든 정보
           </p>
         </div>
       </div>
@@ -467,21 +469,21 @@ const FundGuide: React.FC = () => {
       {/* 액션 영역 */}
       <div className={styles.action_section}>
         <div className={styles.action_content}>
-          <h2>지금 바로 펀드 투자를 시작해보세요</h2>
-          <p>투자 가이드를 통해 배운 지식을 바탕으로 첫 투자를 시작해보세요</p>
+          <h2>지금 바로 농업을 시작해보세요</h2>
+          <p>농업 가이드를 통해 배운 지식을 바탕으로 첫 재배를 시작해보세요</p>
           <div className={styles.action_buttons}>
-            <Link to="/fund_list/all">
+            <Link to="/land_list/all">
               <Button className={styles.primary_action} color="point2">
-                펀드 둘러보기
+                농지 둘러보기
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   className={styles.button_icon}
                 />
               </Button>
             </Link>
-            <Link to="/fund_rank">
+            <Link to="/guide/land">
               <Button className={styles.secondary_action} color="secondary">
-                인기 펀드 보기
+                농지 가이드 보기
                 <FontAwesomeIcon icon={faStar} className={styles.button_icon} />
               </Button>
             </Link>
