@@ -49,7 +49,7 @@ body {
 
 a, a:active, a:link, a:visited, strong, b {color: inherit}
 
-strong, b, h1, h2, h3, h4, h5, h6 {font-family: primaryBold;font-weight: normal;}
+strong, b, h1, h2, h3, h4, h5, h6, th {font-family: primaryBold;font-weight: normal;}
 
 .sr_only {
   position: absolute;

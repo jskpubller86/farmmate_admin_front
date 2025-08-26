@@ -32,20 +32,18 @@
   width: 100%;
 }
 
-.boardTable {
+.board_table {
   width: 100%;
   border-collapse: collapse;
 }
-
-.boardTable th,
-.boardTable td {
-  border: 1px solid #ddd;
+.board_th {padding: 1rem;}
+.board_table td {
+  border-bottom: 1px solid #ddd;
   padding: 10px;
 }
-
-.boardTable thead {
-  background-color: purple;
-  color : #ddd;
+.board_title_img {
+  vertical-align: middle;
+  margin-right: 1rem;
 }
 
 .titleLink {
