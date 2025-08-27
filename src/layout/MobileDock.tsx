@@ -17,7 +17,7 @@ const MobileDock: React.FC = () => {
     <div className={styles.dock_layout}>
       {user && (
         <>
-          <Button type="button" size="xs" onClick={() => navi("/login")}>
+          <Button type="button" size="xs" onClick={() => navi("/alert")}>
             알림
           </Button>{" "}
           <Link to={"/mypage"}>
@@ -38,10 +38,10 @@ const MobileDock: React.FC = () => {
       )}
       {
         <>
-          <Button type="button" size="xs" onClick={() => navi("/login")}>
+          <Button type="button" size="xs" onClick={() => navi("/alert")}>
             공지사항
           </Button>{" "}
-          <Link to={"/mypage"}>
+          <Link to={user ? "/mypage" : "/login"}>
             {" "}
             <Avatar />{" "}
           </Link>

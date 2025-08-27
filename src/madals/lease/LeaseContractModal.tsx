@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "../../components/modal/Modal";
-import LeaseContractView from "./LeaseContractView";
+import LeaseContractView from "./LeaseContractViewModal";
 import useModal from "../../hooks/useModal";
 
 interface LeaseContractModalProps {

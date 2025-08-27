@@ -1,34 +1,45 @@
-/* 모달 컨텐츠 */
-.modal_content {
-  background: #ffffff;
-  border-radius: 8px;
-  overflow: hidden;
-  max-height: 90vh;
+/* flex */
+.modal_header_box, .contract_box, .section_box {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.modal_container {
+  display: flex;
+}
+
+/* flex 방향 */
+.modal_container, .contract_box, .section_box {
   flex-direction: column;
 }
 
-/* 모달 헤더 */
-.modal_header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 1.5rem;
-  border-bottom: none;
-  background: transparent;
+/* flex 정렬 */
+.modal_header_box {
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* flex gap */
+.modal_container, .contract_box {
+  gap: 2rem;
+}
+.section_box {
+  gap: 1rem;
+}
+
+
+/* 모달 컨테이너 */
+.modal_container_wrap {
+  padding: 1rem;
+}
+.modal_container {
+  overflow-y: scroll;
+  max-height: 90vh;
+  padding: 2rem;
 }
 
 .modal_title {
   font-size: 1.25rem;
-  font-weight: 600;
-  color: #111827;
-  margin: 0;
-  font-family: "NanumGothic", sans-serif;
-}
-
-.modal_actions {
-  display: flex;
-  gap: 0.5rem;
 }
 
 .btn_close {
@@ -47,41 +58,16 @@
   color: #374151;
 }
 
-/* 계약서 내용 */
-.contract_content {
-  padding: 1.5rem;
-  overflow-y: auto;
-  flex: 1;
-}
-
 /* 섹션 기본 */
-.section {
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  padding: 0;
-  margin-bottom: 4rem;
-}
 
 .section_title {
-  font-weight: 700;
-  margin-bottom: 1rem;
   font-size: 1.125rem;
-  color: #000000;
-  font-family: "NanumGothic", sans-serif;
 }
 
 /* 체결 문구 섹션 */
-.section_note {
-  padding: 0.25rem 0 2rem;
-}
-
-.center_text {
+.note_box {
   text-align: center;
-  font-weight: 600;
   font-size: 1.25rem;
-  color: #000000;
-  font-family: "NanumGothic", sans-serif;
 }
 
 /* 공통 테이블 베이스 (grid) */
@@ -232,23 +218,4 @@
   border-radius: 0;
   background: #ffffff;
   margin: 0 auto;
-}
-
-/* 모달 스크롤바 스타일링 */
-.contract_content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.contract_content::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-.contract_content::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
-}
-
-.contract_content::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
 }

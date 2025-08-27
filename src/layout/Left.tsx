@@ -27,6 +27,7 @@ const Left: React.FC = () => {
   const navi = useNavigate();
   const [guideDropdownOpen, setGuideDropdownOpen] = useState(false);
   const [mypageDropdownOpen, setMypageDropdownOpen] = useState(false);
+  const [communityDropdownOpen, setCommunityDropdownOpen] = useState(false);
 
   const handleDeactive = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -114,12 +115,12 @@ const Left: React.FC = () => {
         </div>
 
         <div className={styles.left_quick_card}>
-          <Link to={"/fund_list/:type"} className={styles.left_quick_row}>
-            <span>펀드</span>
+          <Link to={"/market_list"} className={styles.left_quick_row}>
+            <span>마켓</span>
             <img
               src="/images/fund_icon.svg"
               className={styles.left_quick_icon}
-              alt="펀드"
+              alt="마켓"
             />
           </Link>
           <Link to={"/land"} className={styles.left_quick_row}>
@@ -153,46 +154,49 @@ const Left: React.FC = () => {
                 <Link to="/mypage" className={styles.mypage_dropdown_item}>
                   <span>내 정보</span>
                 </Link>
-                <Link to="/" className={styles.mypage_dropdown_item}>
+                <Link
+                  to="/lease/my-lease"
+                  className={styles.mypage_dropdown_item}
+                >
                   <span>내 임대 / 임차</span>
                 </Link>
-                <Link to="/myfund" className={styles.mypage_dropdown_item}>
-                  <span>내 펀드</span>
+                <Link to="/market_list" className={styles.mypage_dropdown_item}>
+                  <span>내 마켓</span>
+                </Link>
+                <Link to="/mycart" className={styles.mypage_dropdown_item}>
+                  <span>내 장바구니</span>
+                </Link>
+                <Link to="/lease/wish" className={styles.mypage_dropdown_item}>
+                  <span>내 찜목록</span>
                 </Link>
               </div>
             )}
           </div>
-          <div className={styles.left_navigation_box}>
-            <Link to="/fund_rank" className={styles.left_navigation_item}>
-              <span>펀드 랭킹</span>
-              <img
-                src="/images/triangle_icon.svg"
-                className={styles.left_triangle_icon_img}
-                alt="화살표"
-              />
-            </Link>
-          </div>
+
           <div className={styles.left_navigation_box}>
             <div
               className={styles.left_navigation_item}
-              onClick={() => setGuideDropdownOpen(!guideDropdownOpen)}
+              onClick={() => setCommunityDropdownOpen(!communityDropdownOpen)}
             >
-              <span>가이드</span>
+              <span>커뮤니티</span>
               <img
                 src="/images/triangle_icon.svg"
                 className={`${styles.left_triangle_icon_img} ${
-                  guideDropdownOpen ? styles.rotate_down : ""
+                  communityDropdownOpen ? styles.rotate_down : ""
                 }`}
                 alt="화살표"
               />
             </div>
-            {guideDropdownOpen && (
-              <div className={styles.guide_dropdown}>
-                <Link to="/fund_guide" className={styles.guide_dropdown_item}>
-                  <span>투자 가이드</span>
+            {communityDropdownOpen && (
+              <div className={styles.community_dropdown}>
+                <Link
+                  to="/board/boardList"
+                  className={styles.community_dropdown_item}
+                >
+                  <span>자유게시판</span>
                 </Link>
-                <Link to="/land_guide" className={styles.guide_dropdown_item}>
-                  <span>법률 가이드</span>
+                <Link to="/qanda" className={styles.community_dropdown_item}>
+                  <span>Q&A</span>
                 </Link>
               </div>
             )}

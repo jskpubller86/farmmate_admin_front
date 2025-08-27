@@ -1,11 +1,35 @@
-/* flex style */
-.container {display: flex;}
+/* flex display */
+.container, .search_sort_row, .search_section, .sort_section, .market_filter, .pill {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-/* flex-direction style */
-.container {flex-direction: column;}
+.cards_grid {
+  display: grid;
+}
 
-/* flex-Gap style */
-.container {gap: 2rem;}
+/* flex 정렬 */
+.search_section, .sort_section, .pill {
+  align-items: center;
+}
+
+.search_section, .sort_section, .pill {
+  gap: 0.5rem;
+}
+
+/* flex 방향 */
+.container, .search_sort_row {
+  flex-direction: column;
+}
+
+/* flex 갭 */
+.search_sort_row {
+  gap: 1rem;
+}
+
+.market_filter {
+  gap: 0.75rem;
+}
 
 /* container */
 .container {
@@ -15,157 +39,169 @@
   padding: 2rem;
 }
 
-/* 제목 */
-.title {
-  font-size: 1.28571rem;
+/* header_area */
+.header_area {
+  margin-bottom: 2rem;
 }
 
-/* Tabs */
-.tabs_container {
-  display: flex;
-  border: 1px solid #cccccc;
-  border-radius: 5px;
+/* main_slider */
+.main_slider {
+  margin-bottom: 2rem;
+  border-radius: 12px;
   overflow: hidden;
-  margin-bottom: 28px;
+  background-color: #f9fafb;
 }
 
-.tab_item {
-  flex: 1;
-  min-width: 58px;
-  height: 35px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
+.main_slide {
+  position: relative;
+  height: 200px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   align-items: center;
   justify-content: center;
-  border-right: 1px solid #cccccc;
-  font-family: 'NanumGothic', sans-serif;
+  color: white;
+  text-align: center;
+}
+
+.slide_content h2 {
+  font-size: 1.5rem;
   font-weight: 700;
-  font-size: 14px;
-  line-height: 21px;
+  margin-bottom: 0.5rem;
 }
 
-.tab_item:last-child {
-  border-right: none;
+.slide_content p {
+  font-size: 1rem;
+  opacity: 0.9;
 }
 
-.tab_item:hover {
-  background: #e8e8e8;
+/* market_filter_box */
+.market_filter_box {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.tab_item_active {
-  background: #ffffff;
-  color: #000000;
+.filter_scroll_container {
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
 }
 
-.tab_item_inactive {
-  background: #f3f3f3;
-  color: #939393;
-}
-
-/* 검색 영역 */
-.search_container {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 28px;
-  align-items: center;
-}
-
-/* 정렬 옵션 */
-.sort_container {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 28px;
-  align-items: center;
-}
-
-.sort_option {
-  background: none;
-  border: none;
-  font-family: 'NanumGothic', sans-serif;
-  font-size: 14px;
-  cursor: pointer;
+.market_filter {
+  list-style: none;
   padding: 0;
-  color: #939393;
-  transition: color 0.2s ease;
+  margin: 0;
+  min-width: max-content;
 }
 
-.sort_option_active {
-  color: #000000;
-  font-weight: 700;
+.pill {
+  padding: 0.5rem 1rem;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  color: #374151;
 }
 
-.sort_option:hover {
-  color: #000000;
+.pill:hover {
+  background: #e5e7eb;
+  border-color: #d1d5db;
 }
 
-/* 계약 카드 그리드 */
-.cards_grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+.pill_active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
 }
 
-/* 계약 카드 래퍼 */
-.contract_card_wrapper {
-  position: relative;
-  background: #ffffff;
-  border: 1px solid #d9d9d9;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: box-shadow 0.2s ease;
+.pill_icon {
+  font-size: 0.875rem;
 }
 
-.contract_card_wrapper:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* search_sort_row */
+.search_category {
+  min-width: 120px;
 }
 
-/* 상태 뱃지 */
-.status_badge {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  z-index: 10;
-  display: inline-block;
-  padding: 0 8px;
-  height: 18px;
-  border-radius: 999px;
-  color: #ffffff;
-  font-family: 'NanumGothic', sans-serif;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 18px;
+.search_input {
+  flex: 1;
 }
 
-/* 카드 액션 버튼들 */
-.card_actions {
-  position: absolute;
-  bottom: 14px;
-  right: 14px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.cancel_button {
-  background-color: #f60101;
-  color: #ffffff;
+.search_btn {
+  padding: 0.5rem 1rem;
+  background: #3b82f6;
+  color: white;
   border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-family: 'NanumGothic', sans-serif;
-  font-weight: 700;
-  font-size: 12px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-.cancel_button:hover {
-  background-color: #d40000;
+.search_btn:hover {
+  background: #2563eb;
+}
+
+.sort_select {
+  min-width: 120px;
+}
+
+.filter_toggle_btn {
+  padding: 0.5rem 1rem;
+  background: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filter_toggle_btn:hover {
+  background: #4b5563;
+}
+
+/* title */
+.title {
+  font-size: 1.28571rem;
+  margin-bottom: 28px;
+}
+
+/* cards_grid */
+.cards_grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
 }
 
 /* 반응형 디자인 */
+@media (min-width: 768px) {
+  .search_sort_row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .search_section {
+    flex: 1;
+    max-width: 500px;
+  }
+  
+  .sort_section {
+    flex-shrink: 0;
+  }
+  
+  .main_slide {
+    height: 250px;
+  }
+  
+  .slide_content h2 {
+    font-size: 2rem;
+  }
+  
+  .slide_content p {
+    font-size: 1.125rem;
+  }
+}
+
 @media (max-width: 1200px) {
   .cards_grid {
     grid-template-columns: repeat(2, 1fr);
@@ -173,27 +209,11 @@
 }
 
 @media (max-width: 768px) {
-  
-  .search_container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .search_select,
-  .search_input {
-    width: 100%;
-  }
-  
   .cards_grid {
     grid-template-columns: 1fr;
   }
   
-  .tabs_container {
-    flex-wrap: wrap;
-  }
-  
-  .tab_item {
-    min-width: auto;
-    flex: 1 1 50%;
+  .container {
+    padding: 1rem;
   }
 }

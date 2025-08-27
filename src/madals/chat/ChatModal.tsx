@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, FormEventHandler, useCallback, useContext, useEffect, useRef, useState } from 'react'
-import styles from './chat.module.css'
+import styles from './Chat.module.css'
 import { Avatar, Button, TextArea } from '../../components/ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -9,19 +9,72 @@ import SockJS from "sockjs-client";
 import { useAuth, useAlert} from '../../hooks';
 import { appConsole } from '../../utils';
 
+const chatData: LogProps[] = [
+  {
+    isNewLog: true,
+    isMine: false,
+    userId: "user001",
+    channelId: "teamA",
+    userName: "김철수",
+    message: "오늘 회의록 정리했습니다.",
+    imgUrl: undefined,
+    creDatetime: new Date("2025-08-27T09:15:00"),
+  },
+  {
+    isNewLog: false,
+    isMine: true,
+    userId: "user002",
+    channelId: "teamA",
+    userName: "나",
+    message: "자료 업로드 완료했습니다.",
+    imgUrl: undefined,
+    creDatetime: new Date("2025-08-27T10:05:00"),
+  },
+  {
+    isNewLog: true,
+    isMine: false,
+    userId: "user003",
+    channelId: "teamA",
+    userName: "이영희",
+    message: "방금 코멘트 달았어요!",
+    imgUrl: undefined,
+    creDatetime: new Date("2025-08-27T10:20:00"),
+  },
+  {
+    isNewLog: false,
+    isMine: false,
+    userId: "user004",
+    channelId: "teamA",
+    userName: "박준형",
+    message: "내일 일정 확인 부탁드립니다.",
+    imgUrl: undefined,
+    creDatetime: new Date("2025-08-26T18:30:00"),
+  },
+  {
+    isNewLog: false,
+    isMine: true,
+    userId: "user002",
+    channelId: "teamA",
+    userName: "나",
+    message: "확인했습니다. 감사합니다.",
+    imgUrl: undefined,
+    creDatetime: new Date("2025-08-27T10:35:00"),
+  }
+]
+
 interface Props  {
     modalId?: number;
-    teamId:string;
+    channelId:string;
 }
 
 interface LogProps {
   isNewLog:boolean;
   isMine:boolean;
 	userId:string;
-  teamId:string; 
+  channelId:string; 
   userName:string; 
 	message:string;
-  imgUrl:string;
+  imgUrl:string | undefined;
   creDatetime:Date;
 }
 
@@ -57,8 +110,8 @@ type LogMap = { [key: string] : LogProps[] };
  * @returns 
  * @author 김종수
  */
-const Chat: React.FC<Props> = ({modalId, teamId}) => {
-  const [logs, setLogs] = useState<LogProps[]>([]); // 메시지 로그
+const Chat: React.FC<Props> = ({modalId, channelId}) => {
+  const [logs, setLogs] = useState<LogProps[]>(chatData); // 메시지 로그
   const pageRef = useRef(1); //
   const [message, setMessage] = useState("");
   const isWrittenRef = useRef(false);
@@ -105,7 +158,7 @@ const Chat: React.FC<Props> = ({modalId, teamId}) => {
    */
   useEffect(()=>{
     isMountedRef.current = true;
-    connect(`${process.env.REACT_APP_API_HOST}/ws?teamId=${teamId}`);
+    // 임시 주석 :  connect(`${process.env.REACT_APP_API_HOST}/ws?channelId=${channelId}`);
 
     return () => {
       isMountedRef.current = false;
@@ -135,7 +188,7 @@ const Chat: React.FC<Props> = ({modalId, teamId}) => {
 
     stompClient.onConnect = (frame) => {
       //연결되면 단체 구독설정
-      stompClient.subscribe(`/topic/team/${teamId}`, (message) => {
+      stompClient.subscribe(`/topic/team/${channelId}`, (message) => {
         const respLog:LogProps = JSON.parse(message.body);
         appendLog(normalize(respLog));
       })
@@ -222,7 +275,7 @@ const Chat: React.FC<Props> = ({modalId, teamId}) => {
       return Array.from(
           new Map(
             logs.map(item => [
-              `${item.userId}-${item.teamId}-${item.creDatetime.getTime()}`, // 고유 키
+              `${item.userId}-${item.channelId}-${item.creDatetime.getTime()}`, // 고유 키
               item
             ])
           ).values()
@@ -235,7 +288,7 @@ const Chat: React.FC<Props> = ({modalId, teamId}) => {
   const sendMessage = ()=>{
     if(stompClientRef.current) {
       stompClientRef.current.publish({
-        destination: `/app/chat/${teamId}`,
+        destination: `/app/chat/${channelId}`,
         body: JSON.stringify({message} as SendChatProps)});
     } else {
       toast.error('소켓이 아직 열리지 않았습니다.',{toastId: 1});
@@ -248,7 +301,7 @@ const Chat: React.FC<Props> = ({modalId, teamId}) => {
   const readHistory = ()=>{
     if(stompClientRef.current) {
       stompClientRef.current.publish({
-        destination: `/app/chat/history/${teamId}`,
+        destination: `/app/chat/history/${channelId}`,
         body: JSON.stringify({pageNum:pageRef.current} as ReadHistoryProps)});
     } else {
       alertError({message: '소켓이 아직 열리지 않았습니다.'})
@@ -355,7 +408,7 @@ const Chat: React.FC<Props> = ({modalId, teamId}) => {
                             <div className={log.isMine ? styles.my_unit_box : styles.another_unit_box}>
                               {!log.isMine && <Avatar src={log.imgUrl} />}
                               <div className={styles.unit_messge_box}>
-                                <div className={styles.user_name}>{log.userName}</div>
+                                {!log.isMine && <div className={styles.user_name}>{log.userName}</div>}
                                 <div className={styles.unit_message_wrap}>
                                   <p className={styles.unit_message}>{log.message} <span className={styles.time}>{printTime(log)}</span></p>
                                 </div>

@@ -1,0 +1,196 @@
+/* flex */
+.land_detail_container, .page_box {
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+/* flex 방향 */
+.land_detail_container {
+  flex-direction: column;
+}
+
+/* flex 정렬 */
+.page_box {
+  justify-content: center;
+}
+
+/* flex gap */
+.land_detail_container {
+  gap: 2rem;
+}
+
+.page_box {
+  gap: 0.5rem;
+}
+
+@media (max-width: 1120px){
+  .landlist_grid{ grid-template-columns: repeat(2, var(--card-w)); }
+}
+
+@media (max-width: 740px){
+  .landlist_grid{ grid-template-columns: 1fr; }
+}
+
+/* LandDetail 스타일 */
+.land_detail_container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+@media screen and (min-width: 760px) {
+    .land_detail_container {
+        padding: 2rem;
+    }
+}
+
+.back_button {
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.back_button:hover {
+  color: #374151;
+}
+
+.land_detail_title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 2rem;
+  line-height: 1.3;
+}
+
+/* React Slick 슬라이더 스타일 */
+.image_slider {
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f9fafb;
+  position: relative;
+}
+
+.slider_container {
+  width: 100%;
+  position: relative;
+}
+
+.slide_item {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Slick 화살표 버튼 커스터마이징 */
+.slider_container .slick-prev,
+.slider_container .slick-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider_container .slick-prev:hover,
+.slider_container .slick-next:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider_container .slick-prev {
+  left: 12px;
+}
+
+.slider_container .slick-next {
+  right: 12px;
+}
+
+/* Slick 점 인디케이터 커스터마이징 */
+.slider_container .slick-dots {
+  bottom: 16px;
+  z-index: 10;
+}
+
+.slider_container .slick-dots li {
+  margin: 0 4px;
+}
+
+.slider_container .slick-dots li button:before {
+  color: white;
+  font-size: 10px;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+.slider_container .slick-dots li.slick-active button:before {
+  opacity: 1;
+}
+
+/* 슬라이더 로딩 및 에러 상태 */
+.slider_container .slick-slide {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.slider_container .slick-slide.slick-active {
+  opacity: 1;
+}
+
+/* 반응형 디자인 */
+@media (min-width: 769px) {
+  .slide_item {
+    height: 400px;
+  }
+  
+  .slider_container .slick-prev,
+  .slider_container .slick-next {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  
+  .slider_container .slick-prev {
+    left: 16px;
+  }
+  
+  .slider_container .slick-next {
+    right: 16px;
+  }
+  
+  .slider_container .slick-dots li button:before {
+    font-size: 12px;
+  }
+}
+
+
+
+

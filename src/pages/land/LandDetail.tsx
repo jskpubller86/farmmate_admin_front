@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import styles from "./land.module.css";
-import layout from "../../layout/layout.module.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import styles from "./LandDetail.module.css";
 import { Button, Avatar, Badge, LikeIt } from "../../components/ui";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMap } from "@fortawesome/free-regular-svg-icons";
+import {useModal} from "../../hooks";
+import ApplicantListModal from "../../madals/lease/applicant/ApplicantListModal";
+import LeaseContractViewModal from "../../madals/lease/LeaseContractViewModal";
 
 interface LandDetailData {
   id: string;
@@ -26,9 +33,8 @@ interface LandDetailData {
 const LandDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [landData, setLandData] = useState<LandDetailData | null>(null);
-  const [isWished, setIsWished] = useState(false);
+  const { openModal } = useModal();
 
   useEffect(() => {
     // 실제로는 API 호출로 데이터를 가져와야 합니다
@@ -59,43 +65,9 @@ const LandDetail: React.FC = () => {
     setLandData(dummyData);
   }, [id]);
 
-  const nextImage = () => {
-    if (landData) {
-      setCurrentImageIndex((prev) => 
-        prev === landData.images.length - 1 ? 0 : prev + 1
-      );
-    }
-  };
-
-  const prevImage = () => {
-    if (landData) {
-      setCurrentImageIndex((prev) => 
-        prev === 0 ? (landData.images.length - 1) : prev - 1
-      );
-    }
-  };
-
   const handleApply = () => {
     // 신청하기 로직
     alert("신청이 완료되었습니다!");
-  };
-
-  const handleWish = () => {
-    setIsWished(!isWished);
-    // API 호출 로직 추가
-  };
-
-  const handleShare = () => {
-    // 공유하기 로직
-    if (navigator.share) {
-      navigator.share({
-        title: landData?.title,
-        url: window.location.href
-      });
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert("링크가 복사되었습니다!");
-    }
   };
 
   if (!landData) {
@@ -103,113 +75,84 @@ const LandDetail: React.FC = () => {
   }
 
   return (
-    <div className={layout.container_full}>
-      <div className={styles.land_detail_container}>
-        {/* 뒤로가기 버튼 */}
-        <div className={styles.back_section}>
-          <Button
-            type="button"
-            onClick={() => navigate(-1)}
-            className={styles.back_button}
-            color="secondary"
-            size="sm"
-          >
-            ← 이전으로
-          </Button>
-        </div>
-        
-        {/* 상태 배지 */}
-        <div className={styles.status_badge}>
-          <Badge 
-            color={landData.status === "모집중" ? "point2" : landData.status === "계약중" ? "point3" : "secondary"}
-            size="lg"
-          >
-            {landData.status}
-          </Badge>
-        </div>
+  <div className={styles.land_detail_container}>
+    {/* 뒤로가기 버튼 */}
+    <div>
+      <Button
+        type="button"
+        onClick={() => navigate(-1)}
+        className={styles.back_button}
+        color="secondary"
+        size="sm"
+      >
+        ← 이전으로
+      </Button>
+    </div>
+    
+    {/* 상태 배지 */}
+    <div>
+      <Badge color="point2" size="lg">모집중</Badge>
+      <Badge color="point3" size="lg">계약중</Badge>
+      <Badge color="secondary" size="lg">계약완료</Badge>
+    </div>
 
-        {/* 제목 */}
-        <h1 className={styles.land_detail_title}>{landData.title}</h1>
+    {/* 제목 */}
+    <h2 className={styles.land_detail_title}>{landData.title}</h2>
 
-        {/* 이미지 슬라이더 */}
-        <div className={styles.image_slider}>
-          <button 
-            className={styles.slider_arrow} 
-            onClick={prevImage}
-            aria-label="이전 이미지"
-          >
-            &lt;
-          </button>
-          
-          <div className={styles.slider_image_container}>
-            <img
-              src={landData.images[currentImageIndex]}
-              alt={`${landData.title} 이미지 ${currentImageIndex + 1}`}
-              className={styles.slider_image}
-            />
-          </div>
-          
-          <button 
-            className={styles.slider_arrow} 
-            onClick={nextImage}
-            aria-label="다음 이미지"
-          >
-            &gt;
-          </button>
-        </div>
+    {/* 유틸버튼 그룹 */}
+    <div className={styles.button_group}>
+      <Button color="point" size="sm" onClick={() => openModal(1, <ApplicantListModal modalId={1} />)}>신청자 목록</Button>
+      <Button color="point" size="sm" onClick={() => openModal(2, <LeaseContractViewModal modalId={2} />)}>계약서</Button>
+    </div>
 
-        {/* 작성자 정보 */}
-        <div className={styles.owner_info}>
-          <Avatar
-            src={landData.ownerImage}
-            size="lg"
-          />
-          <span className={styles.owner_name}>{landData.ownerName}</span>
-        </div>
+    {/* 이미지 슬라이더 */}
+    <div>
+        <Slider dots={true} infinite={true} speed={500} slidesToShow={1} slidesToScroll={1} className={styles.slider}>
+          {landData.images.map((image, index) => (
+            <div key={index}>
+              <img src={image} alt={`${landData.title} 이미지 ${index + 1}`} />
+            </div>
+          ))}
+        </Slider>
+    </div>
 
-        {/* 참여인원 정보 */}
-        <div className={styles.participant_info}>
-          <div className={styles.participant_label}>참여인원</div>
-          <div className={styles.participant_value}>{landData.currentMember}/{landData.endMember}</div>
-        </div>
+    {/* 작성자 정보 */}
+    <div className={styles.owner_box}>
+      <Avatar src={landData.ownerImage} size="lg"/>
+      <span>{landData.ownerName}</span>
+    </div>
 
-        {/* 소개 섹션 */}
-        <div className={styles.description_section}>
-          <h3 className={styles.description_title}>[소개]</h3>
-          <p className={styles.description_text}>{landData.description}</p>
-        </div>
+    {/* 소개 섹션 */}
+    <div className={styles.description_box}>
+      <h3>[소개]</h3>
+      <p>{landData.description}</p>
+    </div>
 
-        {/* 기간 정보 */}
-        <div className={styles.period_info}>
-          <h3 className={styles.info_section_title}>[기간]</h3>
-          <div className={styles.period_content}>
-            {landData.startDate} ~ {landData.endDate}
-          </div>
-        </div>
-
-        {/* 장소 정보 */}
-        <div className={styles.location_info}>
-          <h3 className={styles.info_section_title}>[장소]</h3>
-          <div className={styles.location_content}>
-            <div className={styles.location_main}>{landData.location}</div>
-            <div className={styles.location_detail}>{landData.detailLocation}</div>
-            <div className={styles.map_icon}>🗺️ 지도보기</div>
-          </div>
-        </div>
-
-        {/* 신청하기 버튼 */}
-        <div className={styles.action_buttons}>
-          <Button 
-            className={styles.apply_button}
-            onClick={handleApply}
-            color="point2"
-            size="lg"
-          >
-            신청하기
-          </Button>
-        </div>
+    {/* 기간 정보 */}
+    <div className={styles.period_box}>
+      <h3>[기간]</h3>
+      <div>
+        {landData.startDate} ~ {landData.endDate}
       </div>
     </div>
+
+    {/* 장소 정보 */}
+    <div className={styles.location_box}>
+      <h3>[장소]</h3>
+      <div>{landData.location}</div>
+      <div>{landData.detailLocation}</div>
+      <div><FontAwesomeIcon icon={faMap} size="2x"/></div>
+    </div>
+
+    {/* 신청하기 버튼 */}
+    <div className={styles.button_group}>
+      <Button onClick={handleApply} color="point2" size="lg">신청하기</Button>
+      <Button color="secondary" size="lg">수정</Button>
+      <Button color="point3" size="lg">찜하기</Button>
+      <Button color="danger" size="lg">신청취소</Button>
+      <Button color="danger" size="lg">삭제</Button>
+    </div>
+  </div>
   );
 };
 

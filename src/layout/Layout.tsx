@@ -2,7 +2,7 @@ import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import styles from "./layout.module.css";
-import Chat from "../madals/chat/Chat";
+import ChatModal from "../madals/chat/ChatModal";
 import Left from "./Left";
 import MobileDock from "./MobileDock";
 import { useAuth, useGeolocation } from "../hooks";
