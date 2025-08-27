@@ -628,7 +628,14 @@ const Signup: React.FC = () => {
             )}
           </div>
 
-          <Button type="submit" color="point2" className={styles.submit_button}>
+          <Button
+            type="submit"
+            color="point2"
+            className={styles.submit_button}
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             제출
           </Button>
         </form>
