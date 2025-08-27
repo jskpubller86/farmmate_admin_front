@@ -160,13 +160,19 @@ const Left: React.FC = () => {
                 >
                   <span>내 임대 / 임차</span>
                 </Link>
+                <Link
+                  to="/lease/contract"
+                  className={styles.mypage_dropdown_item}
+                >
+                  <span>임대차 계약서</span>
+                </Link>
                 <Link to="/market_list" className={styles.mypage_dropdown_item}>
                   <span>내 마켓</span>
                 </Link>
                 <Link to="/mycart" className={styles.mypage_dropdown_item}>
                   <span>내 장바구니</span>
                 </Link>
-                <Link to="/lease/wish" className={styles.mypage_dropdown_item}>
+                <Link to="/market_wish" className={styles.mypage_dropdown_item}>
                   <span>내 찜목록</span>
                 </Link>
               </div>

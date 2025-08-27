@@ -4,7 +4,6 @@
 .market_container {
   width: 100%;
   min-height: 100vh;
-  background-color: #fdfbf6;
 }
 
 /* 헤더 영역 */
@@ -12,7 +11,6 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background-color: #fdfbf6;
   border-bottom: 1px solid #e5e5e5;
   padding: 1rem 0;
   backdrop-filter: blur(10px);
@@ -632,28 +630,7 @@
   color: #4caf50;
 }
 
-/* 상품 푸터 */
-.product_footer {
-  border-top: 1px solid #eee;
-  padding-top: 1rem;
-}
 
-.review_button {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background-color: white;
-  color: #666;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.85rem;
-}
-
-.review_button:hover {
-  border-color: #4caf50;
-  color: #4caf50;
-}
 
 /* 플레이스홀더 */
 .product_card_placeholder {
@@ -870,7 +847,6 @@
   max-width: 73.142rem;
   margin: 0 auto;
   padding: 2rem 1rem;
-  background-color: #fdfbf6;
   min-height: 100vh;
 }
 
@@ -1730,7 +1706,6 @@
   max-width: 73.142rem;
   margin: 0 auto;
   padding: 2rem 1rem;
-  background-color: #fdfbf6;
   min-height: 100vh;
 }
 
@@ -1850,6 +1825,226 @@
   grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));
   gap: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+/* 폼 섹션 */
+.form_section {
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background-color: #fafafa;
+  border-radius: 0.75rem;
+  border: 1px solid #e8e8e8;
+}
+
+/* 섹션 제목 */
+.section_title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #4caf50;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* 체크박스 그룹 */
+.checkbox_group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.checkbox_group:hover {
+  border-color: #4caf50;
+  background-color: #f8f9fa;
+}
+
+/* 폼 체크박스 */
+.form_checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: #4caf50;
+  cursor: pointer;
+}
+
+/* 체크박스 라벨 */
+.checkbox_label {
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* 인증서 입력 영역 */
+.certification_inputs {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.certification_inputs .form_input {
+  flex: 1;
+}
+
+/* 인증서 추가 버튼 */
+.add_certification_btn {
+  padding: 0.75rem 1.25rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.add_certification_btn:hover:not(:disabled) {
+  background-color: #45a049;
+  transform: translateY(-1px);
+}
+
+.add_certification_btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 인증서 태그 */
+.certification_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.certification_tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #4caf50;
+  border-radius: 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* 인증서 삭제 버튼 */
+.remove_certification_btn {
+  background: none;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+  font-size: 1.125rem;
+  font-weight: bold;
+  padding: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.remove_certification_btn:hover {
+  background-color: #ffebee;
+  transform: scale(1.1);
+}
+
+/* 폼 도움말 텍스트 */
+.form_help {
+  color: #666;
+  font-size: 0.875rem;
+  margin: 0.5rem 0 0 0;
+  font-style: italic;
+}
+
+/* 파일 업로드 영역 */
+.file_upload_area {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.file_upload_area .form_input {
+  flex: 1;
+  cursor: pointer;
+}
+
+/* 파일 업로드 버튼 */
+.file_upload_btn {
+  padding: 0.75rem 1.25rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.file_upload_btn:hover {
+  background-color: #45a049;
+  transform: translateY(-1px);
+}
+
+/* 파일 미리보기들 */
+.file_previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* 파일 미리보기 개별 */
+.file_preview {
+  position: relative;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.file_preview:hover {
+  border-color: #4caf50;
+  box-shadow: 0 0.125rem 0.5rem rgba(76, 175, 80, 0.2);
+}
+
+/* 파일 삭제 버튼 */
+.remove_file_btn {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.remove_file_btn:hover {
+  background-color: #d32f2f;
+  transform: scale(1.1);
 }
 
 /* 주소 입력 영역 */
@@ -2111,5 +2306,577 @@
 
   .preview_icon {
     font-size: 2rem;
+  }
+}
+
+/* ===== MarketWish 스타일 ===== */
+
+/* 찜 목록 페이지 컨테이너 */
+.market_wish_container {
+  max-width: 73.142rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+}
+
+/* 찜 목록 헤더 */
+.wish_header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.05);
+}
+
+.wish_title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.wish_subtitle {
+  font-size: 1.125rem;
+  color: #666;
+  margin: 0;
+}
+
+.wish_subtitle strong {
+  color: #4caf50;
+  font-weight: 700;
+}
+
+/* 찜 목록 필터 박스 */
+.wish_filter_box {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.05);
+}
+
+.wish_filter_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.category_filter,
+.sort_filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter_label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.875rem;
+}
+
+.filter_buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter_btn {
+  padding: 0.5rem 1rem;
+  border: 0.0625rem solid #e0e0e0;
+  border-radius: 0.5rem;
+  background: white;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.filter_btn:hover {
+  border-color: #4caf50;
+  color: #4caf50;
+}
+
+.filter_btn_active {
+  background: #4caf50;
+  border-color: #4caf50;
+  color: white;
+}
+
+.sort_select {
+  padding: 0.5rem 1rem;
+  border: 0.0625rem solid #e0e0e0;
+  border-radius: 0.5rem;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  font-size: 0.875rem;
+  min-width: 8rem;
+}
+
+.sort_select:focus {
+  outline: none;
+  border-color: #4caf50;
+}
+
+/* 빈 찜 목록 */
+.empty_wish {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.05);
+}
+
+.empty_icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.empty_wish h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.empty_wish p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.browse_market_btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: #4caf50;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.browse_market_btn:hover {
+  background: #45a049;
+  transform: translateY(-0.125rem);
+}
+
+/* 찜 목록 그리드 */
+.wish_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* 찜 상품 카드 */
+.wish_card {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 0.0625rem solid #f0f0f0;
+}
+
+.wish_card:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.1);
+}
+
+/* 찜 상품 이미지 */
+.wish_image_container {
+  position: relative;
+  height: 12.5rem;
+  overflow: hidden;
+}
+
+.wish_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.wish_card:hover .wish_image {
+  transform: scale(1.05);
+}
+
+/* 찜 상품 배지 */
+.wish_badges {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.badge_organic {
+  background: #4caf50;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge_local {
+  background: #ff9800;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* 찜 제거 버튼 */
+.remove_wish_btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #ff6b6b;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove_wish_btn:hover {
+  background: #ff6b6b;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* 공유 버튼 */
+.share_wish_btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 3rem;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #666;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share_wish_btn:hover {
+  background: #4ecdc4;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* 찜 상품 정보 */
+.wish_info {
+  padding: 1.5rem;
+}
+
+.wish_header_info {
+  margin-bottom: 1rem;
+}
+
+.wish_product_name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wish_rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.star_rating {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.star {
+  font-size: 0.875rem;
+}
+
+.star_filled {
+  color: #ffd700;
+}
+
+.star_empty {
+  color: #e0e0e0;
+}
+
+.review_count {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+/* 판매자 정보 */
+.wish_seller_info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.seller_profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.seller_image {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.seller_details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.seller_name {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.875rem;
+}
+
+.seller_rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.seller_rating_score {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.75rem;
+}
+
+.seller_review_count {
+  color: #666;
+  font-size: 0.75rem;
+}
+
+.location_info {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #666;
+  font-size: 0.75rem;
+}
+
+.location_icon {
+  font-size: 0.875rem;
+}
+
+.distance {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+/* 가격 정보 */
+.wish_price_info {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.original_price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.875rem;
+}
+
+.current_price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #4caf50;
+  font-weight: 700;
+}
+
+.unit {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+/* 상품 상세 정보 */
+.wish_details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+}
+
+.detail_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail_label {
+  font-weight: 500;
+  color: #666;
+  font-size: 0.75rem;
+}
+
+.detail_value {
+  color: #333;
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+/* 찜한 날짜 */
+.wish_date {
+  font-size: 0.75rem;
+  color: #999;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: #f0f0f0;
+  border-radius: 0.25rem;
+}
+
+/* 액션 버튼 */
+.wish_actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.move_to_cart_btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #ff9800;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.move_to_cart_btn:hover {
+  background: #f57c00;
+  transform: translateY(-0.125rem);
+}
+
+.view_detail_btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: 0.0625rem solid #e0e0e0;
+  border-radius: 0.5rem;
+  background: white;
+  color: #666;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.view_detail_btn:hover {
+  border-color: #4caf50;
+  color: #4caf50;
+  transform: translateY(-0.125rem);
+}
+
+/* MarketWish 반응형 디자인 */
+@media (max-width: 87.5rem) {
+  .wish_grid {
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  }
+}
+
+@media (max-width: 47.5rem) {
+  .market_wish_container {
+    padding: 1rem;
+  }
+
+  .wish_title {
+    font-size: 2rem;
+  }
+
+  .wish_filter_row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .category_filter,
+  .sort_filter {
+    justify-content: space-between;
+  }
+
+  .wish_grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wish_seller_info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .wish_actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 22.5rem) {
+  .market_wish_container {
+    padding: 0.75rem;
+  }
+
+  .wish_title {
+    font-size: 1.75rem;
+  }
+
+  .wish_header {
+    padding: 1rem;
+  }
+
+  .wish_filter_box {
+    padding: 1rem;
+  }
+
+  .wish_info {
+    padding: 1rem;
   }
 }

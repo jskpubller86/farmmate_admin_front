@@ -24,6 +24,7 @@ import QandA from "../pages/community/qanda/QandA";
 import MarketList from "../pages/market/MarketList";
 import MarketDetail from "../pages/market/MarketDetail";
 import MarketWrite from "../pages/market/MarketWrite";
+import MarketWish from "../pages/market/MarketWish";
 import Mycart from "../pages/cart/Mycart";
 import ModalSample from "../pages/sample/ModalSample";
 import TabsSample from "../pages/sample/tab/TabsSample";
@@ -72,6 +73,10 @@ const AppRoutes: React.FC = () => {
       path: "/market_write",
       element: <MarketWrite />,
     },
+    {
+      path: "/market_wish",
+      element: <MarketWish />,
+    },
     // Lease routes
     { path: "/lease/contract", element: <LeaseContract /> },
     { path: "/lease/applicants", element: <ApplicantList /> },
@@ -103,9 +108,10 @@ const AppRoutes: React.FC = () => {
     },
     { path: "/toast", element: <Toast /> },
     { path: "/sample/tabs", element: <TabsSample /> },
+    { path: "/board", element: <BoardList /> },
     { path: "/board/boardList", element: <BoardList /> },
-    { path: "/board/detail/:id", element: <BoardDetail /> },
-    { path: "/board/add", element: <BoardForm /> },
+    { path: "/board/write", element: <BoardForm /> },
+    { path: "/board/:id", element: <BoardDetail /> },
     // { path: "/sample/modal", element: <ModalSample /> },
   ];
 

@@ -415,11 +415,81 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* Popular Funding Section */}
+      {/* Popular Products Section */}
       <section className={styles.funding_section}>
         <div className={styles.funding_container}>
-          <h2 className={styles.funding_title}>인기 상승 펀딩</h2>
-          <div className={styles.funding_grid}></div>
+          <h2 className={styles.funding_title}>인기 상승 물품</h2>
+          <div className={styles.funding_grid}>
+            <MarketCard
+              id={1}
+              productName="신선한 유기농 배추"
+              productImage="/images/fundcard_img.svg"
+              sellerImage="/images/farmowner_img.svg"
+              sellerName="청담농장"
+              price={18000}
+              originalPrice={22000}
+              rating={4.8}
+              reviewCount={156}
+              location="경기도 가평군"
+              category="채소"
+              isOrganic={true}
+              isLocal={true}
+              stock={45}
+              unit="kg"
+              description="가을 김장용으로 최적의 신선한 배추입니다. 무농약 재배로 안전하고 맛있습니다."
+              createdAt={new Date().toISOString()}
+              isLiked={false}
+              distance={3.2}
+              deliveryOption="직접방문"
+              minOrder={15000}
+            />
+            <MarketCard
+              id={2}
+              productName="고품질 무"
+              productImage="/images/fundcard_img.svg"
+              sellerImage="/images/farmowner_img.svg"
+              sellerName="무농장"
+              price={12000}
+              originalPrice={15000}
+              rating={4.6}
+              reviewCount={89}
+              location="충청북도 충주시"
+              category="채소"
+              isOrganic={false}
+              isLocal={true}
+              stock={60}
+              unit="kg"
+              description="단단하고 달콤한 겨울 무입니다. 김치나 무침용으로 인기가 많습니다."
+              createdAt={new Date().toISOString()}
+              isLiked={false}
+              distance={8.5}
+              deliveryOption="택배"
+              minOrder={10000}
+            />
+            <MarketCard
+              id={3}
+              productName="신선한 상추"
+              productImage="/images/fundcard_img.svg"
+              sellerImage="/images/farmowner_img.svg"
+              sellerName="상추농장"
+              price={8000}
+              originalPrice={10000}
+              rating={4.7}
+              reviewCount={203}
+              location="경기도 양평군"
+              category="채소"
+              isOrganic={true}
+              isLocal={true}
+              stock={80}
+              unit="kg"
+              description="아삭하고 신선한 상추입니다. 샐러드나 쌈용으로 최고입니다."
+              createdAt={new Date().toISOString()}
+              isLiked={false}
+              distance={5.1}
+              deliveryOption="직접방문"
+              minOrder={8000}
+            />
+          </div>
         </div>
       </section>
 

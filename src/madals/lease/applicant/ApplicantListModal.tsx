@@ -146,7 +146,7 @@ const ApplicantListModal: React.FC<LeaseListProps> = ({
                   type="button"
                   size="xs"
                   color="point"
-                  onClick={() => openModal(2, <LeaseContractModal modalId={2} />)}
+                  onClick={() => openModal(2, <LeaseContractModal modalId={2} isEditMode={true} />)}
                 >
                   계약하기
                 </Button>

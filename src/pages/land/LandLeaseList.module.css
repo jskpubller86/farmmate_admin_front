@@ -1,33 +1,43 @@
 /* flex display */
-.container, .search_sort_row, .search_section, .sort_section, .market_filter, .pill {
+.container, .search_sort_row, .search_box, .sort_section, .filter, .pill, .main_slide, .price_filter, .delivery_options, .distance_options {
   display: flex;
   flex-wrap: wrap;
+}
+
+.header_area {
+  display: flex;
 }
 
 .cards_grid {
   display: grid;
 }
 
-/* flex 정렬 */
-.search_section, .sort_section, .pill {
-  align-items: center;
-}
-
-.search_section, .sort_section, .pill {
-  gap: 0.5rem;
-}
-
 /* flex 방향 */
-.container, .search_sort_row {
+.container, .search_sort_row, .header_area {
   flex-direction: column;
 }
 
+/* flex 정렬 */
+.main_slide {
+  justify-content: center;
+}
+.search_box, .sort_section, .pill, .main_slide, .price_filter, .delivery_options, .distance_options {
+  align-items: center;
+}
+
+.search_box, .sort_section, .pill {
+  gap: 0.5rem;
+}
+
 /* flex 갭 */
-.search_sort_row {
+.header_area {
+  gap: 2rem;
+}
+.search_sort_row, .price_filter, .delivery_options, .distance_options {
   gap: 1rem;
 }
 
-.market_filter {
+.filter {
   gap: 0.75rem;
 }
 
@@ -38,6 +48,9 @@
   margin: 0 auto;
   padding: 2rem;
 }
+.container > * {
+  width: 100%;
+}
 
 /* header_area */
 .header_area {
@@ -46,8 +59,7 @@
 
 /* main_slider */
 .main_slider {
-  margin-bottom: 2rem;
-  border-radius: 12px;
+  border-radius: 0.857142rem;
   overflow: hidden;
   background-color: #f9fafb;
 }
@@ -64,7 +76,6 @@
 
 .slide_content h2 {
   font-size: 1.5rem;
-  font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
@@ -73,20 +84,20 @@
   opacity: 0.9;
 }
 
-/* market_filter_box */
-.market_filter_box {
+/* filter_box */
+.filter_box {
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.filter_scroll_container {
+.filter_scroll_box {
   margin-bottom: 1.5rem;
   overflow-x: auto;
 }
 
-.market_filter {
+.filter {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -121,8 +132,13 @@
 }
 
 /* search_sort_row */
+
 .search_category {
   min-width: 120px;
+}
+
+.search_box {
+  flex: 1
 }
 
 .search_input {
@@ -216,4 +232,140 @@
   .container {
     padding: 1rem;
   }
+}
+
+/* 필터 초기화 버튼 */
+.filter_actions {
+  justify-content: flex-end;
+}
+
+.reset_filter_btn {
+  padding: 0.75rem 1.25rem;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.reset_filter_btn:hover {
+  background-color: #d32f2f;
+}
+
+/* 확장된 필터 패널 */
+.extended_filters_box {
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* 가격 필터 */
+.price_filter {
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.price_filter span {
+  font-weight: 500;
+  color: #666;
+}
+
+.price_input {
+  width: 120px;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.price_filter_btn {
+  padding: 0.5rem 1rem;
+  background-color: #666;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.price_filter_btn:hover {
+  background-color: #555;
+}
+
+/* 배송 옵션 필터 */
+.delivery_filter {
+  margin-bottom: 1rem;
+}
+
+.delivery_filter span {
+  display: block;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.delivery_options {
+  gap: 0.5rem;
+}
+
+.delivery_option {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: white;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delivery_option:hover {
+  border-color: #4caf50;
+  color: #4caf50;
+}
+
+.delivery_option_active {
+  background-color: #4caf50;
+  border-color: #4caf50;
+  color: white;
+}
+
+/* 거리 기준 필터 */
+.distance_filter {
+  margin-bottom: 1rem;
+}
+
+.distance_filter span {
+  display: block;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.distance_options {
+  gap: 0.5rem;
+}
+
+.distance_option {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: white;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.distance_option:hover {
+  border-color: #4caf50;
+  color: #4caf50;
+}
+
+.distance_option_active {
+  background-color: #4caf50;
+  border-color: #4caf50;
+  color: white;
 }

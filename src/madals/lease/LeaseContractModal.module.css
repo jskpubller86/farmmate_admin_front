@@ -27,6 +27,13 @@
   gap: 1rem;
 }
 
+/* 인라인 입력 필드 */
+.inline_input {
+  width: 60px;
+  display: inline-block;
+  margin: 0 0.25rem;
+}
+
 
 /* 모달 컨테이너 */
 .modal_container_wrap {

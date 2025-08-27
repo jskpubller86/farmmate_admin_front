@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMap } from "@fortawesome/free-regular-svg-icons";
 import {useModal} from "../../hooks";
 import ApplicantListModal from "../../madals/lease/applicant/ApplicantListModal";
-import LeaseContractViewModal from "../../madals/lease/LeaseContractViewModal";
+import LeaseContractViewModal from "../../madals/lease/LeaseContractModal";
 
 interface LandDetailData {
   id: string;
@@ -106,7 +106,7 @@ const LandDetail: React.FC = () => {
     </div>
 
     {/* 이미지 슬라이더 */}
-    <div>
+    <div className={styles.slider_area}>
         <Slider dots={true} infinite={true} speed={500} slidesToShow={1} slidesToScroll={1} className={styles.slider}>
           {landData.images.map((image, index) => (
             <div key={index}>
@@ -123,13 +123,13 @@ const LandDetail: React.FC = () => {
     </div>
 
     {/* 소개 섹션 */}
-    <div className={styles.description_box}>
+    <div className={styles.description_section}>
       <h3>[소개]</h3>
       <p>{landData.description}</p>
     </div>
 
     {/* 기간 정보 */}
-    <div className={styles.period_box}>
+    <div className={styles.period_section}>
       <h3>[기간]</h3>
       <div>
         {landData.startDate} ~ {landData.endDate}
@@ -137,7 +137,7 @@ const LandDetail: React.FC = () => {
     </div>
 
     {/* 장소 정보 */}
-    <div className={styles.location_box}>
+    <div className={styles.location_section}>
       <h3>[장소]</h3>
       <div>{landData.location}</div>
       <div>{landData.detailLocation}</div>
