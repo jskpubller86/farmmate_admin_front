@@ -24,6 +24,7 @@ import QandA from "../pages/community/qanda/QandA";
 import MarketList from "../pages/market/MarketList";
 import MarketDetail from "../pages/market/MarketDetail";
 import MarketWrite from "../pages/market/MarketWrite";
+import MarketWish from "../pages/market/MarketWish";
 import Mycart from "../pages/cart/Mycart";
 import ModalSample from "../pages/sample/ModalSample";
 import Homepage from "../pages/main/homepage";
@@ -70,6 +71,10 @@ const AppRoutes: React.FC = () => {
     {
       path: "/market_write",
       element: <MarketWrite />,
+    },
+    {
+      path: "/market_wish",
+      element: <MarketWish />,
     },
     // Lease routes
     { path: "/lease/contract", element: <LeaseContract /> },
