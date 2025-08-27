@@ -6,9 +6,9 @@ import React, {
   useCallback,
 } from "react";
 import styles from "./market.module.css";
-import { Link, useNavigate } from "react-router-dom";
-import { Button, Input, Select, Badge } from "../../components/ui";
-import { MarketCard, DUMMY_MARKET_CARD } from "../../components/sets";
+import { useNavigate } from "react-router-dom";
+import { Button, Input, Select } from "../../components/ui";
+import { MarketCard } from "../../components/sets";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -16,16 +16,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
   faMapMarkerAlt,
-  faStar,
-  faHeart,
-  faShoppingCart,
   faLeaf,
   faSeedling,
   faThermometerHalf,
   faWater,
   faSun,
   faFilter,
-  faSort,
 } from "@fortawesome/free-solid-svg-icons";
 
 // 한번에 가져올 상품 카드 개수
@@ -319,13 +315,6 @@ const MarketList: React.FC = () => {
     // 여기에 실제 장바구니 추가 로직 추가
   };
 
-  // 상품 상세보기
-  const handleProductDetail = (productId: number) => {
-    // TODO: 상품 상세 페이지로 이동
-    console.log("상품 상세보기:", productId);
-    // navigate(`/market_detail/${productId}`);
-  };
-
   // 필터 토글
   const handleFilterToggle = () => {
     // TODO: 필터 패널 토글
@@ -360,27 +349,6 @@ const MarketList: React.FC = () => {
     setSelectedDistance("all");
     console.log("필터 초기화");
     // 여기에 실제 필터 초기화 로직 추가
-  };
-
-  // 판매자 프로필 보기
-  const handleSellerProfile = (sellerId: number) => {
-    // TODO: 판매자 프로필 페이지로 이동
-    console.log("판매자 프로필:", sellerId);
-    // navigate(`/seller_profile/${sellerId}`);
-  };
-
-  // 리뷰 작성
-  const handleWriteReview = (productId: number) => {
-    // TODO: 리뷰 작성 모달 또는 페이지
-    console.log("리뷰 작성:", productId);
-    // 여기에 리뷰 작성 모달 열기 로직 추가
-  };
-
-  // 공유하기
-  const handleShare = (productId: number) => {
-    // TODO: 공유 기능
-    console.log("공유하기:", productId);
-    // 여기에 실제 공유 로직 추가 (카카오톡, 페이스북 등)
   };
 
   // ===== 유틸리티 함수들 =====

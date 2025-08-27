@@ -191,18 +191,9 @@ export const MarketCard: React.FC<MarketCardProps> = ({
           </button>
           <button
             className={styles.detail_button}
-            onClick={(e) => e.stopPropagation()}
+            onClick={() => navigate("/market_detail")}
           >
             상세보기
-          </button>
-        </div>
-
-        <div className={styles.product_footer}>
-          <button
-            className={styles.review_button}
-            onClick={(e) => e.stopPropagation()}
-          >
-            리뷰 작성
           </button>
         </div>
       </div>

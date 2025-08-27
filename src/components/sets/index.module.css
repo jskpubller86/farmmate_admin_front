@@ -357,27 +357,7 @@
   color: #4CAF50;
 }
 
-.product_footer {
-  border-top: 1px solid #eee;
-  padding-top: 1rem;
-}
 
-.review_button {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background-color: white;
-  color: #666;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.85rem;
-}
-
-.review_button:hover {
-  border-color: #4CAF50;
-  color: #4CAF50;
-}
 
 .inv_card {
   width: 21rem;

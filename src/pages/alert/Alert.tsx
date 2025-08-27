@@ -13,7 +13,6 @@ import {
 
 // 타입 정의
 type AlertType = "info" | "success" | "warning" | "error";
-type AlertCategory = "fund" | "land" | "system" | "general";
 
 interface AlertItem {
   id: number;
@@ -22,8 +21,6 @@ interface AlertItem {
   type: AlertType;
   isRead: boolean;
   createdAt: string;
-  category: AlertCategory;
-  priority?: "low" | "medium" | "high";
 }
 
 // 상수 정의
@@ -34,40 +31,23 @@ const ALERT_ICONS = {
   info: "ℹ️",
 } as const;
 
-const CATEGORY_LABELS = {
-  fund: "펀드",
-  land: "임대/임차",
-  system: "시스템",
-  general: "일반",
-} as const;
-
-const PRIORITY_COLORS = {
-  low: "#6c757d",
-  medium: "#ffc107",
-  high: "#dc3545",
-} as const;
-
 // 더미 데이터
 const DUMMY_ALERTS: AlertItem[] = [
   {
     id: 1,
-    title: "펀드 참여 완료",
-    message: "깻잎과 관련된 펀딩에 성공적으로 참여했습니다.",
+    title: "거래 완료",
+    message: "농부123님과 깻잎거래가 성공적으로 완료되었습니다.",
     type: "success",
     isRead: false,
     createdAt: "2025-01-15T10:30:00",
-    category: "fund",
-    priority: "high",
   },
   {
     id: 2,
-    title: "새로운 펀드 알림",
-    message: "새로운 농작물 펀드가 등록되었습니다. 확인해보세요!",
+    title: "새로운 거래 알림",
+    message: "거래 신청이 들어왔습니다. 확인해보세요!",
     type: "info",
     isRead: false,
     createdAt: "2025-01-15T09:15:00",
-    category: "fund",
-    priority: "medium",
   },
   {
     id: 3,
@@ -76,8 +56,6 @@ const DUMMY_ALERTS: AlertItem[] = [
     type: "success",
     isRead: true,
     createdAt: "2025-01-14T16:45:00",
-    category: "land",
-    priority: "high",
   },
   {
     id: 4,
@@ -87,18 +65,14 @@ const DUMMY_ALERTS: AlertItem[] = [
     type: "warning",
     isRead: true,
     createdAt: "2025-01-14T14:20:00",
-    category: "system",
-    priority: "medium",
   },
   {
     id: 5,
-    title: "펀드 마감 임박",
-    message: "참여 중인 펀드가 3일 후 마감됩니다.",
+    title: "거래 마감 임박",
+    message: "딸기 거래가 3일 후 마감됩니다.",
     type: "warning",
     isRead: false,
     createdAt: "2025-01-14T11:30:00",
-    category: "fund",
-    priority: "high",
   },
   {
     id: 6,
@@ -108,8 +82,6 @@ const DUMMY_ALERTS: AlertItem[] = [
     type: "info",
     isRead: true,
     createdAt: "2025-01-13T10:00:00",
-    category: "general",
-    priority: "low",
   },
 ];
 
@@ -141,25 +113,10 @@ const Alert: React.FC = () => {
     if (activeFilter !== "all") {
       if (activeFilter === "unread") {
         filtered = filtered.filter((alert) => !alert.isRead);
-      } else {
-        filtered = filtered.filter((alert) => alert.category === activeFilter);
       }
     }
-
-    // 정렬
-    filtered.sort((a, b) => {
-      if (sortBy === "priority") {
-        const priorityOrder = { high: 3, medium: 2, low: 1 };
-        return (
-          priorityOrder[b.priority || "low"] -
-          priorityOrder[a.priority || "low"]
-        );
-      }
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
-
     return filtered;
-  }, [alerts, activeFilter, sortBy]);
+  }, [alerts, activeFilter]);
 
   // 필터링 함수
   const handleFilter = useCallback((filter: string) => {
@@ -189,16 +146,12 @@ const Alert: React.FC = () => {
 
   // 유틸리티 함수들
   const getAlertIcon = (type: AlertType) => ALERT_ICONS[type];
-  const getCategoryText = (category: AlertCategory) =>
-    CATEGORY_LABELS[category];
-  const getPriorityColor = (priority?: string) =>
-    PRIORITY_COLORS[priority as keyof typeof PRIORITY_COLORS] || "#6c757d";
 
   // 필터 옵션들
   const filterOptions = [
     { key: "all", label: "전체" },
     { key: "unread", label: "읽지 않음" },
-    { key: "fund", label: "펀드" },
+    { key: "market", label: "마켓" },
     { key: "land", label: "임대/임차" },
     { key: "system", label: "시스템" },
   ];
@@ -304,29 +257,6 @@ const Alert: React.FC = () => {
                 <div className={styles.alert_header_row}>
                   <h3 className={styles.alert_title}>{alert.title}</h3>
                   <div className={styles.alert_meta}>
-                    <div className={styles.meta_top}>
-                      <span
-                        className={`${styles.category_badge} ${
-                          styles[`category_${alert.category}`]
-                        }`}
-                      >
-                        {getCategoryText(alert.category)}
-                      </span>
-                      {alert.priority && (
-                        <span
-                          className={styles.priority_badge}
-                          style={{
-                            backgroundColor: getPriorityColor(alert.priority),
-                          }}
-                        >
-                          {alert.priority === "high"
-                            ? "높음"
-                            : alert.priority === "medium"
-                            ? "보통"
-                            : "낮음"}
-                        </span>
-                      )}
-                    </div>
                     <span className={styles.alert_time}>
                       {new Date(alert.createdAt).toLocaleString()}
                     </span>

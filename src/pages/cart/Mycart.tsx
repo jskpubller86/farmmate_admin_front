@@ -13,14 +13,9 @@ import {
   faCreditCard,
   faGift,
   faLeaf,
-  faSeedling,
-  faThermometerHalf,
-  faWater,
-  faSun,
-  faCheck,
-  faTimes,
   faExclamationTriangle,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 interface CartItem {
   id: number;
@@ -57,6 +52,7 @@ const Mycart: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showEmptyCart, setShowEmptyCart] = useState(false);
+  const navigate = useNavigate();
 
   // 더미 데이터로 장바구니 초기화
   useEffect(() => {
@@ -231,8 +227,7 @@ const Mycart: React.FC = () => {
       return;
     }
 
-    console.log("찜하기로 이동:", selectedItems);
-    // TODO: 찜하기 페이지로 이동
+    navigate("/market_wish");
   };
 
   // 가격 포맷팅
@@ -565,4 +560,3 @@ const Mycart: React.FC = () => {
 };
 
 export default Mycart;
-
