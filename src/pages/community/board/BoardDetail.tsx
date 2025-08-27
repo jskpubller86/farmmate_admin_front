@@ -1,154 +1,62 @@
-import React, { useEffect, useRef, useState } from "react";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate, useParams } from "react-router-dom";
-import * as yup from "yup";
-import { Button, Input } from "../../../components/ui";
-import { useAlert, useAPI } from "../../../hooks";
-import styles from "./board.module.css";
-import { useForm } from "react-hook-form";
-import { appConsole } from "../../../utils";
-
-interface BoardVO {
-  id: string;
-  title?: string;
-  creId?: string;
-  conts: string;
-}
-
-const schema = yup
-  .object({
-    id: yup.string().required(),
-    title: yup.string().required("제목은 필수입니다."),
-    contents: yup.string().required("내용은 필수입니다."),
-  })
-  .required();
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import style from './board.module.css';
 
 const BoardDetail: React.FC = () => {
-  const [detail, setDetail] = useState<BoardVO | null>(null);
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const api = useAPI();
-  const { alertError, alertSuccess } = useAlert();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
-  const [mod, setMod] = useState<"D" | "U">("D");
+  const [details, setDetails] = useState<any>(null);
 
   useEffect(() => {
-    const detailServer = async () => {
-      try {
-        const resp = await api.get(`board/detail/${id}`);
-        const { code, data } = resp.data;
-
-        if (code === "0000") {
-          setDetail(data);
-        } else {
-          alertError();
-        }
-      } catch (error) {
-        alertError({ error });
-      }
-    };
-
-    detailServer();
-  }, []);
-
-  const handleDeleteClick = async () => {
-    try {
-      await api.get(`/board/delete/${id}`);
-      alert("삭제되었습니다");
-      navigate("/");
-    } catch (error) {
-      alertError({ error });
+    const data = localStorage.getItem('boardList');
+    if (data) {
+      const list = JSON.parse(data);
+      const item = list.find((item: any) => item.id === Number(id));
+      setDetails(item);
     }
-  };
+  }, [id]); // id가 바뀌면 다시 실행됨
 
-  const submit = async (data: any) => {
-    try {
-      const resp = await api.put(`/board/update`, data);
-      alertSuccess({
-        message: resp.data.message,
-        onClose: () => {
-          navigate("/board/boardList");
-        },
-      });
-    } catch (error) {
-      alertError({ error });
+  const delBoard = () => {
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
+      const oriBoardList = JSON.parse(localStorage.getItem('boardList') || '[]');
+      const newBoardList = oriBoardList.filter((item: any) => item.id !== Number(id));
+      localStorage.setItem('boardList', JSON.stringify(newBoardList));
+      alert('삭제되었습니다.');
+      navigate('/board');
     }
   };
 
   return (
-    <div className={styles.container}>
-      <h2>공지</h2>
-
-      <form onSubmit={handleSubmit(submit)} className={styles.form_wrap}>
-        <Input type="hidden" {...register("id", { value: id })} />
-
-        <div className={styles.input_box}>
-          <div>
-            <label>
-              <b>제목</b>
-            </label>
-          </div>
-          <div>
-            {mod === "U" ? (
-              <Input {...register("title", { value: detail?.title })} />
-            ) : (
-              detail?.title
-            )}
-          </div>
-        </div>
-
-        <div className={styles.input_box}>
-          <div>
-            <label>
-              <b>내용</b>
-            </label>
-          </div>
-          <div>
-            {mod === "U" ? (
-              <Input {...register("contents", { value: detail?.title })} />
-            ) : (
-              detail?.conts
-            )}
-          </div>
-        </div>
-
-        <div className={styles.button_group}>
-          <Button type="button" onClick={handleDeleteClick}>
-            삭제
-          </Button>
-          {appConsole(mod)}
-          {mod === "U" ? (
-            <Button type="submit">수정</Button>
-          ) : (
-            <Button
-              type="button"
-              onClick={(e: MouseEvent) => {
-                e.stopPropagation();
-                e.preventDefault();
-                setMod("U");
-              }}
-            >
-              수정
-            </Button>
-          )}
-          {mod === "U" && (
-            <Button
-              type="button"
-              onClick={() => navigate(`/board/detail/${id}`)}
-            >
-              취소
-            </Button>
-          )}
-          <Button type="button" onClick={() => navigate(`/board/boardList`)}>
-            목록으로
-          </Button>
-        </div>
-      </form>
+    <div className={style.container}>
+      <h2>게시글 상세내용</h2>
+      <table className={style.boardTable}>
+        <tbody>
+          <tr>
+            <th>제목</th>
+            <td>{details?.title}</td>
+          </tr>
+          <tr>
+            <th>작성자</th>
+            <td>{details?.writer}</td>
+          </tr>
+          <tr>
+            <th>내용</th>
+            <td>{details?.content}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan={2} style={{ textAlign: 'center' }}>
+              <button className={style.button} onClick={delBoard}>
+                삭제
+              </button>
+              <Link to="/board">
+                <button className={style.button}>목록</button>
+              </Link>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   );
 };

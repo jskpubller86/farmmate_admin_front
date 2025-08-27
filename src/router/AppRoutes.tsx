@@ -164,9 +164,10 @@ const AppRoutes: React.FC = () => {
       ),
     },
     { path: "/toast", element: <Toast /> },
+    { path: "/board", element: <BoardList /> },
     { path: "/board/boardList", element: <BoardList /> },
-    { path: "/board/detail/:id", element: <BoardDetail /> },
-    { path: "/board/add", element: <BoardForm /> },
+    { path: "/board/write", element: <BoardForm /> },
+    { path: "/board/:id", element: <BoardDetail /> },
     // { path: "/sample/modal", element: <ModalSample /> },
   ];
 
