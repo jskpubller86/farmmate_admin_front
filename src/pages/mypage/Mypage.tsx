@@ -16,26 +16,13 @@ interface UserProfile {
   genderCd: string;
   imageBasePath?: string;
   email: string;
+  asset: number;
 }
-
-const INTEREST_MAP: Record<string, string> = {
-  "1001": "축구",
-  "1002": "농구",
-  "1003": "배구",
-  "1004": "골프",
-  "1005": "등산",
-  "1006": "수영",
-  "1007": "러닝",
-  "1008": "헬스",
-  "1009": "야구",
-  "1010": "기타",
-};
 
 const Mypage: React.FC = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [interestCodes, setInterestCodes] = useState<string[]>([]);
   const { alertError, alertSuccess } = useAlert();
   const api = useAPI();
 
@@ -51,27 +38,50 @@ const Mypage: React.FC = () => {
       }
     };
 
-    const fetchInterests = async () => {
-      try {
-        const res = await api.get("/user/readMyInterests", {});
-        if (res.data.code === "0000") {
-          setInterestCodes(res.data.data);
-        }
-      } catch (err) {
-        console.error("관심사 조회 실패", err);
-      }
-    };
-
     fetchProfile();
-    fetchInterests();
   }, []);
 
+  // 생년월일 형식 변환 (YYYYMMDD -> YYYY / MM / DD)
   const formatBirthday = (birthday?: string): string => {
     if (!birthday || birthday.length < 8) return "";
     const year = birthday.substring(0, 4);
     const month = birthday.substring(4, 6);
     const day = birthday.substring(6, 8);
-    return `${year}/${month}/${day}`;
+    return `${year} / ${month} / ${day}`;
+  };
+
+  // 생년월일로부터 나이 계산
+  const calculateAge = (birthday?: string): string => {
+    if (!birthday || birthday.length < 8) return "";
+
+    const year = parseInt(birthday.substring(0, 4));
+    const month = parseInt(birthday.substring(4, 6));
+    const day = parseInt(birthday.substring(6, 8));
+
+    const today = new Date();
+    const birthDate = new Date(year, month - 1, day); // month는 0부터 시작하므로 -1
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    // 생일이 지나지 않았으면 나이에서 1을 빼기
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    return `${age}세`;
+  };
+
+  // 자산을 원화 형식으로 변환 (쉼표 구분)
+  const formatAsset = (asset?: number): string => {
+    if (!asset || asset <= 0) return "0P";
+
+    // 숫자를 문자열로 변환하고 쉼표 추가
+    const formattedAsset = asset.toLocaleString("ko-KR");
+    return `${formattedAsset}원`;
   };
 
   const getGenderLabel = (code: string): string => {
@@ -94,7 +104,7 @@ const Mypage: React.FC = () => {
   return (
     <div className={styles.container}>
       <main className={styles.mypage_main_box}>
-        <h1 className={styles.page_title}>내정보</h1>
+        <h1 className={styles.page_title}>내 정보</h1>
 
         {/* 프로필 섹션 */}
         <div className={styles.profile_section}>
@@ -111,6 +121,7 @@ const Mypage: React.FC = () => {
         </div>
 
         {/* 개인 정보 섹션 */}
+        {/* 이름 */}
         <div className={styles.info_section}>
           <div className={styles.info_item}>
             <span className={styles.info_label}>이름</span>
@@ -120,9 +131,32 @@ const Mypage: React.FC = () => {
           </div>
 
           <div className={styles.info_item}>
+            <span className={styles.info_label}>전화번호</span>
+            <span className={styles.info_value}>
+              {profile?.cellNo || "010-1234-5678"}
+            </span>
+          </div>
+
+          <div className={styles.info_item}>
+            <span className={styles.info_label}>이메일</span>
+            <span className={styles.info_value}>
+              {profile?.email || "Tessbrother@gmail.com"}
+            </span>
+          </div>
+
+          {/* 생년월일 */}
+          <div className={styles.info_item}>
             <span className={styles.info_label}>생년월일</span>
             <span className={styles.info_value}>
-              {formatBirthday(profile?.birthday) || "1999/01/01"}
+              {formatBirthday(profile?.birthday) || "1999 / 01 / 01"}
+            </span>
+          </div>
+
+          {/* 나이 */}
+          <div className={styles.info_item}>
+            <span className={styles.info_label}>나이</span>
+            <span className={styles.info_value}>
+              {calculateAge(profile?.birthday) || "25세"}
             </span>
           </div>
 
@@ -134,9 +168,28 @@ const Mypage: React.FC = () => {
           </div>
 
           <div className={styles.info_item}>
+            <span className={styles.info_label}>팜페이</span>
+            <span className={styles.info_value}>
+              {formatAsset(profile?.asset) || "100,000,000원"}
+            </span>
+          </div>
+
+          <div className={styles.info_item}>
             <span className={styles.info_label}>주소</span>
             <span className={styles.info_value}>
-              {profile?.addr} {profile?.detailAddr || "서울시 강남구"}
+              {profile?.addr ? (
+                <>
+                  {profile.addr}
+                  {profile.detailAddr && (
+                    <span className={styles.detail_addr}>
+                      {" "}
+                      {profile.detailAddr}
+                    </span>
+                  )}
+                </>
+              ) : (
+                "서울시 강남구 테헤란로 123 456동 789호"
+              )}
             </span>
           </div>
         </div>
