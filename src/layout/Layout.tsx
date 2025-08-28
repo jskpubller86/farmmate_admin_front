@@ -7,6 +7,7 @@ import Left from "./Left";
 import MobileDock from "./MobileDock";
 import { useAuth, useGeolocation } from "../hooks";
 import Footer from "./Footer";
+import Contents from "./Contents";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -37,8 +38,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <Header />
       <Left />
-      <Main>{children}</Main>
-      <Footer />
+      <Main>
+        <Contents>
+          {children}
+        </Contents>
+        <Footer />
+      </Main>
       <MobileDock />
     </>
   );
