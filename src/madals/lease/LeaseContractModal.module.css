@@ -1,20 +1,31 @@
 /* ===== FLEX DISPLAY ===== */
-.modal_header_box, .contract_box, .section_box, .modal_container, .text_content, .text_row, .text, .th {
+.modal_header_box,
+.contract_box,
+.section_box,
+.modal_container,
+.text_content,
+.text_row,
+.text,
+.th {
   display: flex;
 }
 
 /* ===== FLEX WRAP ===== */
-.modal_header_box, .contract_box, .section_box {
+.modal_header_box,
+.contract_box,
+.section_box {
   flex-wrap: wrap;
 }
-
 
 .td_inline {
   display: inline-flex;
 }
 
 /* ===== FLEX 방향 ===== */
-.modal_container, .contract_box, .section_box, .text_content {
+.modal_container,
+.contract_box,
+.section_box,
+.text_content {
   flex-direction: column;
 }
 
@@ -24,7 +35,10 @@
   align-items: center;
 }
 
-.td_inline, .text_row, .text, .th {
+.td_inline,
+.text_row,
+.text,
+.th {
   align-items: center;
 }
 
@@ -32,16 +46,21 @@
   align-items: flex-start;
 }
 
-.center_align, .th {
+.center_align,
+.th {
   justify-content: center;
 }
 
 /* ===== FLEX 갭 ===== */
-.modal_container, .contract_box {
+.modal_container,
+.contract_box {
   gap: 2rem;
 }
 
-.section_box, .td_inline, .text_row, .text {
+.section_box,
+.td_inline,
+.text_row,
+.text {
   gap: 1rem;
 }
 
@@ -96,7 +115,9 @@
 }
 
 /* ===== TABLE LAYOUT ===== */
-.table, .table_col2, .table_money {
+.table,
+.table_col2,
+.table_money {
   display: grid;
   border-top: 1px solid #cccccc;
   border-left: 1px solid #cccccc;
@@ -116,7 +137,8 @@
 }
 
 /* ===== TABLE CELLS ===== */
-.th, .td {
+.th,
+.td {
   padding: 1rem;
   border-right: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
@@ -213,6 +235,32 @@
   border-radius: 0;
   background: #ffffff;
   margin: 0 auto;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.signature_box:hover {
+  border-color: #9bb86e;
+  box-shadow: 0 0 8px rgba(155, 184, 110, 0.3);
+}
+
+/* 상세보기 모드일 때는 hover 효과 비활성화 */
+.signature_box.readonly {
+  cursor: default;
+}
+
+.signature_box.readonly:hover {
+  border-color: #cccccc;
+  box-shadow: none;
+}
+
+.signature_placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #9ca3af;
+  font-size: 1rem;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
@@ -220,19 +268,19 @@
   .modal_container {
     padding: 2.5rem;
   }
-  
+
   .table {
     grid-template-columns: 200px 1fr 200px 1fr 200px 1fr;
   }
-  
+
   .table_col2 {
     grid-template-columns: 200px 1fr;
   }
-  
+
   .table_money {
     grid-template-columns: 200px 1fr 200px 1fr;
   }
-  
+
   .label {
     min-width: 200px;
   }
@@ -242,7 +290,7 @@
   .modal_container {
     padding: 3rem;
   }
-  
+
   .signature_row {
     max-width: 900px;
   }
@@ -253,29 +301,30 @@
     padding: 1rem;
     gap: 1rem;
   }
-  
+
   .table {
     grid-template-columns: 120px 1fr;
     font-size: 0.875rem;
   }
-  
+
   .table_col2 {
     grid-template-columns: 120px 1fr;
   }
-  
+
   .table_money {
     grid-template-columns: 120px 1fr;
   }
-  
-  .th, .td {
+
+  .th,
+  .td {
     padding: 1rem 0.5rem;
   }
-  
+
   .label {
     min-width: 120px;
     font-size: 1rem;
   }
-  
+
   .signature_row {
     grid-template-columns: 1fr;
     gap: 1rem;

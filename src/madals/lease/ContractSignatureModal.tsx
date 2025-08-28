@@ -5,12 +5,16 @@ import useModal from "../../hooks/useModal";
 
 interface ContractSignatureModalProps {
   modalId: number;
+  signerType: "tenant" | "landlord";
+  signerName?: string;
   onConfirm?: (signatureData: string) => void;
   onCancel?: () => void;
 }
 
 const ContractSignatureModal: React.FC<ContractSignatureModalProps> = ({
   modalId,
+  signerType,
+  signerName,
   onConfirm,
   onCancel,
 }) => {
@@ -24,6 +28,8 @@ const ContractSignatureModal: React.FC<ContractSignatureModalProps> = ({
     <Modal id={modalId} close={handleClose} maxWidth={23.7}>
       <ContractSignature
         modalId={modalId}
+        signerType={signerType}
+        signerName={signerName}
         onConfirm={onConfirm}
         onCancel={onCancel}
       />
