@@ -10,15 +10,14 @@ interface Props {
  * Main
  * @author 김종수
  */
-const Main: React.FC<Props> = ({ children }) => {
-
+const Contents: React.FC<Props> = ({ children }) => {
   return (
-    <main className={styles.main_layout}>
-      <div>{children}</div>
-    </main>
+    <div className={styles.contents_layout}>
+      {children}
+    </div>
   );
 };
 
 
 
-  export default Main;
+  export default Contents;

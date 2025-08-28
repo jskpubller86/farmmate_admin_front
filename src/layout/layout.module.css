@@ -356,11 +356,11 @@
 /* Main Layout */
 .main_layout {
   position: fixed;
-  padding: 1rem;
-  padding-top: calc(var(--header-h) + 0rem);
-  padding-bottom: calc(100 - var(--footer-h));
+  top: var(--header-h);
+  /* padding-top: 0rem;
+  padding-bottom: calc(100); */
   width: 100%;
-  height: calc(100vh - var(--header-h) - var(--dock-h) - var(--footer-h));
+  height: calc(100vh - var(--header-h) - var(--dock-h));
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -369,7 +369,7 @@
   .main_layout {
     width: calc(100% - var(--left-w));
     left: var(--left-w);
-    height: calc(100vh - var(--header-h) - var(--footer-h));
+    height: calc(100vh - var(--header-h));
   }
 }
 
@@ -380,13 +380,24 @@
   min-height: 0;
 }
 
+/* contents layout */
+.contents_layout {
+  padding: 2rem 1rem;
+}
+
+@media (min-width: 760px) {
+  .contents_layout {
+    padding: 2rem;
+  }
+}
+
 /* Left Layout */
 .left_layout {
   position: fixed;
   top: var(--header-h);
   display: none;
   width: 100%;
-  height: calc(100% - var(--header-h) - var(--footer-h) - var(--dock-h));
+  height: calc(100% - var(--header-h) - var(--dock-h));
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 1;
 }
@@ -395,7 +406,7 @@
   .left_layout {
     display: block;
     width: auto;
-    height: calc(100% - var(--header-h) - var(--footer-h));
+    height: calc(100% - var(--header-h));
     background-color: transparent;
   }
 }
@@ -656,21 +667,10 @@
 
 /* Footer */
 .footer_layout {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
   height: var(--footer-h);
   background: #f7f5ee;
   border-top: 1px solid #e9e6dc;
   z-index: 2;
-}
-
-@media (min-width: 760px) {
-  .footer_layout {
-    left: var(--left-w);
-    bottom: 0;
-  }
 }
 
 .footer {
@@ -719,17 +719,6 @@
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
-
-.container_full {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}
-
 /* 반응형 헤더 */
 @media (min-width: 87.5rem) {
   .srch_area {
