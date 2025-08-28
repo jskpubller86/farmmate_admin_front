@@ -6,7 +6,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faFilter, faSort, faLeaf, faSeedling, faThermometerHalf, faWater, faSun, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import styles from './LandLeaseList.module.css';
+import styles from './MyLease.module.css';
+import MyContractList from './MyContractList';
+import MyLeaseList from './MyLeaseList';
 
 // 상단 카테고리 필터 데이터
 const CATEGORIES = [
@@ -44,11 +46,11 @@ interface LandLeaseItemProps {
   isLiked: boolean;
 }
 
-interface LandLeaseListProps {
+interface MyLeaseProps {
 }
 
-const LandLeaseList: React.FC<LandLeaseListProps> = () => {
-  const [activeTab, setActiveTab] = useState('all');
+const MyLease: React.FC<MyLeaseProps> = () => {
+  const [activeTab, setActiveTab] = useState('recruiting');
   const [searchCategory, setSearchCategory] = useState('');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [sortBy, setSortBy] = useState('latest');
@@ -63,6 +65,7 @@ const LandLeaseList: React.FC<LandLeaseListProps> = () => {
   const [priceRange, setPriceRange] = useState({ min: '', max: '' });
   const [selectedDeliveryOption, setSelectedDeliveryOption] = useState('all');
   const [selectedDistance, setSelectedDistance] = useState('all');
+
 
   // 정렬 옵션 데이터
   const sortOptions = ['최신순', '마감임박순'];
@@ -260,21 +263,23 @@ const LandLeaseList: React.FC<LandLeaseListProps> = () => {
     console.log("선택된 거리:", distance);
   };
 
-    const handleResetFilters = () => {
+  const handleResetFilters = () => {
     setPriceRange({ min: '', max: '' });
     setSelectedDeliveryOption('all');
     setSelectedDistance('all');
     console.log("필터 초기화");
   };
 
-  const filteredData = activeTab === 'all' 
-    ? mockData 
-    : mockData.filter(item => item.status === activeTab);
+  // Tabs 데이터
+  const tabs = [
+    { id: 'recruiting', label: '내임대', content: <MyLeaseList />},
+    { id: 'contracting', label: '내임차', content: <MyContractList />},
+    { id: 'wish', label: '찜한 임대', content: <MyLeaseList />, activeTab},
+  ];
+  
 
   return (
     <div className={styles.container}>
-
-      
       {/* MarketList의 header_area 구성요소들 */}
       <div className={styles.header_area}>
           <div className={styles.main_slider}>
@@ -291,6 +296,9 @@ const LandLeaseList: React.FC<LandLeaseListProps> = () => {
               ))}
             </Slider>
           </div>
+
+          {/* 탭 */}
+          <Tabs tabs={tabs} onTabChange={handleTabChange} />
 
           {/* 필터 + 검색 */}
           <div className={styles.filter_box}>
@@ -423,7 +431,7 @@ const LandLeaseList: React.FC<LandLeaseListProps> = () => {
                     {["all", "직접방문", "배송", "픽업"].map((option) => (
                       <button
                         key={option}
-                        className={`${styles.delivery_option} ${
+                        className={`${styles.search_category} ${
                           selectedDeliveryOption === option
                             ? styles.delivery_option_active
                             : ""
@@ -471,17 +479,11 @@ const LandLeaseList: React.FC<LandLeaseListProps> = () => {
           </div>
         </div>
       
-      {/* 계약 카드 목록 */}
-      <div className={styles.cards_grid}>
-        {filteredData.map((item) => (
-          <LandCard
-            key={item.id}
-            {...item}
-          />
-        ))}
-      </div>
+      {/* 컨텐츠 영역 */}
+      {tabs.find(tab => tab.id === activeTab)?.content}
+
     </div>
   );
 };
 
-export default LandLeaseList;
+export default MyLease;

@@ -29,6 +29,8 @@ import Mycart from "../pages/cart/Mycart";
 import ModalSample from "../pages/sample/ModalSample";
 import TabsSample from "../pages/sample/tab/TabsSample";
 import Homepage from "../pages/main/homepage";
+import MyLeaseList from "../pages/myLease/MyLeaseList";
+import MyLease from "../pages/myLease/MyLease";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
@@ -81,7 +83,7 @@ const AppRoutes: React.FC = () => {
     { path: "/lease/contract", element: <LeaseContract /> },
     { path: "/lease/applicants", element: <ApplicantList /> },
     { path: "/lease", element: <LandLeaseList /> },
-    { path: "/lease/my-lease", element: <LandLeaseList  /> },
+    { path: "/lease/my-lease", element: <MyLease  /> },
     { path: "/lease/my-rent", element: <LandLeaseList  /> },
     { path: "/lease/wish", element: <LandLeaseList /> },
     { path: "/lease/:id", element: <LeaseDetail /> },

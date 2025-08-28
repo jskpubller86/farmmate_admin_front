@@ -102,7 +102,7 @@ const LandDetail: React.FC = () => {
     {/* 유틸버튼 그룹 */}
     <div className={styles.button_group}>
       <Button color="point" size="sm" onClick={() => openModal(1, <ApplicantListModal modalId={1} />)}>신청자 목록</Button>
-      <Button color="point" size="sm" onClick={() => openModal(2, <LeaseContractViewModal modalId={2} />)}>계약서</Button>
+      <Button color="point" size="sm" onClick={() => openModal(2, <LeaseContractViewModal modalId={2} />, 119.142)}>계약서</Button>
     </div>
 
     {/* 이미지 슬라이더 */}

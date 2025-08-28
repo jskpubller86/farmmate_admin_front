@@ -5,7 +5,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Input } from "../../components/ui";
 import useModal from "../../hooks/useModal";
 
-interface LeaseContractViewProps {
+interface LeaseContractProps {
   modalId?: number;
   isEditMode?: boolean;
   contractData?: {
@@ -36,7 +36,7 @@ interface LeaseContractViewProps {
  * 작성된 임대차 계약서 보기 모달
  * @returns
  */
-const LeaseContractViewModal: React.FC<LeaseContractViewProps> = ({
+const LeaseContractModal: React.FC<LeaseContractProps> = ({
   modalId,
   isEditMode = false,
   contractData = {},
@@ -534,4 +534,4 @@ const LeaseContractViewModal: React.FC<LeaseContractViewProps> = ({
   );
 };
 
-export default LeaseContractViewModal;
+export default LeaseContractModal;
