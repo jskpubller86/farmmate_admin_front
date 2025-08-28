@@ -293,7 +293,7 @@ export default function Homepage() {
               className={styles.crop_card}
               onClick={handleCropDetail}
               style={{ cursor: "pointer" }}
-            >
+            > 
               <div className={styles.crop_content}>
                 <div className={styles.crop_icon}>
                   <span>🥬</span>
