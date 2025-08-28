@@ -31,6 +31,7 @@ import TabsSample from "../pages/sample/tab/TabsSample";
 import Homepage from "../pages/main/homepage";
 import MyLeaseList from "../pages/myLease/MyLeaseList";
 import MyLease from "../pages/myLease/MyLease";
+import DiagnosisPage from "../pages/diagnosis/Diagnosis";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
@@ -99,6 +100,9 @@ const AppRoutes: React.FC = () => {
     { path: "/land/rent-add", element: <LandRentAdd /> },
     { path: "/land/:id", element: <LandDetail /> },
     { path: "/qanda", element: <QandA /> },
+
+    // Diagnosis routes
+    { path: "/diagnosis", element: <DiagnosisPage /> },
 
     {
       path: "/form",
