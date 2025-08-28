@@ -7,12 +7,16 @@ import useModal from "../../hooks/useModal";
 
 interface ContractSignatureProps {
   modalId: number;
+  signerType: "tenant" | "landlord";
+  signerName?: string;
   onConfirm?: (signatureData: string) => void;
   onCancel?: () => void;
 }
 
 const ContractSignature: React.FC<ContractSignatureProps> = ({
   modalId,
+  signerType,
+  signerName,
   onConfirm,
   onCancel,
 }) => {
@@ -32,10 +36,26 @@ const ContractSignature: React.FC<ContractSignatureProps> = ({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // 캔버스 초기 설정
-    ctx.strokeStyle = "black";
-    ctx.lineJoin = "round";
-    ctx.lineWidth = 3;
+    // 캔버스 크기를 CSS와 일치시키기
+    const resizeCanvas = () => {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+
+      // 캔버스 초기 설정
+      ctx.strokeStyle = "black";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = 3;
+    };
+
+    resizeCanvas();
+
+    // 윈도우 리사이즈 시 캔버스 크기 조정
+    window.addEventListener("resize", resizeCanvas);
+
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+    };
   }, []);
 
   const getCoordinates = (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -43,9 +63,12 @@ const ContractSignature: React.FC<ContractSignatureProps> = ({
     if (!canvas) return { x: 0, y: 0 };
 
     const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
     return {
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
+      x: (event.clientX - rect.left) * scaleX,
+      y: (event.clientY - rect.top) * scaleY,
     };
   };
 
@@ -94,6 +117,7 @@ const ContractSignature: React.FC<ContractSignatureProps> = ({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // 캔버스 전체 영역을 지우기
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     setSignatureData("");
   };
@@ -135,7 +159,10 @@ const ContractSignature: React.FC<ContractSignatureProps> = ({
                 <FontAwesomeIcon icon={faXmark} />
               </div>
             </div>
-            <span className={styles.tenant_info}>임차인 정보</span>
+            <span className={styles.tenant_info}>
+              {signerType === "tenant" ? "임차인" : "임대인"} 정보
+              {signerName && ` - ${signerName}`}
+            </span>
           </div>
           <button
             type="button"
@@ -150,12 +177,13 @@ const ContractSignature: React.FC<ContractSignatureProps> = ({
       {/* 모달 바디 */}
       <div className={styles.modal_body}>
         <div className={styles.signature_section}>
-          <h3 className={styles.signature_title}>서명</h3>
+          <h3 className={styles.signature_title}>
+            {signerType === "tenant" ? "임차인" : "임대인"} 서명
+            {signerName && ` - ${signerName}`}
+          </h3>
           <div className={styles.signature_box}>
             <canvas
               ref={canvasRef}
-              width={600}
-              height={379}
               className={styles.signature_canvas}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}

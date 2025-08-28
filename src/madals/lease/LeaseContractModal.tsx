@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./LeaseContractModal.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Input } from "../../components/ui";
 import useModal from "../../hooks/useModal";
+import ContractSignatureModal from "./ContractSignatureModal";
 
 interface LeaseContractProps {
   modalId?: number;
@@ -30,18 +31,63 @@ interface LeaseContractProps {
     monthlyRentDate?: string;
     contractDate?: string;
   };
+  onSave?: (data: any) => void;
+  onCancel?: () => void;
 }
 
-/**
- * 작성된 임대차 계약서 보기 모달
- * @returns
- */
 const LeaseContractModal: React.FC<LeaseContractProps> = ({
-  modalId,
-  isEditMode = false,
+  modalId = 0,
+  isEditMode = true,
   contractData = {},
+  onSave,
+  onCancel,
 }) => {
-  const { closeModal } = useModal();
+  const { openModal, closeModal } = useModal();
+  const [formData, setFormData] = useState(contractData);
+  const [signatures, setSignatures] = useState<{
+    tenant?: string;
+    landlord?: string;
+  }>({});
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleOpenSignatureModal = (signerType: "tenant" | "landlord") => {
+    if (!isEditMode) return; // 상세보기 모드에서는 모달 열기 불가
+
+    const signatureModalId = Date.now(); // 고유 ID 생성
+
+    openModal(
+      signatureModalId,
+      <ContractSignatureModal
+        modalId={signatureModalId}
+        signerType={signerType}
+        signerName={
+          signerType === "tenant" ? formData.tenantName : formData.landlordName
+        }
+        onConfirm={(signatureData: string) => {
+          setSignatures((prev) => ({ ...prev, [signerType]: signatureData }));
+          closeModal(signatureModalId);
+        }}
+        onCancel={() => closeModal(signatureModalId)}
+      />
+    );
+  };
+
+  const handleSave = () => {
+    if (onSave) {
+      onSave({ ...formData, signatures });
+    }
+  };
+
+  const handleClose = () => {
+    if (onCancel) {
+      onCancel();
+    } else {
+      closeModal(modalId);
+    }
+  };
 
   // 편집 모드일 때 사용할 상태들
   const [editData, setEditData] = React.useState(contractData);
@@ -71,20 +117,11 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
   };
 
   // contractData가 있으면 사용, 없으면 sampleData 사용
-  const displayData = isEditMode ? editData : (Object.keys(contractData).length > 0 ? contractData : sampleData);
-
-  // 편집 모드에서 입력값 변경 핸들러
-  const handleInputChange = (field: string, value: string) => {
-    if (isEditMode) {
-      setEditData(prev => ({ ...prev, [field]: value }));
-    }
-  };
-
-  const handleClose = () => {
-    if (modalId) {
-      closeModal(modalId);
-    }
-  };
+  const displayData = isEditMode
+    ? editData
+    : Object.keys(contractData).length > 0
+    ? contractData
+    : sampleData;
 
   return (
     <div className={styles.modal_container_wrap}>
@@ -112,7 +149,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                   <Input
                     type="text"
                     value={displayData.tenantName || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('tenantName', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("tenantName", e.target.value)
+                    }
                     placeholder="임차인 이름을 입력하세요"
                   />
                 ) : (
@@ -125,7 +164,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                   <Input
                     type="text"
                     value={displayData.tenantContact || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('tenantContact', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("tenantContact", e.target.value)
+                    }
                     placeholder="연락처를 입력하세요"
                   />
                 ) : (
@@ -138,7 +179,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                   <Input
                     type="text"
                     value={displayData.tenantIdNumber || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('tenantIdNumber', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("tenantIdNumber", e.target.value)
+                    }
                     placeholder="주민등록번호를 입력하세요"
                   />
                 ) : (
@@ -152,7 +195,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                   <Input
                     type="text"
                     value={displayData.tenantAddress || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('tenantAddress', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("tenantAddress", e.target.value)
+                    }
                     placeholder="주소를 입력하세요"
                   />
                 ) : (
@@ -172,7 +217,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                   <Input
                     type="text"
                     value={displayData.landlordName || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('landlordName', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("landlordName", e.target.value)
+                    }
                     placeholder="임대인 이름을 입력하세요"
                   />
                 ) : (
@@ -185,7 +232,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                   <Input
                     type="text"
                     value={displayData.landlordContact || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('landlordContact', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("landlordContact", e.target.value)
+                    }
                     placeholder="연락처를 입력하세요"
                   />
                 ) : (
@@ -198,7 +247,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                   <Input
                     type="text"
                     value={displayData.landlordIdNumber || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('landlordIdNumber', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("landlordIdNumber", e.target.value)
+                    }
                     placeholder="주민등록번호를 입력하세요"
                   />
                 ) : (
@@ -212,7 +263,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                   <Input
                     type="text"
                     value={displayData.landlordAddress || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('landlordAddress', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("landlordAddress", e.target.value)
+                    }
                     placeholder="주소를 입력하세요"
                   />
                 ) : (
@@ -240,7 +293,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                   <Input
                     type="text"
                     value={displayData.landName || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('landName', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("landName", e.target.value)
+                    }
                     placeholder="토지 이름을 입력하세요"
                   />
                 ) : (
@@ -254,7 +309,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                   <Input
                     type="text"
                     value={displayData.landLocation || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('landLocation', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("landLocation", e.target.value)
+                    }
                     placeholder="토지 위치를 입력하세요"
                   />
                 ) : (
@@ -268,7 +325,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                   <Input
                     type="text"
                     value={displayData.landUse || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('landUse', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("landUse", e.target.value)
+                    }
                     placeholder="토지 용도를 입력하세요"
                   />
                 ) : (
@@ -286,122 +345,153 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
             <div className={styles.table_money}>
               <div className={styles.th}>임대보증금</div>
               <div className={`${styles.td_inline} ${styles.center_align}`}>
-                금 {isEditMode ? (
+                금{" "}
+                {isEditMode ? (
                   <Input
                     type="text"
                     value={displayData.deposit || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('deposit', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("deposit", e.target.value)
+                    }
                     placeholder="보증금을 입력하세요"
                   />
                 ) : (
                   displayData.deposit || "입력된 정보가 없습니다"
-                )} 원
+                )}{" "}
+                원
               </div>
               <div className={styles.th}>월세</div>
               <div className={`${styles.td_inline} ${styles.center_align}`}>
-                ₩ {isEditMode ? (
+                ₩{" "}
+                {isEditMode ? (
                   <Input
                     type="text"
                     value={displayData.monthlyRent || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('monthlyRent', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("monthlyRent", e.target.value)
+                    }
                     placeholder="월세를 입력하세요"
                   />
                 ) : (
                   displayData.monthlyRent || "입력된 정보가 없습니다"
-                )} 원정
+                )}{" "}
+                원정
               </div>
 
               <div className={styles.th}>계약금</div>
-              <div className={`${styles.td_inline} ${styles.td_full} ${styles.center_align}`}>
-                금 {isEditMode ? (
+              <div
+                className={`${styles.td_inline} ${styles.td_full} ${styles.center_align}`}
+              >
+                금{" "}
+                {isEditMode ? (
                   <Input
                     type="text"
                     value={displayData.downPayment || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('downPayment', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("downPayment", e.target.value)
+                    }
                     placeholder="계약금을 입력하세요"
                   />
                 ) : (
                   displayData.downPayment || "입력된 정보가 없습니다"
-                )} 원정은
-                계약시 지불한다.(영수함)
+                )}{" "}
+                원정은 계약시 지불한다.(영수함)
               </div>
 
               <div className={styles.th}>중도금</div>
               <div
                 className={`${styles.td_inline} ${styles.td_full} ${styles.center_align}`}
               >
-                금 {isEditMode ? (
+                금{" "}
+                {isEditMode ? (
                   <Input
                     type="text"
                     value={displayData.midPayment || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('midPayment', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("midPayment", e.target.value)
+                    }
                     placeholder="중도금을 입력하세요"
                   />
                 ) : (
                   displayData.midPayment || "입력된 정보가 없습니다"
-                )} 원정은{" "}
+                )}{" "}
+                원정은{" "}
                 {isEditMode ? (
                   <Input
                     type="text"
                     value={displayData.leaseStartDate || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('leaseStartDate', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("leaseStartDate", e.target.value)
+                    }
                     placeholder="시작년도"
                     className={styles.inline_input}
                   />
                 ) : (
                   displayData.leaseStartDate || "입력된 정보가 없습니다"
-                )} 년{" "}
+                )}{" "}
+                년{" "}
                 {isEditMode ? (
                   <Input
                     type="text"
                     value={displayData.leaseEndDate || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('leaseEndDate', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("leaseEndDate", e.target.value)
+                    }
                     placeholder="종료년도"
                     className={styles.inline_input}
                   />
                 ) : (
                   displayData.leaseEndDate || "입력된 정보가 없습니다"
-                )} 일
-                지불한다.
+                )}{" "}
+                일 지불한다.
               </div>
 
               <div className={styles.th}>잔금</div>
               <div
                 className={`${styles.td_inline} ${styles.td_full} ${styles.center_align}`}
               >
-                금 {isEditMode ? (
+                금{" "}
+                {isEditMode ? (
                   <Input
                     type="text"
                     value={displayData.balance || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('balance', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("balance", e.target.value)
+                    }
                     placeholder="잔금을 입력하세요"
                   />
                 ) : (
                   displayData.balance || "입력된 정보가 없습니다"
-                )} 원정은{" "}
+                )}{" "}
+                원정은{" "}
                 {isEditMode ? (
                   <Input
                     type="text"
                     value={displayData.leaseStartDate || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('leaseStartDate', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("leaseStartDate", e.target.value)
+                    }
                     placeholder="시작년도"
                     className={styles.inline_input}
                   />
                 ) : (
                   displayData.leaseStartDate || "입력된 정보가 없습니다"
-                )} 년{" "}
+                )}{" "}
+                년{" "}
                 {isEditMode ? (
                   <Input
                     type="text"
                     value={displayData.leaseEndDate || ""}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('leaseEndDate', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      handleInputChange("leaseEndDate", e.target.value)
+                    }
                     placeholder="종료년도"
                     className={styles.inline_input}
                   />
                 ) : (
                   displayData.leaseEndDate || "입력된 정보가 없습니다"
-                )} 일
-                지불한다.
+                )}{" "}
+                일 지불한다.
               </div>
             </div>
           </section>
@@ -416,24 +506,30 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                     <Input
                       type="text"
                       value={displayData.leaseStartDate || ""}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('leaseStartDate', e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        handleInputChange("leaseStartDate", e.target.value)
+                      }
                       placeholder="시작년도"
                       className={styles.inline_input}
                     />
                   ) : (
                     displayData.leaseStartDate || "입력된 정보가 없습니다"
-                  )} 부터{" "}
+                  )}{" "}
+                  부터{" "}
                   {isEditMode ? (
                     <Input
                       type="text"
                       value={displayData.leaseEndDate || ""}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('leaseEndDate', e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        handleInputChange("leaseEndDate", e.target.value)
+                      }
                       placeholder="종료년도"
                       className={styles.inline_input}
                     />
                   ) : (
                     displayData.leaseEndDate || "입력된 정보가 없습니다"
-                  )} 까지{" "}
+                  )}{" "}
+                  까지{" "}
                   {displayData.leaseEndDate && displayData.leaseStartDate
                     ? "계약기간"
                     : "입력된 정보가 없습니다"}{" "}
@@ -447,14 +543,16 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                     <Input
                       type="text"
                       value={displayData.monthlyRentDate || ""}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('monthlyRentDate', e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        handleInputChange("monthlyRentDate", e.target.value)
+                      }
                       placeholder="일자"
                       className={styles.inline_input}
                     />
                   ) : (
                     displayData.monthlyRentDate || "입력된 정보가 없습니다"
-                  )} 일
-                  지불한다.
+                  )}{" "}
+                  일 지불한다.
                 </span>
               </div>
             </div>
@@ -471,8 +569,8 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
               </div>
               <div className={styles.text_row}>
                 <span className={`${styles.text} ${styles.multiline}`}>
-                  본 계약서에 기재되지 않은 사항은 관련 법과 "관례"에 의하며 토지
-                  용도에 따라 구체적인 내용은 특약으로 정하며 계약을{"\n"}
+                  본 계약서에 기재되지 않은 사항은 관련 법과 "관례"에 의하며
+                  토지 용도에 따라 구체적인 내용은 특약으로 정하며 계약을{"\n"}
                   위반시에는 계약금액의 배액을 계약 위반자가 배상한다.
                 </span>
               </div>
@@ -489,7 +587,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                     <Input
                       type="text"
                       value={displayData.leaseStartDate || ""}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('leaseStartDate', e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        handleInputChange("leaseStartDate", e.target.value)
+                      }
                       placeholder="계약 시작일시"
                     />
                   ) : (
@@ -504,7 +604,9 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
                     <Input
                       type="text"
                       value={displayData.contractDate || ""}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('contractDate', e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        handleInputChange("contractDate", e.target.value)
+                      }
                       placeholder="계약 일시"
                     />
                   ) : (
@@ -520,16 +622,69 @@ const LeaseContractModal: React.FC<LeaseContractProps> = ({
             <div className={styles.signature_row}>
               <div className={styles.signature_item}>
                 <div className={styles.signature_title}>임차인</div>
-                <div className={styles.signature_box}></div>
+                <div
+                  className={`${styles.signature_box} ${
+                    !isEditMode ? styles.readonly : ""
+                  }`}
+                  onClick={
+                    isEditMode
+                      ? () => handleOpenSignatureModal("tenant")
+                      : undefined
+                  }
+                >
+                  {signatures.tenant ? (
+                    <img
+                      src={signatures.tenant}
+                      alt="임차인 서명"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  ) : (
+                    <div className={styles.signature_placeholder}>
+                      {isEditMode ? "클릭하여 서명하기" : "서명 없음"}
+                    </div>
+                  )}
+                </div>
               </div>
               <div className={styles.signature_item}>
                 <div className={styles.signature_title}>임대인</div>
-                <div className={styles.signature_box}></div>
+                <div
+                  className={`${styles.signature_box} ${
+                    !isEditMode ? styles.readonly : ""
+                  }`}
+                  onClick={
+                    isEditMode
+                      ? () => handleOpenSignatureModal("landlord")
+                      : undefined
+                  }
+                >
+                  {signatures.landlord ? (
+                    <img
+                      src={signatures.landlord}
+                      alt="임대인 서명"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  ) : (
+                    <div className={styles.signature_placeholder}>
+                      {isEditMode ? "클릭하여 서명하기" : "서명 없음"}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </section>
         </div>
       </div>
+
+      {/* 서명 모달 */}
+      {/* The ContractSignatureModal component is now rendered directly in handleOpenSignatureModal */}
     </div>
   );
 };
