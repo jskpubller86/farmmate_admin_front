@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./mypage.module.css";
 import { useNavigate } from "react-router-dom";
-import { Avatar, Button, Badge } from "../../components/ui";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faSave,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons";
+import { Avatar, Button } from "../../components/ui";
 import { useAuth, useAlert, useAPI } from "../../hooks";
 
+// 사용자 프로필 인터페이스 정의
 interface UserProfile {
   userName: string;
   birthday: string;
@@ -19,36 +14,35 @@ interface UserProfile {
   genderCd: string;
   imageBasePath?: string;
   email: string;
+  asset: number;
 }
 
 const MypageEdit: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [interestCodes, setInterestCodes] = useState<string[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedProfile, setEditedProfile] = useState<UserProfile | null>(null);
   const { alertError, alertSuccess } = useAlert();
   const api = useAPI();
 
+  // 컴포넌트 마운트 시 프로필 정보 조회
   useEffect(() => {
     // 임시 데이터 사용 (프론트 작업용)
     const tempUserProfile: UserProfile = {
-      userName: "테스형형",
-      birthday: "19950515",
+      userName: "테스형",
+      birthday: "19990101",
       addr: "서울시 강남구 테헤란로 123",
       detailAddr: "456동 789호",
       cellNo: "010-1234-5678",
-      genderCd: "4001",
+      genderCd: "4002",
       imageBasePath: "/images/img_profile.svg",
-      email: "farmmate@example.com",
+      email: "Tessbrother@gmail.com",
+      asset: 100000000,
     };
-
-    const tempInterestCodes = ["1001", "1005", "1008"]; // 축구, 등산, 헬스
 
     setProfile(tempUserProfile);
     setEditedProfile(tempUserProfile);
-    setInterestCodes(tempInterestCodes);
 
     // 실제 API 호출은 주석 처리
     /*
@@ -64,22 +58,11 @@ const MypageEdit: React.FC = () => {
       }
     };
 
-    const fetchInterests = async () => {
-      try {
-        const res = await api.get("/user/readMyInterests", {});
-        if (res.data.code === "0000") {
-          setInterestCodes(res.data.data);
-        }
-      } catch (err) {
-        console.error("관심사 조회 실패", err);
-      }
-    };
-
     fetchProfile();
-    fetchInterests();
     */
-  }, []);
+  }, [api]);
 
+  // 생년월일 형식 변환 (YYYYMMDD -> YYYY-MM-DD)
   const formatBirthday = (birthday?: string): string => {
     if (!birthday || birthday.length < 8) return "";
     const year = birthday.substring(0, 4);
@@ -88,14 +71,51 @@ const MypageEdit: React.FC = () => {
     return `${year}-${month}-${day}`;
   };
 
+  // 생년월일 파싱 (YYYY-MM-DD -> YYYYMMDD)
   const parseBirthday = (dateString: string): string => {
     return dateString.replace(/-/g, "");
   };
 
+  // 생년월일로부터 나이 계산
+  const calculateAge = (birthday?: string): string => {
+    if (!birthday || birthday.length < 8) return "";
+
+    const year = parseInt(birthday.substring(0, 4));
+    const month = parseInt(birthday.substring(4, 6));
+    const day = parseInt(birthday.substring(6, 8));
+
+    const today = new Date();
+    const birthDate = new Date(year, month - 1, day); // month는 0부터 시작하므로 -1
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    // 생일이 지나지 않았으면 나이에서 1을 빼기
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    return `${age}세`;
+  };
+
+  // 성별 코드를 라벨로 변환
   const getGenderLabel = (code: string): string => {
     return code === "4001" ? "남" : "여";
   };
 
+  // 자산을 원화 형식으로 변환 (쉼표 구분)
+  const formatAsset = (asset?: number): string => {
+    if (!asset || asset <= 0) return "0P";
+
+    // 숫자를 문자열로 변환하고 쉼표 추가
+    const formattedAsset = asset.toLocaleString("ko-KR");
+    return `${formattedAsset}원`;
+  };
+
+  // 입력 필드 변경 처리
   const handleInputChange = (field: keyof UserProfile, value: string) => {
     if (editedProfile) {
       setEditedProfile({
@@ -105,6 +125,35 @@ const MypageEdit: React.FC = () => {
     }
   };
 
+  // 프로필 사진 변경 처리
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // 파일 크기 검증 (5MB 이하)
+      if (file.size > 5 * 1024 * 1024) {
+        alertError({ message: "파일 크기는 5MB 이하여야 합니다." });
+        return;
+      }
+
+      // 파일 타입 검증 (이미지 파일만)
+      if (!file.type.startsWith("image/")) {
+        alertError({ message: "이미지 파일만 업로드 가능합니다." });
+        return;
+      }
+
+      // 이미지 미리보기를 위한 URL 생성
+      const imageUrl = URL.createObjectURL(file);
+
+      if (editedProfile) {
+        setEditedProfile({
+          ...editedProfile,
+          imageBasePath: imageUrl,
+        });
+      }
+    }
+  };
+
+  // 프로필 저장 처리
   const handleSave = async () => {
     if (!editedProfile) return;
 
@@ -117,6 +166,11 @@ const MypageEdit: React.FC = () => {
         cellNo: editedProfile.cellNo,
         genderCd: editedProfile.genderCd,
         email: editedProfile.email,
+        asset: editedProfile.asset,
+        // 이미지 파일이 새로 업로드된 경우 FormData로 처리
+        imageFile: editedProfile.imageBasePath?.startsWith("blob:")
+          ? editedProfile.imageBasePath
+          : undefined,
       };
 
       const res = await api.put("/user/updateProfile", updateData);
@@ -134,11 +188,13 @@ const MypageEdit: React.FC = () => {
     }
   };
 
+  // 수정 취소 처리
   const handleCancel = () => {
     setEditedProfile(profile);
     setIsEditing(false);
   };
 
+  // 뒤로가기 처리
   const handleBack = () => {
     navigate("/mypage");
   };
@@ -153,10 +209,9 @@ const MypageEdit: React.FC = () => {
         {/* 헤더 */}
         <div className={styles.edit_header}>
           <button onClick={handleBack} className={styles.back_button}>
-            <FontAwesomeIcon icon={faArrowLeft} />
-            뒤로가기
+            ← 뒤로가기
           </button>
-          <h1 className={styles.page_title}>내정보 수정</h1>
+          <h1 className={styles.page_title}>내 정보 수정</h1>
         </div>
 
         {/* 프로필 섹션 */}
@@ -164,9 +219,30 @@ const MypageEdit: React.FC = () => {
           <div className={styles.profile_photo_container}>
             <Avatar
               size="xxl"
-              src={profile.imageBasePath || "/images/img_profile.svg"}
+              src={
+                editedProfile.imageBasePath ||
+                profile.imageBasePath ||
+                "/images/img_profile.svg"
+              }
               className={styles.profile_photo}
             />
+            {isEditing && (
+              <div className={styles.image_edit_overlay}>
+                <label
+                  htmlFor="profile-image-input"
+                  className={styles.image_edit_button}
+                >
+                  📷
+                </label>
+                <input
+                  id="profile-image-input"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className={styles.hidden_input}
+                />
+              </div>
+            )}
           </div>
           <div className={styles.edit_actions}>
             {isEditing ? (
@@ -176,16 +252,14 @@ const MypageEdit: React.FC = () => {
                   className={styles.save_button}
                   color="point"
                 >
-                  <FontAwesomeIcon icon={faSave} />
-                  저장
+                  💾 저장
                 </Button>
                 <Button
                   onClick={handleCancel}
                   className={styles.cancel_button}
                   color="secondary"
                 >
-                  <FontAwesomeIcon icon={faTimes} />
-                  취소
+                  ❌ 취소
                 </Button>
               </>
             ) : (
@@ -194,7 +268,7 @@ const MypageEdit: React.FC = () => {
                 className={styles.edit_button}
                 color="point"
               >
-                수정
+                ✏️ 수정
               </Button>
             )}
           </div>
@@ -202,6 +276,7 @@ const MypageEdit: React.FC = () => {
 
         {/* 개인 정보 섹션 */}
         <div className={styles.info_section}>
+          {/* 이름 */}
           <div className={styles.info_item}>
             <span className={styles.info_label}>이름</span>
             {isEditing ? (
@@ -210,12 +285,14 @@ const MypageEdit: React.FC = () => {
                 value={editedProfile.userName}
                 onChange={(e) => handleInputChange("userName", e.target.value)}
                 className={styles.edit_input}
+                placeholder="이름을 입력하세요"
               />
             ) : (
               <span className={styles.info_value}>{profile.userName}</span>
             )}
           </div>
 
+          {/* 생년월일 */}
           <div className={styles.info_item}>
             <span className={styles.info_label}>생년월일</span>
             {isEditing ? (
@@ -234,6 +311,15 @@ const MypageEdit: React.FC = () => {
             )}
           </div>
 
+          {/* 나이 (읽기 전용) */}
+          <div className={styles.info_item}>
+            <span className={styles.info_label}>나이</span>
+            <span className={styles.info_value}>
+              {calculateAge(profile.birthday)}
+            </span>
+          </div>
+
+          {/* 성별 */}
           <div className={styles.info_item}>
             <span className={styles.info_label}>성별</span>
             {isEditing ? (
@@ -252,6 +338,7 @@ const MypageEdit: React.FC = () => {
             )}
           </div>
 
+          {/* 주소 */}
           <div className={styles.info_item}>
             <span className={styles.info_label}>주소</span>
             {isEditing ? (
@@ -280,8 +367,9 @@ const MypageEdit: React.FC = () => {
             )}
           </div>
 
+          {/* 전화번호 */}
           <div className={styles.info_item}>
-            <span className={styles.info_label}>연락처</span>
+            <span className={styles.info_label}>전화번호</span>
             {isEditing ? (
               <input
                 type="tel"
@@ -295,6 +383,7 @@ const MypageEdit: React.FC = () => {
             )}
           </div>
 
+          {/* 이메일 */}
           <div className={styles.info_item}>
             <span className={styles.info_label}>이메일</span>
             {isEditing ? (
@@ -308,6 +397,14 @@ const MypageEdit: React.FC = () => {
             ) : (
               <span className={styles.info_value}>{profile.email}</span>
             )}
+          </div>
+
+          {/* 팜페이 (읽기 전용) */}
+          <div className={styles.info_item}>
+            <span className={styles.info_label}>팜페이</span>
+            <span className={styles.info_value}>
+              {formatAsset(profile.asset)}
+            </span>
           </div>
         </div>
       </main>

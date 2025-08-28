@@ -1,6 +1,171 @@
 /* ===== Q&A 페이지 스타일 ===== */
 
-/* 컨테이너 */
+/* ===== FLEX DISPLAY ===== */
+.page_title,
+.section_title,
+.experts_list,
+.expert_card,
+.expert_expertise,
+.search_filter_area,
+.search_section,
+.search_box,
+.filter_section,
+.filter_controls,
+.qanda_cards,
+.qanda_card,
+.card_header,
+.header_left,
+.header_right,
+.card_content,
+.tags,
+.card_footer,
+.author_info,
+.author_details,
+.author_name,
+.post_date,
+.card_stats,
+.stat_item,
+.card_actions,
+.like_button,
+.view_button {
+  display: flex;
+}
+
+/* ===== FLEX 방향 ===== */
+.search_filter_area {
+  flex-direction: column;
+}
+
+.expert_expertise {
+  flex-wrap: wrap;
+}
+
+.filter_controls {
+  flex-wrap: wrap;
+}
+
+.tags {
+  flex-wrap: wrap;
+}
+
+.author_details {
+  flex-direction: column;
+}
+
+.card_actions {
+  flex-wrap: wrap;
+}
+
+/* ===== FLEX 정렬 ===== */
+.page_title,
+.section_title,
+.expert_card,
+.expert_expertise,
+.search_box,
+.filter_controls {
+  justify-content: center;
+}
+
+.card_header,
+.card_footer {
+  justify-content: space-between;
+}
+
+.card_actions {
+  justify-content: center;
+}
+
+/* ===== FLEX 갭 ===== */
+.page_title {
+  gap: 1rem;
+}
+
+.section_title {
+  gap: 0.75rem;
+}
+
+.experts_list {
+  gap: 1.5rem;
+}
+
+.expert_card {
+  gap: 1rem;
+}
+
+.expert_expertise {
+  gap: 0.5rem;
+}
+
+.search_filter_area {
+  gap: 1.5rem;
+}
+
+.search_box {
+  gap: 1rem;
+}
+
+.filter_controls {
+  gap: 1rem;
+}
+
+.qanda_cards {
+  gap: 1.5rem;
+}
+
+.card_header {
+  gap: 1rem;
+}
+
+.header_left {
+  gap: 0.75rem;
+}
+
+.header_right {
+  gap: 0.5rem;
+}
+
+.tags {
+  gap: 0.5rem;
+}
+
+.card_footer {
+  gap: 1rem;
+}
+
+.author_info {
+  gap: 0.75rem;
+}
+
+.author_details {
+  gap: 0.25rem;
+}
+
+.author_name {
+  gap: 0.5rem;
+}
+
+.post_date {
+  gap: 0.25rem;
+}
+
+.card_stats {
+  gap: 1rem;
+}
+
+.stat_item {
+  gap: 0.25rem;
+}
+
+.card_actions {
+  gap: 0.75rem;
+}
+
+.like_button,
+.view_button {
+  gap: 0.5rem;
+}
+
+/* ===== 컨테이너 ===== */
 .qanda_container {
   max-width: 1200px;
   margin: 0 auto;
@@ -9,7 +174,7 @@
   min-height: 100vh;
 }
 
-/* 헤더 영역 */
+/* ===== 헤더 영역 ===== */
 .qanda_header {
   background: linear-gradient(135deg, #6e9556 0%, #5a7a45 100%);
   color: white;
@@ -28,10 +193,6 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0 0 1rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
 }
 
 .title_icon {
@@ -46,7 +207,7 @@
   line-height: 1.6;
 }
 
-/* 전문가 소개 섹션 */
+/* ===== 전문가 소개 섹션 ===== */
 .experts_section {
   margin-bottom: 3rem;
   padding: 2rem;
@@ -56,9 +217,6 @@
 }
 
 .section_title {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
   font-size: 1.5rem;
   font-weight: 600;
   color: #1a1a1a;
@@ -71,15 +229,10 @@
 }
 
 .experts_list {
-  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
 }
 
 .expert_card {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
   padding: 1.5rem;
   background-color: #ffffff;
   border-radius: 12px;
@@ -111,25 +264,12 @@
   margin: 0 0 0.5rem 0;
 }
 
-.expert_expertise {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
 .expertise_badge {
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
 }
 
-/* 검색 및 필터 영역 */
-.search_filter_area {
-  margin-bottom: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
+/* ===== 검색 및 필터 영역 ===== */
 .search_section {
   padding: 1.5rem;
   background-color: #f8f9fa;
@@ -138,9 +278,6 @@
 }
 
 .search_box {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -180,13 +317,6 @@
   border: 1px solid #e9ecef;
 }
 
-.filter_controls {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .filter_select {
   min-width: 140px;
   padding: 0.75rem 1rem;
@@ -204,12 +334,12 @@
   box-shadow: 0 0 0 3px rgba(110, 149, 86, 0.1);
 }
 
-/* 질문 목록 영역 */
+/* ===== 질문 목록 영역 ===== */
 .qanda_list_area {
   margin-bottom: 2rem;
 }
 
-/* 로딩 상태 */
+/* ===== 로딩 상태 ===== */
 .loading_state {
   text-align: center;
   padding: 4rem 2rem;
@@ -233,7 +363,7 @@
   100% { transform: rotate(360deg); }
 }
 
-/* 빈 상태 */
+/* ===== 빈 상태 ===== */
 .empty_state {
   text-align: center;
   padding: 4rem 2rem;
@@ -273,11 +403,9 @@
   box-shadow: 0 4px 12px rgba(110, 149, 86, 0.3);
 }
 
-/* 질문 카드 */
+/* ===== 질문 카드 ===== */
 .qanda_cards {
-  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-  gap: 1.5rem;
 }
 
 .qanda_card {
@@ -294,26 +422,17 @@
   transform: translateY(-2px);
 }
 
-/* 카드 헤더 */
+/* ===== 카드 헤더 ===== */
 .card_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   margin-bottom: 1rem;
-  gap: 1rem;
 }
 
 .header_left {
-  display: flex;
-  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
 .status_badge,
 .priority_badge {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
   font-size: 0.75rem;
@@ -321,11 +440,6 @@
   color: white;
   text-align: center;
   white-space: nowrap;
-}
-
-.header_right {
-  display: flex;
-  gap: 0.5rem;
 }
 
 .bookmark_button,
@@ -350,7 +464,7 @@
   color: #ffc107;
 }
 
-/* 카드 내용 */
+/* ===== 카드 내용 ===== */
 .card_content {
   margin-bottom: 1.5rem;
 }
@@ -384,13 +498,7 @@
   overflow: hidden;
 }
 
-/* 태그 */
-.tags {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
+/* ===== 태그 ===== */
 .tag {
   padding: 0.25rem 0.5rem;
   background-color: #e9ecef;
@@ -406,20 +514,11 @@
   color: white;
 }
 
-/* 카드 푸터 */
+/* ===== 카드 푸터 ===== */
 .card_footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding-top: 1rem;
   border-top: 1px solid #e9ecef;
   margin-bottom: 1rem;
-}
-
-.author_info {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
 }
 
 .author_avatar {
@@ -430,16 +529,7 @@
   border: 2px solid #e9ecef;
 }
 
-.author_details {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
 .author_name {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
   font-size: 0.9rem;
   font-weight: 600;
   color: #1a1a1a;
@@ -451,24 +541,13 @@
 }
 
 .post_date {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
   font-size: 0.8rem;
   color: #6c757d;
   font-weight: 500;
 }
 
-/* 카드 통계 */
-.card_stats {
-  display: flex;
-  gap: 1rem;
-}
-
+/* ===== 카드 통계 ===== */
 .stat_item {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
   font-size: 0.8rem;
   color: #6c757d;
   font-weight: 500;
@@ -478,13 +557,7 @@
   font-size: 0.75rem;
 }
 
-/* 카드 액션 */
-.card_actions {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-}
-
+/* ===== 카드 액션 ===== */
 .like_button,
 .view_button {
   flex: 1;
@@ -492,10 +565,7 @@
   border-radius: 6px;
   font-weight: 600;
   transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 0.5rem;
 }
 
 .like_button:hover {
@@ -508,7 +578,7 @@
   box-shadow: 0 2px 8px rgba(110, 149, 86, 0.3);
 }
 
-/* 질문하기 버튼 영역 */
+/* ===== 질문하기 버튼 영역 ===== */
 .write_button_area {
   text-align: center;
   padding-top: 2rem;
@@ -527,7 +597,7 @@
   box-shadow: 0 4px 12px rgba(110, 149, 86, 0.3);
 }
 
-/* 반응형 디자인 */
+/* ===== 반응형 디자인 ===== */
 @media (max-width: 768px) {
   .qanda_container {
     padding: 1rem 0.5rem;
@@ -582,7 +652,6 @@
   .card_header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
   }
 
   .header_left {
@@ -597,7 +666,6 @@
   .card_footer {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
   }
 
   .card_stats {

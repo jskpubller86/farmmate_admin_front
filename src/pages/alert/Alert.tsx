@@ -11,7 +11,7 @@ import {
   faBell,
 } from "@fortawesome/free-solid-svg-icons";
 
-// 타입 정의
+// ===== 타입 정의 =====
 type AlertType = "info" | "success" | "warning" | "error";
 
 interface AlertItem {
@@ -23,7 +23,7 @@ interface AlertItem {
   createdAt: string;
 }
 
-// 상수 정의
+// ===== 상수 정의 =====
 const ALERT_ICONS = {
   success: "✅",
   warning: "⚠️",
@@ -31,7 +31,7 @@ const ALERT_ICONS = {
   info: "ℹ️",
 } as const;
 
-// 더미 데이터
+// ===== 더미 데이터 =====
 const DUMMY_ALERTS: AlertItem[] = [
   {
     id: 1,
@@ -85,20 +85,32 @@ const DUMMY_ALERTS: AlertItem[] = [
   },
 ];
 
+// ===== 필터 옵션 정의 =====
+const FILTER_OPTIONS = [
+  { key: "all", label: "전체" },
+  { key: "unread", label: "읽지 않음" },
+  { key: "market", label: "마켓" },
+  { key: "land", label: "임대/임차" },
+  { key: "system", label: "시스템" },
+] as const;
+
 const Alert: React.FC = () => {
   const navigate = useNavigate();
+
+  // ===== 상태 관리 =====
   const [alerts, setAlerts] = useState<AlertItem[]>([]);
   const [filteredAlerts, setFilteredAlerts] = useState<AlertItem[]>([]);
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState<"time" | "priority">("time");
 
-  // 초기 데이터 로드
+  // ===== 초기 데이터 로드 =====
   useEffect(() => {
     setAlerts(DUMMY_ALERTS);
     setFilteredAlerts(DUMMY_ALERTS);
   }, []);
 
+  // ===== 계산된 값들 =====
   // 읽지 않은 알림 개수
   const unreadCount = useMemo(
     () => alerts.filter((alert) => !alert.isRead).length,
@@ -118,6 +130,7 @@ const Alert: React.FC = () => {
     return filtered;
   }, [alerts, activeFilter]);
 
+  // ===== 이벤트 핸들러들 =====
   // 필터링 함수
   const handleFilter = useCallback((filter: string) => {
     setActiveFilter(filter);
@@ -144,21 +157,12 @@ const Alert: React.FC = () => {
     }
   }, []);
 
-  // 유틸리티 함수들
+  // ===== 유틸리티 함수들 =====
   const getAlertIcon = (type: AlertType) => ALERT_ICONS[type];
-
-  // 필터 옵션들
-  const filterOptions = [
-    { key: "all", label: "전체" },
-    { key: "unread", label: "읽지 않음" },
-    { key: "market", label: "마켓" },
-    { key: "land", label: "임대/임차" },
-    { key: "system", label: "시스템" },
-  ];
 
   return (
     <div className={styles.alert_container}>
-      {/* 헤더 */}
+      {/* ===== 헤더 영역 ===== */}
       <div className={styles.alert_header}>
         <div className={styles.header_left}>
           <h1 className={styles.page_title}>
@@ -190,7 +194,7 @@ const Alert: React.FC = () => {
         </div>
       </div>
 
-      {/* 정렬 선택 */}
+      {/* ===== 정렬 선택 영역 ===== */}
       <div className={styles.sort_area}>
         <select
           value={sortBy}
@@ -202,11 +206,11 @@ const Alert: React.FC = () => {
         </select>
       </div>
 
-      {/* 필터 영역 */}
+      {/* ===== 필터 영역 ===== */}
       {showFilters && (
         <div className={styles.filter_area}>
           <div className={styles.filter_buttons}>
-            {filterOptions.map(({ key, label }) => (
+            {FILTER_OPTIONS.map(({ key, label }) => (
               <button
                 key={key}
                 className={`${styles.filter_btn} ${
@@ -221,7 +225,7 @@ const Alert: React.FC = () => {
         </div>
       )}
 
-      {/* 알림 목록 */}
+      {/* ===== 알림 목록 영역 ===== */}
       <div className={styles.alerts_list}>
         {processedAlerts.length === 0 ? (
           <div className={styles.empty_state}>
@@ -241,7 +245,7 @@ const Alert: React.FC = () => {
                 !alert.isRead ? styles.alert_unread : ""
               }`}
             >
-              {/* 알림 아이콘 */}
+              {/* ===== 알림 아이콘 ===== */}
               <div className={styles.alert_icon}>
                 <span
                   className={`${styles.alert_type} ${
@@ -252,7 +256,7 @@ const Alert: React.FC = () => {
                 </span>
               </div>
 
-              {/* 알림 내용 */}
+              {/* ===== 알림 내용 ===== */}
               <div className={styles.alert_content}>
                 <div className={styles.alert_header_row}>
                   <h3 className={styles.alert_title}>{alert.title}</h3>
@@ -265,7 +269,7 @@ const Alert: React.FC = () => {
                 <p className={styles.alert_message}>{alert.message}</p>
               </div>
 
-              {/* 액션 버튼들 */}
+              {/* ===== 액션 버튼들 ===== */}
               <div className={styles.alert_actions}>
                 {!alert.isRead && (
                   <Button
@@ -293,7 +297,7 @@ const Alert: React.FC = () => {
         )}
       </div>
 
-      {/* 뒤로가기 버튼 */}
+      {/* ===== 뒤로가기 버튼 ===== */}
       <div className={styles.back_button_container}>
         <Button
           className={styles.back_button}

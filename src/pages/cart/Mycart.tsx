@@ -17,6 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
+// ===== 타입 정의 =====
 interface CartItem {
   id: number;
   productId: number;
@@ -47,14 +48,19 @@ interface CartSummary {
   finalTotal: number;
 }
 
+// ===== 상수 정의 =====
+const DELIVERY_FREE_THRESHOLD = 50000; // 5만원 이상 무료배송
+const DELIVERY_FEE = 3000; // 기본 배송비
+
 const Mycart: React.FC = () => {
-  // 장바구니 아이템 상태
+  const navigate = useNavigate();
+
+  // ===== 상태 관리 =====
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showEmptyCart, setShowEmptyCart] = useState(false);
-  const navigate = useNavigate();
 
-  // 더미 데이터로 장바구니 초기화
+  // ===== 초기 데이터 로드 =====
   useEffect(() => {
     const dummyCartItems: CartItem[] = [
       {
@@ -121,6 +127,7 @@ const Mycart: React.FC = () => {
     setCartItems(dummyCartItems);
   }, []);
 
+  // ===== 계산된 값들 =====
   // 장바구니 요약 계산
   const cartSummary: CartSummary = cartItems.reduce(
     (summary, item) => {
@@ -147,9 +154,15 @@ const Mycart: React.FC = () => {
   );
 
   // 배송비 계산 (5만원 이상 무료배송)
-  cartSummary.deliveryFee = cartSummary.totalPrice >= 50000 ? 0 : 3000;
+  cartSummary.deliveryFee =
+    cartSummary.totalPrice >= DELIVERY_FREE_THRESHOLD ? 0 : DELIVERY_FEE;
   cartSummary.finalTotal = cartSummary.totalPrice + cartSummary.deliveryFee;
 
+  // 선택된 아이템 수
+  const selectedCount = cartItems.filter((item) => item.isSelected).length;
+  const totalCount = cartItems.length;
+
+  // ===== 이벤트 핸들러들 =====
   // 전체 선택/해제
   const handleSelectAll = (selected: boolean) => {
     setCartItems((prev) =>
@@ -230,6 +243,7 @@ const Mycart: React.FC = () => {
     navigate("/market_wish");
   };
 
+  // ===== 유틸리티 함수들 =====
   // 가격 포맷팅
   const formatPrice = (price: number) => {
     return price.toLocaleString("ko-KR");
@@ -256,11 +270,7 @@ const Mycart: React.FC = () => {
     return `${distance.toFixed(1)}km`;
   };
 
-  // 선택된 아이템 수
-  const selectedCount = cartItems.filter((item) => item.isSelected).length;
-  const totalCount = cartItems.length;
-
-  // 장바구니가 비어있는 경우
+  // ===== 빈 장바구니 렌더링 =====
   if (cartItems.length === 0) {
     return (
       <div className={styles.cart_container}>
@@ -285,7 +295,7 @@ const Mycart: React.FC = () => {
 
   return (
     <div className={styles.cart_container}>
-      {/* 장바구니 헤더 */}
+      {/* ===== 장바구니 헤더 영역 ===== */}
       <div className={styles.cart_header}>
         <h1 className={styles.cart_title}>내 장바구니</h1>
         <div className={styles.cart_stats}>
@@ -296,7 +306,7 @@ const Mycart: React.FC = () => {
         </div>
       </div>
 
-      {/* 장바구니 컨트롤 */}
+      {/* ===== 장바구니 컨트롤 영역 ===== */}
       <div className={styles.cart_controls}>
         <div className={styles.select_all_section}>
           <label className={styles.select_all_label}>
@@ -334,11 +344,11 @@ const Mycart: React.FC = () => {
         </div>
       </div>
 
-      {/* 장바구니 아이템 목록 */}
+      {/* ===== 장바구니 아이템 목록 영역 ===== */}
       <div className={styles.cart_items}>
         {cartItems.map((item) => (
           <div key={item.id} className={styles.cart_item}>
-            {/* 선택 체크박스 */}
+            {/* ===== 선택 체크박스 ===== */}
             <div className={styles.item_select}>
               <input
                 type="checkbox"
@@ -348,7 +358,7 @@ const Mycart: React.FC = () => {
               />
             </div>
 
-            {/* 상품 이미지 */}
+            {/* ===== 상품 이미지 ===== */}
             <div className={styles.item_image}>
               <img src={item.productImage} alt={item.productName} />
               <div className={styles.item_badges}>
@@ -367,7 +377,7 @@ const Mycart: React.FC = () => {
               </div>
             </div>
 
-            {/* 상품 정보 */}
+            {/* ===== 상품 정보 ===== */}
             <div className={styles.item_info}>
               <h3 className={styles.item_name}>{item.productName}</h3>
               <div className={styles.item_seller}>
@@ -388,7 +398,7 @@ const Mycart: React.FC = () => {
               </div>
             </div>
 
-            {/* 수량 조절 */}
+            {/* ===== 수량 조절 ===== */}
             <div className={styles.item_quantity}>
               <div className={styles.quantity_controls}>
                 <button
@@ -413,7 +423,7 @@ const Mycart: React.FC = () => {
               </span>
             </div>
 
-            {/* 가격 정보 */}
+            {/* ===== 가격 정보 ===== */}
             <div className={styles.item_price}>
               {item.originalPrice && (
                 <span className={styles.original_price}>
@@ -429,7 +439,7 @@ const Mycart: React.FC = () => {
               </div>
             </div>
 
-            {/* 액션 버튼 */}
+            {/* ===== 액션 버튼 ===== */}
             <div className={styles.item_actions}>
               <button
                 className={`${styles.like_button} ${
@@ -455,7 +465,7 @@ const Mycart: React.FC = () => {
         ))}
       </div>
 
-      {/* 장바구니 요약 */}
+      {/* ===== 장바구니 요약 영역 ===== */}
       <div className={styles.cart_summary}>
         <div className={styles.summary_header}>
           <h3>주문 요약</h3>
@@ -529,7 +539,7 @@ const Mycart: React.FC = () => {
         </div>
       </div>
 
-      {/* 추천 상품 */}
+      {/* ===== 추천 상품 영역 ===== */}
       <div className={styles.recommended_products}>
         <h3 className={styles.recommended_title}>
           <FontAwesomeIcon icon={faGift} />

@@ -22,6 +22,7 @@ import { Button, Input, Select, Badge } from "../../../components/ui";
 import { useAuth, useAlert } from "../../../hooks";
 import styles from "./qanda.module.css";
 
+// ===== 타입 정의 =====
 interface QandAItem {
   id: string;
   title: string;
@@ -61,11 +62,19 @@ interface Answer {
   isLiked: boolean;
 }
 
+// ===== 상수 정의 =====
+const SORT_OPTIONS = [
+  { value: "latest", label: "최신순" },
+  { value: "popular", label: "인기순" },
+  { value: "priority", label: "우선순위순" },
+] as const;
+
 const QandA: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { alertSuccess, alertError } = useAlert();
 
+  // ===== 상태 관리 =====
   const [qandaList, setQandaList] = useState<QandAItem[]>([]);
   const [filteredList, setFilteredList] = useState<QandAItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -77,7 +86,7 @@ const QandA: React.FC = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // 더미 데이터
+  // ===== 더미 데이터 =====
   const dummyQandAList: QandAItem[] = [
     {
       id: "1",
@@ -169,7 +178,7 @@ const QandA: React.FC = () => {
     },
   ];
 
-  // 전문가 목록 (더미)
+  // ===== 전문가 목록 (더미) =====
   const expertList = [
     {
       id: "expert1",
@@ -191,7 +200,7 @@ const QandA: React.FC = () => {
     },
   ];
 
-  // 카테고리 목록
+  // ===== 카테고리 목록 =====
   const categories = [
     { value: "all", label: "전체" },
     { value: "재배기술", label: "재배기술" },
@@ -203,7 +212,7 @@ const QandA: React.FC = () => {
     { value: "농산물유통", label: "농산물유통" },
   ];
 
-  // 상태 목록
+  // ===== 상태 목록 =====
   const statusList = [
     { value: "all", label: "전체" },
     { value: "pending", label: "답변대기" },
@@ -211,16 +220,17 @@ const QandA: React.FC = () => {
     { value: "closed", label: "해결완료" },
   ];
 
-  // 초기 데이터 로드
+  // ===== 초기 데이터 로드 =====
   useEffect(() => {
     loadQandAList();
   }, []);
 
-  // 필터링 및 정렬 적용
+  // ===== 필터링 및 정렬 적용 =====
   useEffect(() => {
     applyFiltersAndSort();
   }, [qandaList, selectedCategory, selectedStatus, searchTerm, sortBy]);
 
+  // ===== 데이터 로드 함수 =====
   const loadQandAList = async () => {
     try {
       setIsLoading(true);
@@ -237,6 +247,7 @@ const QandA: React.FC = () => {
     }
   };
 
+  // ===== 필터링 및 정렬 함수 =====
   const applyFiltersAndSort = () => {
     let filtered = [...qandaList];
 
@@ -282,6 +293,7 @@ const QandA: React.FC = () => {
     setFilteredList(filtered);
   };
 
+  // ===== 이벤트 핸들러들 =====
   const handleSearch = () => {
     applyFiltersAndSort();
   };
@@ -310,6 +322,7 @@ const QandA: React.FC = () => {
     );
   };
 
+  // ===== 유틸리티 함수들 =====
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -355,7 +368,7 @@ const QandA: React.FC = () => {
 
   return (
     <div className={styles.qanda_container}>
-      {/* 헤더 영역 */}
+      {/* ===== 헤더 영역 ===== */}
       <div className={styles.qanda_header}>
         <div className={styles.header_content}>
           <h1 className={styles.page_title}>
@@ -371,7 +384,7 @@ const QandA: React.FC = () => {
         </div>
       </div>
 
-      {/* 전문가 소개 */}
+      {/* ===== 전문가 소개 영역 ===== */}
       <div className={styles.experts_section}>
         <h2 className={styles.section_title}>
           <FontAwesomeIcon icon={faUserTie} />
@@ -404,7 +417,7 @@ const QandA: React.FC = () => {
         </div>
       </div>
 
-      {/* 검색 및 필터 영역 */}
+      {/* ===== 검색 및 필터 영역 ===== */}
       <div className={styles.search_filter_area}>
         <div className={styles.search_section}>
           <div className={styles.search_box}>
@@ -460,15 +473,17 @@ const QandA: React.FC = () => {
               //   }
               className={styles.filter_select}
             >
-              <option value="latest">최신순</option>
-              <option value="popular">인기순</option>
-              <option value="priority">우선순위순</option>
+              {SORT_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </Select>
           </div>
         </div>
       </div>
 
-      {/* 질문 목록 */}
+      {/* ===== 질문 목록 영역 ===== */}
       <div className={styles.qanda_list_area}>
         {isLoading ? (
           <div className={styles.loading_state}>
@@ -506,7 +521,7 @@ const QandA: React.FC = () => {
 
               return (
                 <div key={item.id} className={styles.qanda_card}>
-                  {/* 카드 헤더 */}
+                  {/* ===== 카드 헤더 ===== */}
                   <div className={styles.card_header}>
                     <div className={styles.header_left}>
                       <Badge
@@ -538,7 +553,7 @@ const QandA: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* 카드 내용 */}
+                  {/* ===== 카드 내용 ===== */}
                   <div className={styles.card_content}>
                     <h3 className={styles.question_title}>
                       <Link to={`/community/qanda/detail/${item.id}`}>
@@ -551,7 +566,7 @@ const QandA: React.FC = () => {
                         : item.content}
                     </p>
 
-                    {/* 태그 */}
+                    {/* ===== 태그 ===== */}
                     <div className={styles.tags}>
                       {item.tags.map((tag, index) => (
                         <span key={index} className={styles.tag}>
@@ -561,7 +576,7 @@ const QandA: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* 카드 푸터 */}
+                  {/* ===== 카드 푸터 ===== */}
                   <div className={styles.card_footer}>
                     <div className={styles.author_info}>
                       <img
@@ -602,7 +617,7 @@ const QandA: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* 액션 버튼들 */}
+                  {/* ===== 액션 버튼들 ===== */}
                   <div className={styles.card_actions}>
                     <Button
                       onClick={() => handleLike(item.id)}
@@ -629,7 +644,7 @@ const QandA: React.FC = () => {
         )}
       </div>
 
-      {/* 질문하기 버튼 */}
+      {/* ===== 질문하기 버튼 영역 ===== */}
       <div className={styles.write_button_area}>
         <Button
           to="/community/qanda/write"
