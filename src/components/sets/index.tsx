@@ -2,6 +2,7 @@ import styles from "./index.module.css";
 import { Avatar, Button, LikeIt } from "../ui";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Tabs, { TabItemProps } from './Tabs';
 
 // 마켓 카드 컴포넌트
 export interface MarketCardProps {
@@ -303,12 +304,8 @@ export const LandCard: React.FC<LandCardProps> = ({
       </div>
 
       {/* 참여인원 & 좋아요 */}
-      <div className={styles.fund_land_bottom}>
-        <strong>
-          <span className={styles.fund_land_percent}>{Member} / </span>
-          {endMember}
-        </strong>
-        {/* <LikeIt isLiked={wish} onClick={handleWish} /> */}
+      <div>
+        <strong>{Member}명 지원</strong>
       </div>
 
       {/* 날짜 */}
@@ -318,11 +315,10 @@ export const LandCard: React.FC<LandCardProps> = ({
       </p>
 
       {/* 주소 & 상세 주소 */}
-      <p>
-        <span className={styles.fund_land_member}>
-          장소: {addr} / ({detailAddr})
-        </span>
-      </p>
+      <p><b>주소:</b> {addr} / ({detailAddr})</p>
+      <div className={styles.like_it_box}>
+        <LikeIt isLiked={false} />
+      </div>
     </section>
   );
 };
@@ -545,5 +541,5 @@ const Pagination: React.FC<PaginationProps> = ({
   );
 };
 
-export { Pagination };
-export { SortTabs };
+export { Pagination, SortTabs, Tabs};
+export type { TabItemProps};

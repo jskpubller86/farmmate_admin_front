@@ -1,10 +1,15 @@
 import React from "react";
-import styles from "./leaseList.module.css";
-import { Button, Avatar } from "../../components/ui";
+import styles from "./ApplicantListModal.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import useModal from "../../hooks/useModal";
 import { useNavigate } from "react-router-dom";
+import { useModal } from "../../../hooks";
+import { Avatar, Button } from "../../../components/ui";
+import ChatModal from "../../chat/ChatModal";
+import LeaseContractModal from "../LeaseContractModal";
+
+
+
 
 interface LeaseListProps {
   modalId: number;
@@ -13,13 +18,13 @@ interface LeaseListProps {
   onClose?: () => void;
 }
 
-const LeaseList: React.FC<LeaseListProps> = ({
+const ApplicantListModal: React.FC<LeaseListProps> = ({
   modalId,
   onChat,
   onContract,
   onClose,
 }) => {
-  const { closeModal } = useModal();
+  const {openModal, closeModal } = useModal();
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -53,7 +58,7 @@ const LeaseList: React.FC<LeaseListProps> = ({
     {
       id: "1",
       name: "김민수",
-      message: "성이름 님께서 지원하셨습니다.",
+      message: "성이름",
       gender: "여성",
       age: "20세",
       profileImage: "/images/img_profile.svg",
@@ -61,7 +66,7 @@ const LeaseList: React.FC<LeaseListProps> = ({
     {
       id: "2",
       name: "이영희",
-      message: "성이름 님께서 지원하셨습니다.",
+      message: "성이름",
       gender: "여성",
       age: "20세",
       profileImage: "/images/img_profile.svg",
@@ -69,7 +74,7 @@ const LeaseList: React.FC<LeaseListProps> = ({
     {
       id: "3",
       name: "박철수",
-      message: "성이름 님께서 지원하셨습니다.",
+      message: "성이름",
       gender: "여성",
       age: "20세",
       profileImage: "/images/img_profile.svg",
@@ -77,7 +82,7 @@ const LeaseList: React.FC<LeaseListProps> = ({
     {
       id: "4",
       name: "정수진",
-      message: "성이름 님께서 지원하셨습니다.",
+      message: "성이름",
       gender: "여성",
       age: "20세",
       profileImage: "/images/img_profile.svg",
@@ -85,7 +90,7 @@ const LeaseList: React.FC<LeaseListProps> = ({
     {
       id: "5",
       name: "한지훈",
-      message: "성이름 님께서 지원하셨습니다.",
+      message: "성이름",
       gender: "여성",
       age: "20세",
       profileImage: "/images/img_profile.svg",
@@ -93,7 +98,7 @@ const LeaseList: React.FC<LeaseListProps> = ({
     {
       id: "6",
       name: "송미영",
-      message: "성이름 님께서 지원하셨습니다.",
+      message: "성이름",
       gender: "여성",
       age: "20세",
       profileImage: "/images/img_profile.svg",
@@ -101,15 +106,11 @@ const LeaseList: React.FC<LeaseListProps> = ({
   ];
 
   return (
-    <div className={styles.modal_content}>
+    <div className={styles.modal_container}>
       {/* 모달 헤더 */}
-      <div className={styles.modal_header}>
+      <div className={styles.modal_header_box}>
         <h2 className={styles.modal_title}>신청자목록</h2>
-        <button
-          type="button"
-          className={styles.btn_close}
-          onClick={handleClose}
-        >
+        <button type="button" className={styles.btn_close} onClick={handleClose}>
           <FontAwesomeIcon icon={faXmark} />
         </button>
       </div>
@@ -119,12 +120,8 @@ const LeaseList: React.FC<LeaseListProps> = ({
         <div className={styles.applicant_list}>
           {applicantList.map((applicant) => (
             <div key={applicant.id} className={styles.applicant_item}>
-              <div className={styles.applicant_profile}>
-                <Avatar
-                  src={applicant.profileImage}
-                  size="sm"
-                  className={styles.profile_image}
-                />
+              <div>
+                <Avatar src={applicant.profileImage} size="sm" />
               </div>
 
               <div className={styles.applicant_info}>
@@ -135,22 +132,21 @@ const LeaseList: React.FC<LeaseListProps> = ({
                 <span className={styles.age}>{applicant.age}</span>
               </div>
 
-              <div className={styles.action_buttons}>
+              <div className={styles.btn_group}>
                 <Button
                   type="button"
                   size="xs"
                   color="point"
-                  onClick={() => handleChat(applicant.id)}
-                  className={styles.btn_test}
+                  onClick={() => openModal(1, <ChatModal modalId={1} channelId={applicant.id} />)}
                 >
                   채팅
                 </Button>
+
                 <Button
                   type="button"
                   size="xs"
                   color="point"
-                  onClick={() => handleContract(applicant.id)}
-                  className={styles.btn_test}
+                  onClick={() => openModal(2, <LeaseContractModal modalId={2} isEditMode={true} />, 119.142)}
                 >
                   계약하기
                 </Button>
@@ -163,4 +159,4 @@ const LeaseList: React.FC<LeaseListProps> = ({
   );
 };
 
-export default LeaseList;
+export default ApplicantListModal;

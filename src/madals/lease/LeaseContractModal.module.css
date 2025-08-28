@@ -1,0 +1,283 @@
+/* ===== FLEX DISPLAY ===== */
+.modal_header_box, .contract_box, .section_box, .modal_container, .text_content, .text_row, .text, .th {
+  display: flex;
+}
+
+/* ===== FLEX WRAP ===== */
+.modal_header_box, .contract_box, .section_box {
+  flex-wrap: wrap;
+}
+
+
+.td_inline {
+  display: inline-flex;
+}
+
+/* ===== FLEX 방향 ===== */
+.modal_container, .contract_box, .section_box, .text_content {
+  flex-direction: column;
+}
+
+/* ===== FLEX 정렬 ===== */
+.modal_header_box {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.td_inline, .text_row, .text, .th {
+  align-items: center;
+}
+
+.text_row {
+  align-items: flex-start;
+}
+
+.center_align, .th {
+  justify-content: center;
+}
+
+/* ===== FLEX 갭 ===== */
+.modal_container, .contract_box {
+  gap: 2rem;
+}
+
+.section_box, .td_inline, .text_row, .text {
+  gap: 1rem;
+}
+
+.text_content {
+  gap: 3rem;
+}
+
+.text_content.compact {
+  gap: 1rem;
+}
+
+/* ===== MODAL CONTAINER ===== */
+.modal_container_wrap {
+  padding: 1rem;
+}
+
+.modal_container {
+  overflow-y: scroll;
+  max-height: 90vh;
+  padding: 2rem;
+}
+
+/* ===== MODAL HEADER ===== */
+.modal_title {
+  font-size: 1.25rem;
+}
+
+.btn_close {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.btn_close:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* ===== SECTION STYLES ===== */
+.section_title {
+  font-size: 1.125rem;
+}
+
+.note_box {
+  text-align: center;
+  font-size: 1.25rem;
+}
+
+/* ===== TABLE LAYOUT ===== */
+.table, .table_col2, .table_money {
+  display: grid;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  background: #ffffff;
+}
+
+.table {
+  grid-template-columns: 179px 1fr 179px 1fr 179px 1fr;
+}
+
+.table_col2 {
+  grid-template-columns: 179px 1fr;
+}
+
+.table_money {
+  grid-template-columns: 179px 1fr 179px 1fr;
+}
+
+/* ===== TABLE CELLS ===== */
+.th, .td {
+  padding: 1rem;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+}
+
+.th {
+  background: #ffffff;
+  text-align: center;
+  font-size: 1rem;
+  color: #000000;
+}
+
+.td_full {
+  grid-column: span 5;
+}
+
+.table_money .td_full {
+  grid-column: span 3;
+}
+
+.td_inline {
+  padding: 1.5rem 0.75rem;
+  border-right: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  font-size: 0.875rem;
+}
+
+.center_align {
+  text-align: center;
+}
+
+/* ===== INPUT FIELDS ===== */
+.inline_input {
+  display: inline-block;
+  margin: 0 0.25rem;
+}
+
+/* ===== TEXT CONTENT ===== */
+.text_content {
+  flex: 1;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.text_row {
+  flex: 1;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.label {
+  min-width: 179px;
+  font-size: 1.125rem;
+}
+
+.text {
+  flex: 1;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.text.multiline {
+  display: block;
+  white-space: pre-line;
+}
+
+/* ===== SIGNATURE SECTION ===== */
+.signature_section {
+  margin-top: 2rem;
+}
+
+.signature_row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.signature_item {
+  text-align: center;
+}
+
+.signature_title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.signature_box {
+  height: 279px;
+  border: 1px solid #cccccc;
+  border-radius: 0;
+  background: #ffffff;
+  margin: 0 auto;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (min-width: 768px) {
+  .modal_container {
+    padding: 2.5rem;
+  }
+  
+  .table {
+    grid-template-columns: 200px 1fr 200px 1fr 200px 1fr;
+  }
+  
+  .table_col2 {
+    grid-template-columns: 200px 1fr;
+  }
+  
+  .table_money {
+    grid-template-columns: 200px 1fr 200px 1fr;
+  }
+  
+  .label {
+    min-width: 200px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .modal_container {
+    padding: 3rem;
+  }
+  
+  .signature_row {
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 767px) {
+  .modal_container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .table {
+    grid-template-columns: 120px 1fr;
+    font-size: 0.875rem;
+  }
+  
+  .table_col2 {
+    grid-template-columns: 120px 1fr;
+  }
+  
+  .table_money {
+    grid-template-columns: 120px 1fr;
+  }
+  
+  .th, .td {
+    padding: 1rem 0.5rem;
+  }
+  
+  .label {
+    min-width: 120px;
+    font-size: 1rem;
+  }
+  
+  .signature_row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

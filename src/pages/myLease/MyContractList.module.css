@@ -1,0 +1,110 @@
+/* ===== FLEX DISPLAY ===== */
+.my_contract_table, .table_row, .table_cell {
+  display: flex;
+}
+
+/* ===== FLEX 방향 ===== */
+.my_contract_table {
+  flex-direction: column;
+}
+
+/* ===== FLEX 정렬 ===== */
+.table_row, .table_cell {
+  align-items: center;
+}
+
+.table_cell {
+  justify-content: center;
+}
+
+/* ===== FLEX 갭 ===== */
+.table_cell {gap: 1rem;}
+
+/* ===== LAYOUT ===== */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.body_wrap {
+  width: 100%;
+  padding: 2rem;
+}
+
+.body_inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== TABLE STYLES ===== */
+.my_contract_table {
+  width: 100%;
+  margin-bottom: 2rem;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.table_header {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #cccccc;
+}
+
+.table_row {
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid #cccccc;
+  background-color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+
+.table_row:hover {
+  background-color: #f8f9fa;
+}
+
+.table_row:last-child {
+  border-bottom: none;
+}
+
+.row_border {
+  border-bottom: 1px solid #cccccc;
+}
+
+/* ===== TABLE CELLS ===== */
+.table_cell {
+  flex: 1;
+  padding: 0 1.5rem;
+  font-size: 14px;
+  color: #333333;
+}
+
+.number_cell {
+  max-width: 7.1428571rem;
+}
+
+.action_cell {
+  max-width: 14.285714rem;
+}
+
+/* ===== BUTTON STYLES ===== */
+.contract_btn {
+  background-color: #c4c971;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  height: 28px;
+  transition: all 0.2s ease;
+  min-width: 74px;
+}
+
+.contract_btn:hover {
+  background-color: #b3b85f;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+

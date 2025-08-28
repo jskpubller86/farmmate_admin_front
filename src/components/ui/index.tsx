@@ -297,11 +297,6 @@ const Badge: React.FC<BadgeProps> = ({
   return (
     <div
       className={getClssName(className, size)}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
       onClick={onClick}
     >
       {children}
