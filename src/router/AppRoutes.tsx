@@ -32,6 +32,9 @@ import Homepage from "../pages/main/homepage";
 import MyLeaseList from "../pages/myLease/MyLeaseList";
 import MyLease from "../pages/myLease/MyLease";
 import DiagnosisPage from "../pages/diagnosis/Diagnosis";
+import Checkout from "../pages/checkout/Checkout";
+import CheckoutSuccess from "../pages/checkout/CheckoutSuccess";
+import CheckoutFail from "../pages/checkout/CheckoutFail";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
@@ -84,17 +87,17 @@ const AppRoutes: React.FC = () => {
     { path: "/lease/contract", element: <LeaseContract /> },
     { path: "/lease/applicants", element: <ApplicantList /> },
     { path: "/lease", element: <LandLeaseList /> },
-    { path: "/lease/my-lease", element: <MyLease  /> },
-    { path: "/lease/my-rent", element: <LandLeaseList  /> },
+    { path: "/lease/my-lease", element: <MyLease /> },
+    { path: "/lease/my-rent", element: <LandLeaseList /> },
     { path: "/lease/wish", element: <LandLeaseList /> },
     { path: "/lease/:id", element: <LeaseDetail /> },
     { path: "/lease/my-lease/:id", element: <MyLeaseDetail /> },
     { path: "/lease/:id/applicants", element: <ApplicantList /> },
 
     // Land routes
-    { path: "/land", element: <LandLeaseList  /> },
+    { path: "/land", element: <LandLeaseList /> },
     { path: "/land/my-rent", element: <LandLeaseList /> },
-    { path: "/land/wish", element: <LandLeaseList  /> },
+    { path: "/land/wish", element: <LandLeaseList /> },
     { path: "/land/registration", element: <LandRegistration /> },
 
     { path: "/land/rent-add", element: <LandRentAdd /> },
@@ -119,6 +122,10 @@ const AppRoutes: React.FC = () => {
     { path: "/board/write", element: <BoardForm /> },
     { path: "/board/:id", element: <BoardDetail /> },
     // { path: "/sample/modal", element: <ModalSample /> },
+    // Checkout routes
+    { path: "/checkout", element: <Checkout /> },
+    { path: "/success", element: <CheckoutSuccess /> },
+    { path: "/fail", element: <CheckoutFail /> },
   ];
 
   return (

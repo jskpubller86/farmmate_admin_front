@@ -228,8 +228,8 @@ const Mycart: React.FC = () => {
     }
 
     console.log("구매 진행:", selectedItems);
-    // TODO: 구매 페이지로 이동
-    // navigate("/checkout", { state: { items: selectedItems } });
+    // Checkout 페이지로 이동
+    navigate("/checkout", { state: { items: selectedItems } });
   };
 
   // 찜하기로 이동

@@ -11,12 +11,12 @@ const Select: React.FC<FormProps> = ({
   ...props
 }) => {
   return (
-    <select
+    <Select
       className={`${styles.select} ${className ? className : ""}`}
       {...props}
     >
       {children}
-    </select>
+    </Select>
   );
 };
 

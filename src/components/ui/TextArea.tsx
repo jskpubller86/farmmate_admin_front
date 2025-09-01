@@ -9,10 +9,10 @@ interface TextAreaProps extends FormProps {
 
 const TextArea: React.FC<TextAreaProps> = ({ className, ...props }) => {
   return (
-    <textarea
+    <TextArea
       className={`${styles.textarea} ${className ? className : ""}`}
       {...props}
-    ></textarea>
+    ></TextArea>
   );
 };
 
