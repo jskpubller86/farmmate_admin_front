@@ -3,20 +3,15 @@ import styles from "./index.module.css";
 
 import { DefaultProps, FormProps } from "./types";
 
-const Select: React.FC<FormProps> = ({
-  className,
-  value,
-  type,
-  children,
-  ...props
-}) => {
+const Select: React.FC<FormProps> = ({ className, value, children }) => {
+  // 필요한 속성만 추려서 명시적으로 추가
   return (
-    <Select
+    <select
       className={`${styles.select} ${className ? className : ""}`}
-      {...props}
+      value={value}
     >
       {children}
-    </Select>
+    </select>
   );
 };
 
