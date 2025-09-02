@@ -6,8 +6,9 @@ import {
   Input,
   Select,
   TextArea,
-  // File, // 현재 사용하지 않음
+  File,
   Error,
+  Checkbox,
 } from "../../components/ui";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -244,7 +245,7 @@ const MarketWrite: React.FC = () => {
           {/* 카테고리 */}
           <div className={styles.form_group}>
             <label className={styles.form_label}>카테고리 *</label>
-            <Select {...register("category")} className={styles.form_select}>
+            {/* <Select {...register("category")} className={styles.form_select}>
               <option value="">카테고리를 선택하세요</option>
               <option value="vegetables">채소</option>
               <option value="fruits">과일</option>
@@ -254,7 +255,7 @@ const MarketWrite: React.FC = () => {
               <option value="seafood">수산물</option>
               <option value="processed">가공식품</option>
               <option value="other">기타</option>
-            </Select>
+            </Select> */}
             <Error isError={Boolean(errors.category)}>
               {errors.category?.message}
             </Error>
