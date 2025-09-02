@@ -2,14 +2,7 @@ import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./alert.module.css";
 import { Button, Badge } from "../../components/ui";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faTrash,
-  faFilter,
-  faTimes,
-  faBell,
-} from "@fortawesome/free-solid-svg-icons";
+import { Bell, Check, Filter, Trash, Xmark } from "../../components/icon";
 
 // ===== 타입 정의 =====
 type AlertType = "info" | "success" | "warning" | "error";
@@ -166,7 +159,7 @@ const Alert: React.FC = () => {
       <div className={styles.alert_header}>
         <div className={styles.header_left}>
           <h1 className={styles.page_title}>
-            <FontAwesomeIcon icon={faBell} className={styles.title_icon} />
+            <Bell className={styles.title_icon} />
             알림
           </h1>
           {unreadCount > 0 && (
@@ -179,7 +172,7 @@ const Alert: React.FC = () => {
             onClick={() => setShowFilters(!showFilters)}
             color="secondary"
           >
-            <FontAwesomeIcon icon={faFilter} />
+            <Filter />
             필터
           </Button>
           {unreadCount > 0 && (
@@ -278,7 +271,7 @@ const Alert: React.FC = () => {
                     color="point2"
                     size="sm"
                   >
-                    <FontAwesomeIcon icon={faCheck} />
+                    <Check />
                     읽음
                   </Button>
                 )}
@@ -288,7 +281,7 @@ const Alert: React.FC = () => {
                   color="danger"
                   size="sm"
                 >
-                  <FontAwesomeIcon icon={faTrash} />
+                  <Trash />
                   삭제
                 </Button>
               </div>

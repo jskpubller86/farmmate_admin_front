@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
 import styles from "./cart.module.css";
 import { Button, Badge } from "../../components/ui";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faTrash,
-  faHeart,
-  faShare,
-  faMapMarkerAlt,
-  faStar,
-  faShoppingCart,
-  faTruck,
-  faCreditCard,
-  faGift,
-  faLeaf,
-  faExclamationTriangle,
-} from "@fortawesome/free-solid-svg-icons";
+  Trash,
+  Heart,
+  Share,
+  MapMarkerAlt,
+  Star,
+  ShoppingCart,
+  Truck,
+  CreditCard,
+  Gift,
+  Leaf,
+  ExclamationTriangle,
+} from "../../components/icon";
 import { useNavigate } from "react-router-dom";
 
 // ===== 타입 정의 =====
@@ -252,9 +251,8 @@ const Mycart: React.FC = () => {
   // 평점별 별점 렌더링
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <FontAwesomeIcon
+      <Star
         key={i}
-        icon={faStar}
         className={`${styles.star} ${
           i < rating ? styles.star_filled : styles.star_empty
         }`}
@@ -276,7 +274,7 @@ const Mycart: React.FC = () => {
       <div className={styles.cart_container}>
         <div className={styles.empty_cart}>
           <div className={styles.empty_cart_icon}>
-            <FontAwesomeIcon icon={faShoppingCart} />
+            <ShoppingCart />
           </div>
           <h2 className={styles.empty_cart_title}>장바구니가 비어있습니다</h2>
           <p className={styles.empty_cart_message}>
@@ -326,7 +324,7 @@ const Mycart: React.FC = () => {
             onClick={handleRemoveSelected}
             disabled={selectedCount === 0}
           >
-            <FontAwesomeIcon icon={faTrash} />
+            <Trash />
             선택 삭제
           </Button>
           <Button
@@ -334,11 +332,11 @@ const Mycart: React.FC = () => {
             onClick={handleMoveToWishlist}
             disabled={selectedCount === 0}
           >
-            <FontAwesomeIcon icon={faHeart} />
+            <Heart />
             찜하기로 이동
           </Button>
           <Button className={styles.action_button} onClick={handleClearCart}>
-            <FontAwesomeIcon icon={faTrash} />
+            <Trash />
             장바구니 비우기
           </Button>
         </div>
@@ -364,13 +362,13 @@ const Mycart: React.FC = () => {
               <div className={styles.item_badges}>
                 {item.isOrganic && (
                   <Badge className={styles.badge_organic}>
-                    <FontAwesomeIcon icon={faLeaf} />
+                    <Leaf />
                     유기농
                   </Badge>
                 )}
                 {item.isLocal && (
                   <Badge className={styles.badge_local}>
-                    <FontAwesomeIcon icon={faMapMarkerAlt} />
+                    <MapMarkerAlt />
                     지역특산
                   </Badge>
                 )}
@@ -383,13 +381,13 @@ const Mycart: React.FC = () => {
               <div className={styles.item_seller}>
                 <span className={styles.seller_name}>{item.sellerName}</span>
                 <span className={styles.item_location}>
-                  <FontAwesomeIcon icon={faMapMarkerAlt} />
+                  {/* <FontAwesomeIcon icon={faMapMarkerAlt} /> */}
                   {item.location} ({formatDistance(item.distance)})
                 </span>
               </div>
               <div className={styles.item_details}>
                 <span className={styles.delivery_option}>
-                  <FontAwesomeIcon icon={faTruck} />
+                  {/* <FontAwesomeIcon icon={faTruck} /> */}
                   {item.deliveryOption}
                 </span>
                 <span className={styles.min_order}>
@@ -448,17 +446,17 @@ const Mycart: React.FC = () => {
                 onClick={() => handleLikeToggle(item.id)}
                 title={item.isLiked ? "찜하기 취소" : "찜하기"}
               >
-                <FontAwesomeIcon icon={faHeart} />
+                {/* <FontAwesomeIcon icon={faHeart} />   */}
               </button>
               <button className={styles.share_button} title="공유하기">
-                <FontAwesomeIcon icon={faShare} />
+                {/* <FontAwesomeIcon icon={faShare} /> */}
               </button>
               <button
                 className={styles.remove_button}
                 onClick={() => handleRemoveItem(item.id)}
                 title="삭제"
               >
-                <FontAwesomeIcon icon={faTrash} />
+                <Trash />
               </button>
             </div>
           </div>
@@ -506,7 +504,7 @@ const Mycart: React.FC = () => {
 
           {cartSummary.deliveryFee > 0 && (
             <div className={styles.delivery_notice}>
-              <FontAwesomeIcon icon={faExclamationTriangle} />
+              {/* <FontAwesomeIcon icon={faExclamationTriangle} /> */}
               5만원 이상 주문 시 무료배송
             </div>
           )}
@@ -525,7 +523,7 @@ const Mycart: React.FC = () => {
             onClick={handleCheckout}
             disabled={selectedCount === 0}
           >
-            <FontAwesomeIcon icon={faCreditCard} />
+            <CreditCard />
             구매하기 ({selectedCount}개)
           </Button>
 
@@ -533,7 +531,7 @@ const Mycart: React.FC = () => {
             className={styles.continue_shopping_button}
             onClick={() => (window.location.href = "/market_list")}
           >
-            <FontAwesomeIcon icon={faShoppingCart} />
+            {/* <FontAwesomeIcon icon={faShoppingCart} /> */}
             쇼핑 계속하기
           </Button>
         </div>
@@ -542,7 +540,7 @@ const Mycart: React.FC = () => {
       {/* ===== 추천 상품 영역 ===== */}
       <div className={styles.recommended_products}>
         <h3 className={styles.recommended_title}>
-          <FontAwesomeIcon icon={faGift} />
+          {/* <FontAwesomeIcon icon={faGift} /> */}
           이런 상품은 어떠세요?
         </h3>
         <div className={styles.recommended_grid}>
