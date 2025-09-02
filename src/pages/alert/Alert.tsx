@@ -2,7 +2,17 @@ import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./alert.module.css";
 import { Button, Badge } from "../../components/ui";
-import { Bell, Check, Filter, Trash, Xmark } from "../../components/icon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBell,
+  faFilter,
+  faCheck,
+  faTrash,
+  faCheckCircle,
+  faExclamationTriangle,
+  faTimesCircle,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 // ===== 타입 정의 =====
 type AlertType = "info" | "success" | "warning" | "error";
@@ -18,10 +28,10 @@ interface AlertItem {
 
 // ===== 상수 정의 =====
 const ALERT_ICONS = {
-  success: "✅",
-  warning: "⚠️",
-  error: "❌",
-  info: "ℹ️",
+  success: faCheckCircle,
+  warning: faExclamationTriangle,
+  error: faTimesCircle,
+  info: faInfoCircle,
 } as const;
 
 // ===== 더미 데이터 =====
@@ -151,7 +161,9 @@ const Alert: React.FC = () => {
   }, []);
 
   // ===== 유틸리티 함수들 =====
-  const getAlertIcon = (type: AlertType) => ALERT_ICONS[type];
+  const getAlertIcon = (type: AlertType) => (
+    <FontAwesomeIcon icon={ALERT_ICONS[type]} />
+  );
 
   return (
     <div className={styles.alert_container}>
@@ -159,7 +171,7 @@ const Alert: React.FC = () => {
       <div className={styles.alert_header}>
         <div className={styles.header_left}>
           <h1 className={styles.page_title}>
-            <Bell className={styles.title_icon} />
+            <FontAwesomeIcon icon={faBell} className={styles.title_icon} />
             알림
           </h1>
           {unreadCount > 0 && (
@@ -172,7 +184,7 @@ const Alert: React.FC = () => {
             onClick={() => setShowFilters(!showFilters)}
             color="secondary"
           >
-            <Filter />
+            <FontAwesomeIcon icon={faFilter} />
             필터
           </Button>
           {unreadCount > 0 && (
@@ -222,7 +234,9 @@ const Alert: React.FC = () => {
       <div className={styles.alerts_list}>
         {processedAlerts.length === 0 ? (
           <div className={styles.empty_state}>
-            <div className={styles.empty_icon}>🔔</div>
+            <div className={styles.empty_icon}>
+              <FontAwesomeIcon icon={faBell} />
+            </div>
             <h3 className={styles.empty_title}>알림이 없습니다</h3>
             <p className={styles.empty_description}>
               {activeFilter === "all"
@@ -271,7 +285,7 @@ const Alert: React.FC = () => {
                     color="point2"
                     size="sm"
                   >
-                    <Check />
+                    <FontAwesomeIcon icon={faCheck} />
                     읽음
                   </Button>
                 )}
@@ -281,7 +295,7 @@ const Alert: React.FC = () => {
                   color="danger"
                   size="sm"
                 >
-                  <Trash />
+                  <FontAwesomeIcon icon={faTrash} />
                   삭제
                 </Button>
               </div>
