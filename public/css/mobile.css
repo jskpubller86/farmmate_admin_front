@@ -1,0 +1,132 @@
+
+/* 모바일 최적화 전역 스타일 */
+
+/* 터치 친화적인 버튼 크기 */
+@media (max-width: 768px) {
+  button, .button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  
+  /* 터치 영역 확대 */
+  .actionIcon, .dropdownItem {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* 스크롤 개선 */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* 텍스트 선택 방지 (버튼 등) */
+  button, .button, [role="button"] {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* 포커스 스타일 개선 */
+  button:focus, .button:focus, [role="button"]:focus {
+    outline: 2px solid #6e9556;
+    outline-offset: 2px;
+  }
+}
+
+/* 매우 작은 화면 (320px 이하) */
+@media (max-width: 320px) {
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .title {
+    font-size: 1.125rem !important;
+  }
+  
+  .subtitle {
+    font-size: 0.75rem !important;
+  }
+  
+  .card {
+    padding: 0.5rem !important;
+  }
+  
+  .statsGrid {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+  
+  .menuGrid {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+}
+
+/* 가로 모드 최적화 */
+@media (max-width: 768px) and (orientation: landscape) {
+  .content {
+    padding: 0.75rem;
+  }
+  
+  .header {
+    margin-bottom: 1rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .menuGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 다크 모드 지원 (선택사항) */
+@media (prefers-color-scheme: dark) {
+  .container {
+    background-color: #1f2937;
+    color: #f9fafb;
+  }
+  
+  .card {
+    background-color: #374151;
+    color: #f9fafb;
+  }
+  
+  .title, .cardTitle, .userName {
+    color: #f9fafb;
+  }
+  
+  .subtitle, .description, .userEmail {
+    color: #d1d5db;
+  }
+}
+
+/* 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 고대비 모드 지원 */
+@media (prefers-contrast: high) {
+  .card {
+    border: 2px solid #000;
+  }
+  
+  .button, button {
+    border: 2px solid #000;
+  }
+}

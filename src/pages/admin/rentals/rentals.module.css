@@ -1,0 +1,268 @@
+.container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.content {
+  padding: 2rem;
+}
+
+.maxWidth {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-top: 0.5rem;
+  margin: 0;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+}
+
+.cardTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.number {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.description {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.searchCard {
+  margin-bottom: 2rem;
+}
+
+.searchContent {
+  padding: 1.5rem;
+}
+
+.searchContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.searchInput {
+  position: relative;
+  flex: 1;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 1rem;
+  width: 1rem;
+  color: #6b7280;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.addIcon {
+  height: 1rem;
+  width: 1rem;
+}
+
+/* 테이블 스타일 */
+.tableContainer {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.dataTable thead {
+  background-color: #f9fafb;
+}
+
+.dataTable th {
+  padding: 1rem 0.75rem;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.dataTable td {
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: top;
+}
+
+.tableRow:hover {
+  background-color: #f9fafb;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.itemName {
+  font-weight: 600;
+  color: #111827;
+  font-size: 0.875rem;
+}
+
+.itemType {
+  font-size: 0.75rem;
+  color: #6b7280;
+  background-color: #f3f4f6;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  width: fit-content;
+}
+
+.partyInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.partyName {
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.contractInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.contractDetail {
+  font-size: 0.75rem;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.statusInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.statusDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.statusDot.계약완료,
+.statusDot.유효,
+.statusDot.처리완료,
+.statusDot.해결완료 {
+  background-color: #10b981;
+}
+
+.statusDot.계약중,
+.statusDot.대기,
+.statusDot.처리중,
+.statusDot.중재중 {
+  background-color: #f59e0b;
+}
+
+.statusDot.계약만료 {
+  background-color: #6b7280;
+}
+
+.statusText {
+  font-size: 0.875rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.dateInfo {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.cardContent {
+  margin-top: 1rem;
+}
+
+.cardDescription {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 0;
+}

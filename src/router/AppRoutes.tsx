@@ -1,131 +1,125 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import PermissionFilter from "../filters/PermissionFilter";
-import BoardDetail from "../pages/community/board/BoardDetail";
-import BoardForm from "../pages/community/board/BoardForm";
-import BoardList from "../pages/community/board/BoardList";
-import Login from "../pages/login/Login";
-import FindAccount from "../pages/login/FindAccount";
-import Mypage from "../pages/mypage/Mypage";
-import Form from "../pages/sample/Form";
-import Toast from "../pages/sample/Toast";
-import Signup from "../pages/signup/Signup";
-import Alert from "../pages/alert/Alert";
-import LeaseContract from "../pages/lease/LeaseContract";
-import LeaseDetail from "../pages/lease/LeaseDetail";
-import MyLeaseDetail from "../pages/lease/MyLeaseDetail";
-import ApplicantList from "../pages/lease/ApplicantList";
-import LandLeaseList from "../pages/land/LandLeaseList";
-import LandRegistration from "../pages/land/LandRegistration";
-import LandRentAdd from "../pages/land/LandRentAdd";
-import LandDetail from "../pages/land/LandDetail";
-import MypageEdit from "../pages/mypage/MypageEdit";
-import QandA from "../pages/community/qanda/QandA";
-import MarketList from "../pages/market/MarketList";
-import MarketDetail from "../pages/market/MarketDetail";
-import MarketWrite from "../pages/market/MarketWrite";
-import MarketWish from "../pages/market/MarketWish";
-import Mycart from "../pages/cart/Mycart";
-import ModalSample from "../pages/sample/ModalSample";
-import TabsSample from "../pages/sample/tab/TabsSample";
-import Homepage from "../pages/main/homepage";
-import MyLeaseList from "../pages/myLease/MyLeaseList";
-import MyLease from "../pages/myLease/MyLease";
-import DiagnosisPage from "../pages/diagnosis/Diagnosis";
-import Checkout from "../pages/checkout/Checkout";
-import CheckoutSuccess from "../pages/checkout/CheckoutSuccess";
-import CheckoutFail from "../pages/checkout/CheckoutFail";
+// Admin pages - Left.tsx에 맞춰 필요한 것만 import
+import Dashboard from "../pages/admin/dashboard/Dashboard";
+import Users from "../pages/admin/users/Users";
+import Reports from "../pages/admin/reports/Reports";
+import Statistics from "../pages/admin/statistics/Statistics";
+import Products from "../pages/admin/products/Products";
+import Rentals from "../pages/admin/rentals/Rentals";
+import Disputes from "../pages/admin/disputes/Disputes";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
-    { path: "/", element: <Homepage /> },
-    { path: "/main", element: <Homepage /> },
-    { path: "/login", element: <Login /> },
-    { path: "/findaccount", element: <FindAccount /> },
-    { path: "/signup", element: <Signup /> },
-    {
-      path: "/mypage",
-      element: (
-        // <PermissionFilter>
-        <Mypage />
-        // </PermissionFilter>
-      ),
-    },
-    {
-      path: "/mypage_edit",
-      element: (
-        // <PermissionFilter>
-        <MypageEdit />
-        // </PermissionFilter>
-      ),
-    },
-    {
-      path: "/market_list",
-      element: <MarketList />,
-    },
-    {
-      path: "/market_detail/:productId",
-      element: <MarketDetail />,
-    },
-    {
-      path: "/mycart",
-      element: <Mycart />,
-    },
-    {
-      path: "/alert",
-      element: <Alert />,
-    },
-    {
-      path: "/market_write",
-      element: <MarketWrite />,
-    },
-    {
-      path: "/market_wish",
-      element: <MarketWish />,
-    },
-    // Lease routes
-    { path: "/lease/contract", element: <LeaseContract /> },
-    { path: "/lease/applicants", element: <ApplicantList /> },
-    { path: "/lease", element: <LandLeaseList /> },
-    { path: "/lease/my-lease", element: <MyLease /> },
-    { path: "/lease/my-rent", element: <LandLeaseList /> },
-    { path: "/lease/wish", element: <LandLeaseList /> },
-    { path: "/lease/:id", element: <LeaseDetail /> },
-    { path: "/lease/my-lease/:id", element: <MyLeaseDetail /> },
-    { path: "/lease/:id/applicants", element: <ApplicantList /> },
+    // { path: "/", element: <Homepage /> },
+    // { path: "/main", element: <Homepage /> },
+    // { path: "/login", element: <Login /> },
+    // { path: "/findaccount", element: <FindAccount /> },
+    // { path: "/signup", element: <Signup /> },
+    // {
+    //   path: "/mypage",
+    //   element: (
+    //     // <PermissionFilter>
+    //     <Mypage />
+    //     // </PermissionFilter>
+    //   ),
+    // },
+    // {
+    //   path: "/mypage_edit",
+    //   element: (
+    //     // <PermissionFilter>
+    //     <MypageEdit />
+    //     // </PermissionFilter>
+    //   ),
+    // },
+    // {
+    //   path: "/market_list",
+    //   element: <MarketList />,
+    // },
+    // {
+    //   path: "/market_detail/:productId",
+    //   element: <MarketDetail />,
+    // },
+    // {
+    //   path: "/mycart",
+    //   element: <Mycart />,
+    // },
+    // {
+    //   path: "/alert",
+    //   element: <Alert />,
+    // },
+    // {
+    //   path: "/market_write",
+    //   element: <MarketWrite />,
+    // },
+    // {
+    //   path: "/market_wish",
+    //   element: <MarketWish />,
+    // },
+    // // Lease routes
+    // { path: "/lease/contract", element: <LeaseContract /> },
+    // { path: "/lease/applicants", element: <ApplicantList /> },
+    // { path: "/lease", element: <LandLeaseList /> },
+    // { path: "/lease/my-lease", element: <MyLease /> },
+    // { path: "/lease/my-rent", element: <LandLeaseList /> },
+    // { path: "/lease/wish", element: <LandLeaseList /> },
+    // { path: "/lease/:id", element: <LeaseDetail /> },
+    // { path: "/lease/my-lease/:id", element: <MyLeaseDetail /> },
+    // { path: "/lease/:id/applicants", element: <ApplicantList /> },
 
-    // Land routes
-    { path: "/land", element: <LandLeaseList /> },
-    { path: "/land/my-rent", element: <LandLeaseList /> },
-    { path: "/land/wish", element: <LandLeaseList /> },
-    { path: "/land/registration", element: <LandRegistration /> },
+    // // Land routes
+    // { path: "/land", element: <LandLeaseList /> },
+    // { path: "/land/my-rent", element: <LandLeaseList /> },
+    // { path: "/land/wish", element: <LandLeaseList /> },
+    // { path: "/land/registration", element: <LandRegistration /> },
 
-    { path: "/land/rent-add", element: <LandRentAdd /> },
-    { path: "/land/:id", element: <LandDetail /> },
-    { path: "/qanda", element: <QandA /> },
+    // { path: "/land/rent-add", element: <LandRentAdd /> },
+    // { path: "/land/:id", element: <LandDetail /> },
+    // { path: "/qanda", element: <QandA /> },
 
-    // Diagnosis routes
-    { path: "/diagnosis", element: <DiagnosisPage /> },
+    // // Diagnosis routes
+    // { path: "/diagnosis", element: <DiagnosisPage /> },
 
-    {
-      path: "/form",
-      element: (
-        <PermissionFilter>
-          <Form />
-        </PermissionFilter>
-      ),
-    },
-    { path: "/toast", element: <Toast /> },
-    { path: "/sample/tabs", element: <TabsSample /> },
-    { path: "/board", element: <BoardList /> },
-    { path: "/board/boardList", element: <BoardList /> },
-    { path: "/board/write", element: <BoardForm /> },
-    { path: "/board/:id", element: <BoardDetail /> },
-    // { path: "/sample/modal", element: <ModalSample /> },
-    // Checkout routes
-    { path: "/checkout", element: <Checkout /> },
-    { path: "/success", element: <CheckoutSuccess /> },
-    { path: "/fail", element: <CheckoutFail /> },
+    // {
+    //   path: "/form",
+    //   element: (
+    //     <PermissionFilter>
+    //       <Form />
+    //     </PermissionFilter>
+    //   ),
+    // },
+    // { path: "/toast", element: <Toast /> },
+    // { path: "/sample/tabs", element: <TabsSample /> },
+    // { path: "/board", element: <BoardList /> },
+    // { path: "/board/boardList", element: <BoardList /> },
+    // { path: "/board/write", element: <BoardForm /> },
+    // { path: "/board/:id", element: <BoardDetail /> },
+    // // { path: "/sample/modal", element: <ModalSample /> },
+    // // Checkout routes
+    // { path: "/checkout", element: <Checkout /> },
+    // { path: "/success", element: <CheckoutSuccess /> },
+    // { path: "/fail", element: <CheckoutFail /> },
+    
+    // Admin routes - Left.tsx에 맞춰 재구성
+    { path: "/", element: <Dashboard /> },
+    
+    // 👩‍🌾 유저 관리
+    { path: "/admin/users", element: <Users /> },
+    
+    // 🌾 거래 관리 (부적절 거래 신고 처리)
+    { path: "/admin/reports", element: <Reports /> },
+    
+    // 🌾 농산물 거래 관리
+    { path: "/admin/products", element: <Products /> },
+    
+    // 🏞️ 토지 임대/임차 관리
+    { path: "/admin/rentals", element: <Rentals /> },
+    
+    // ⚖️ 분쟁 중재
+    { path: "/admin/disputes", element: <Disputes /> },
+    
+    // 📈 통계 / 리포트
+    { path: "/admin/statistics", element: <Statistics /> },
   ];
 
   return (

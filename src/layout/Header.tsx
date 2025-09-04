@@ -95,6 +95,7 @@ const Header: React.FC = () => {
                 className={styles.logo_img}
                 alt="로고"
               />
+              <span className={styles.brand_text}>Farmmate (스마트 농업 서비스)</span>
             </Link>
           </h1>
 
