@@ -81,7 +81,7 @@ const Dashboard: React.FC = () => {
                 </div>
               </div>
 
-              <div className={styles.menuCard} onClick={() => handleNavigation('/admin/disputes')}>
+              {/* <div className={styles.menuCard} onClick={() => handleNavigation('/admin/disputes')}>
                 <div className={styles.card}>
                   <div className={styles.cardHeader}>
                     <h3 className={styles.cardTitle}>분쟁 중재</h3>
@@ -96,7 +96,7 @@ const Dashboard: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 

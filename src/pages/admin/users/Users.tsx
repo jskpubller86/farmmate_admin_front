@@ -230,15 +230,15 @@ const Users: React.FC = () => {
                         </p>
                       </div>
                       <div className={styles.userStatus}>
-                        <div className={styles.statusInfo}>
-                          <span className={styles.statusLabel}>상태</span>
+                        {/* <div className={styles.statusInfo}> */}
+                          {/* <span className={styles.statusLabel}>상태</span>
                           <span className={styles.statusIcon}>{item.status}</span>
                           <span className={styles.statusText}>
                             {item.status === "🟢" ? "온라인" : "오프라인"}
-                          </span>
-                        </div>
+                          </span> */}
+                        {/* </div> */}
                         <div className={styles.activityInfo}>
-                          <span className={styles.activityLabel}>마지막 활동</span>
+                          <span className={styles.activityLabel}>마지막 로그인</span>
                           <span className={styles.activityTime}>{item.lastActivity}</span>
                         </div>
                         <div className={styles.sanctionInfo}>
