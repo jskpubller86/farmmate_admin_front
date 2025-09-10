@@ -175,6 +175,7 @@ const Left: React.FC = () => {
             {/* )}  */}
           </div>
 
+
           {/* 📢 컨텐츠 관리 */}
           {/* <div className={styles.left_navigation_box}>
             <div
@@ -240,6 +241,13 @@ const Left: React.FC = () => {
             <Link to="/admin/statistics" className={styles.left_navigation_item}>
               <span>통계/리포트</span>
             </Link>
+            
+          {/* 💬 Q&A */}
+          <div className={styles.left_navigation_box}>
+            <Link to="/admin/qna" className={styles.left_navigation_item}>
+              <span>Q&A</span>
+            </Link>
+          </div>
             {/* {statisticsDropdownOpen && (
               <div className={styles.mypage_dropdown}>
                 <Link to="/admin/statistics" className={styles.mypage_dropdown_item}>

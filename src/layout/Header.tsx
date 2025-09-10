@@ -95,7 +95,7 @@ const Header: React.FC = () => {
                 className={styles.logo_img}
                 alt="로고"
               />
-              <span className={styles.brand_text}>Farmmate (스마트 농업 서비스)</span>
+              <span className={styles.brand_text}>관리자님 환영합니다.</span>
             </Link>
           </h1>
 
@@ -120,7 +120,7 @@ const Header: React.FC = () => {
               </button>
             </div>
 
-            <div className={styles.srch_area}>
+            {/* <div className={styles.srch_area}>
               <form className={styles.search_wrap} onSubmit={submit}>
                 <input
                   type="text"
@@ -154,7 +154,7 @@ const Header: React.FC = () => {
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </button>
               </form>
-            </div>
+            </div> */}
 
             <div className={styles.utils_area}>
               {/* 로그인/회원가입 버튼 - 360px 이하에서만 표시 */}
@@ -175,7 +175,7 @@ const Header: React.FC = () => {
                 </Button>
               </div>
 
-              <Link to={"/alert"}>
+              {/* <Link to={"/alert"}>
                 <button className={styles.notice_btn}>
                   <img
                     src="/images/notice_icon.png"
@@ -184,10 +184,10 @@ const Header: React.FC = () => {
                   />
                 </button>
               </Link>
-              <Badge className={styles.badge_item}>110</Badge>
+              <Badge className={styles.badge_item}>110</Badge> */}
 
               {/* 챗봇 버튼 */}
-              <button
+              {/* <button
                 className={styles.chatbot_btn}
                 onClick={handleChatbotClick}
                 title="챗봇"
@@ -197,7 +197,7 @@ const Header: React.FC = () => {
                   className={styles.chatbot_icon_img}
                   alt="챗봇"
                 />
-              </button>
+              </button> */}
             </div>
           </div>
         </header>
