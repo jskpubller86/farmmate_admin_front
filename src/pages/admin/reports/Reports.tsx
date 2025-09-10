@@ -281,7 +281,8 @@ const Reports: React.FC = () => {
                   </thead>
                   <tbody>
                     {currentData.map((item: any) => (
-                      <tr key={item.id} className={styles.tableRow}>
+                      <tr key
+                      ={item.id} className={styles.tableRow}>
                         <td>
                           <div className={styles.itemInfo}>
                             <div className={styles.itemName}>{item.itemName}</div>

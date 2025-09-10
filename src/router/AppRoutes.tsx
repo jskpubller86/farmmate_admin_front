@@ -124,6 +124,9 @@ const AppRoutes: React.FC = () => {
     
     // 📈 통계 / 리포트
     { path: "/admin/statistics", element: <Statistics /> },
+
+    // ❓ Q&A 감정 대시보드
+    { path: "/admin/qna", element: <QnaSentiment /> },
   ];
 
   return (

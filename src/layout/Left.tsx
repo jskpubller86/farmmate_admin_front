@@ -266,6 +266,13 @@ const Left: React.FC = () => {
            {/* )} */}
           </div>
 
+          {/* ❓ Q&A */}
+          <div className={styles.left_navigation_box}>
+            <Link to="/admin/qna" className={styles.left_navigation_item}>
+              <span>Q&A</span>
+            </Link>
+          </div>
+
           {/* ⚙️ 시스템/운영 */}
           {/* <div className={styles.left_navigation_box}>
             <div
