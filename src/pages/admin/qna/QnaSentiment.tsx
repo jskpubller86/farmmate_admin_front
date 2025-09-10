@@ -26,7 +26,7 @@ const getSentimentColor = (sentiment: Sentiment) => {
   }
 };
 
-type Sentiment = "positive" | "neutral" | "negative";
+// type Sentiment = "positive" | "neutral" | "negative";
 
 
 interface QnaItem {
