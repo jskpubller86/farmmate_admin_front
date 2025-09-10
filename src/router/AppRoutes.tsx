@@ -8,6 +8,7 @@ import Statistics from "../pages/admin/statistics/Statistics";
 import Products from "../pages/admin/products/Products";
 import Rentals from "../pages/admin/rentals/Rentals";
 import Disputes from "../pages/admin/disputes/Disputes";
+import QnaSentiment from "../pages/admin/qna/QnaSentiment";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
@@ -108,6 +109,9 @@ const AppRoutes: React.FC = () => {
     
     // 🌾 거래 관리 (부적절 거래 신고 처리)
     { path: "/admin/reports", element: <Reports /> },
+    
+    // 💬 Q&A 관리
+    { path: "/admin/qna", element: <QnaSentiment /> },
     
     // 🌾 농산물 거래 관리
     { path: "/admin/products", element: <Products /> },
