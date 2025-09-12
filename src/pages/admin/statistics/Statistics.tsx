@@ -1,101 +1,82 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Button } from "../../../components/ui";
 import styles from "./statistics.module.css";
 import { SortTabs, Tabs } from '../../../components/sets';
+import useAdminAPI, { UserStats, TransactionStats, LandLeaseStats, AnomalyDetection } from '../../../hooks/useAdminAPI';
 
 const Statistics: React.FC = () => {
-  const [selectedSort, setSelectedSort] = useState<string>("유저 통계");
-
-
+  const [searchParams] = useSearchParams();
+  const [selectedSort, setSelectedSort] = useState<string>(() => {
+    const tab = searchParams.get('tab');
+    return tab === 'anomaly' ? "이상 거래 감지" : "유저 통계";
+  });
   const [selectedAnomalyFilter, setSelectedAnomalyFilter] = useState<string>("전체");
+  const [userStats, setUserStats] = useState<UserStats[]>([]);
+  const [transactionStats, setTransactionStats] = useState<TransactionStats[]>([]);
+  const [landLeaseStats, setLandLeaseStats] = useState<LandLeaseStats[]>([]);
+  const [landLeasesSummary, setLandLeasesSummary] = useState<{ totalLandLeases: number; activeLandLeases: number; inactiveLandLeases: number } | null>(null);
+  const [anomalies, setAnomalies] = useState<AnomalyDetection[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  const { getUserStats, getTransactionStats, getLandLeasesMonthlyStats, getLandLeasesStats, getAnomalies } = useAdminAPI();
 
-  // 샘플 유저 통계 데이터
-  const userStats = [
-    {
-      id: 1,
-      period: "2024년 2월",
-      totalUsers: 2847,
-      newUsers: 156,
-      activeUsers: 2156,
-      inactiveUsers: 691,
-      userGrowth: "+5.8%"
-    },
-    {
-      id: 2,
-      period: "2024년 1월",
-      totalUsers: 2691,
-      newUsers: 134,
-      activeUsers: 2034,
-      inactiveUsers: 657,
-      userGrowth: "+4.2%"
-    }
-  ];
+  // 통계 데이터 로드
+  useEffect(() => {
+    const loadStats = async () => {
+      setLoading(true);
 
-  // 샘플 거래 통계 데이터
-  const transactionStats = [
-    {
-      id: 1,
-      period: "2024년 2월",
-      totalTransactions: 1336,
-      productTransactions: 1247,
-      landTransactions: 89,
-      totalRevenue: 18500000,
-      averageTransaction: 13847,
-      region: "전국"
-    },
-    {
-      id: 2,
-      period: "2024년 1월",
-      totalTransactions: 1156,
-      productTransactions: 1089,
-      landTransactions: 67,
-      totalRevenue: 16200000,
-      averageTransaction: 14014,
-      region: "전국"
-    }
-  ];
+      // 헤더 카드 표시를 위해 거래 통계는 항상 미리 로드
+      const txPromise = getTransactionStats(6).then((data) => {
+        if (data) {
+          setTransactionStats(data);
+        }
+      });
 
+      if (selectedSort === "유저 통계") {
+        const data = await getUserStats(6); // 최근 6개월
+        if (data) {
+          setUserStats(data);
+        }
+      } else if (selectedSort === "거래 통계") {
+        // 상세 테이블도 동일 데이터 사용
+        await txPromise;
+      } else if (selectedSort === "토지 임대/임차 통계") {
+        // 실데이터 요약(합계) 호출
+        const summary = await getLandLeasesStats();
+        if (summary) {
+          setLandLeasesSummary(summary);
+          // 기존 테이블 구조에 맞게 단일 기간(전체) 행 구성
+          setLandLeaseStats([
+            {
+              period: "전체",
+              totalLandLeases: summary.totalLandLeases,
+              activeLandLeases: summary.activeLandLeases,
+              inactiveLandLeases: summary.inactiveLandLeases,
+              newLandLeases: 0,
+              completedLandLeases: summary.inactiveLandLeases,
+              periodStart: "",
+              periodEnd: ""
+            }
+          ]);
+        }
+      } else if (selectedSort === "이상 거래 감지") {
+        // 이상 거래 데이터 로드
+        const anomalyData = await getAnomalies('PENDING');
+        if (anomalyData) {
+          setAnomalies(anomalyData);
+        }
+      }
 
+      // 거래 통계 선로딩 완료 대기(유저/토지 탭에서도 헤더 카드가 보이도록)
+      await txPromise;
 
-  // 샘플 이상 거래 감지 데이터 (개선된 구조)
-  const anomalies = [
-    {
-      id: 1,
-      type: "농산물",
-      itemName: "유기농 토마토",
-      seller: "김농부",
-      anomalyType: "가격 이상",
-      description: "평균 가격 대비 300% 높은 가격",
-      riskLevel: "높음",
-      detectedAt: "2024.02.15",
-      reportId: "RPT-001",
-      actionTaken: "게시물 가리기 + 경고 조치"
-    },
-    {
-      id: 2,
-      type: "토지",
-      itemName: "경기도 밭",
-      owner: "박토지주",
-      anomalyType: "거래 빈도 이상",
-      description: "24시간 내 10회 이상 거래 시도",
-      riskLevel: "중간",
-      detectedAt: "2024.02.14",
-      reportId: "RPT-002",
-      actionTaken: "조치 대기"
-    },
-    {
-      id: 3,
-      type: "농산물",
-      itemName: "친환경 상추",
-      seller: "이재배자",
-      anomalyType: "품질 이상",
-      description: "신선하지 않은 상품을 신선하다고 표시",
-      riskLevel: "낮음",
-      detectedAt: "2024.02.13",
-      reportId: "RPT-003",
-      actionTaken: "조치 대기"
-    }
-  ];
+      setLoading(false);
+    };
+
+    loadStats();
+  }, [selectedSort, getUserStats, getTransactionStats, getLandLeasesStats, getLandLeasesMonthlyStats, getAnomalies]);
+
 
   const handleSortChange = (value: string) => {
     setSelectedSort(value);
@@ -112,19 +93,59 @@ const Statistics: React.FC = () => {
 
   const getFilteredData = () => {
     if (selectedSort === "유저 통계") {
-      return userStats;
+      return userStats.map((stat, index) => ({
+        id: index + 1,
+        period: stat.period,
+        totalUsers: stat.totalUsers,
+        newUsers: stat.newUsers,
+        activeUsers: stat.activeUsers,
+        inactiveUsers: stat.inactiveUsers,
+        userGrowth: stat.userGrowth
+      }));
     } else if (selectedSort === "거래 통계") {
-      return transactionStats;
+      return transactionStats.map((stat, index) => ({
+        id: index + 1,
+        period: stat.period,
+        totalTransactions: stat.totalTransactions,
+        productTransactions: stat.productTransactions,
+        landTransactions: stat.landTransactions,
+        totalRevenue: stat.totalRevenue,
+        averageTransaction: stat.averageTransaction,
+        region: stat.region
+      }));
+    } else if (selectedSort === "토지 임대/임차 통계") {
+      return landLeaseStats.map((stat, index) => ({
+        id: index + 1,
+        period: stat.period,
+        totalLandLeases: stat.totalLandLeases,
+        activeLandLeases: stat.activeLandLeases,
+        inactiveLandLeases: stat.inactiveLandLeases,
+        newLandLeases: stat.newLandLeases,
+        completedLandLeases: stat.completedLandLeases,
+        periodStart: stat.periodStart,
+        periodEnd: stat.periodEnd
+      }));
     } else if (selectedSort === "이상 거래 감지") {
       let filtered = anomalies;
       if (selectedAnomalyFilter === "높음") {
-        filtered = filtered.filter(item => item.riskLevel === "높음");
+        filtered = filtered.filter(item => item.severity === "HIGH");
       } else if (selectedAnomalyFilter === "중간") {
-        filtered = filtered.filter(item => item.riskLevel === "중간");
+        filtered = filtered.filter(item => item.severity === "MEDIUM");
       } else if (selectedAnomalyFilter === "낮음") {
-        filtered = filtered.filter(item => item.riskLevel === "낮음");
+        filtered = filtered.filter(item => item.severity === "LOW");
       }
-      return filtered;
+      return filtered.map((item, index) => ({
+        id: index + 1,
+        type: item.anomalyType.includes("PRICE") ? "농산물" : "토지",
+        itemName: item.anomalyType,
+        seller: item.userName || item.userAccount || "알 수 없음",
+        anomalyType: item.anomalyType,
+        description: item.description,
+        riskLevel: item.severity === "HIGH" ? "높음" : item.severity === "MEDIUM" ? "중간" : "낮음",
+        detectedAt: new Date(item.createdAt).toLocaleDateString('ko-KR'),
+        reportId: item.id,
+        actionTaken: item.status === "PENDING" ? "조치 대기" : "처리 완료"
+      }));
     }
     return [];
   };
@@ -150,14 +171,20 @@ const Statistics: React.FC = () => {
             <div className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>총 유저 수</h3>
-                <Button size="sm" color="point" disabled>👥</Button>
+                {/* <Button size="sm" color="point" disabled>👥</Button> */}
               </div>
               <div className={styles.cardContent}>
-                <div className={styles.number}>{userStats[0].totalUsers.toLocaleString()}</div>
+                <div className={styles.number}>
+                  {loading ? '...' : userStats.length > 0 ? userStats[0].totalUsers.toLocaleString() : '0'}
+                </div>
                 <p className={styles.description}>현재 등록된 유저</p>
                 <div className={styles.subStats}>
-                  <span className={styles.subStat}>신규: {userStats[0].newUsers}</span>
-                  <span className={styles.subStat}>활성: {userStats[0].activeUsers}</span>
+                  <span className={styles.subStat}>
+                    신규: {loading ? '...' : userStats.length > 0 ? userStats[0].newUsers : '0'}
+                  </span>
+                  <span className={styles.subStat}>
+                    활성: {loading ? '...' : userStats.length > 0 ? userStats[0].activeUsers : '0'}
+                  </span>
                 </div>
               </div>
             </div>
@@ -165,14 +192,20 @@ const Statistics: React.FC = () => {
             <div className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>총 거래 건수</h3>
-                <Button size="sm" color="point2" disabled>💰</Button>
+                {/* <Button size="sm" color="point2" disabled>💰</Button> */}
               </div>
               <div className={styles.cardContent}>
-                <div className={styles.number}>{transactionStats[0].totalTransactions.toLocaleString()}</div>
+                <div className={styles.number}>
+                  {loading ? '...' : transactionStats.length > 0 ? transactionStats[0].totalTransactions.toLocaleString() : '0'}
+                </div>
                 <p className={styles.description}>이번 달 거래</p>
                 <div className={styles.subStats}>
-                  <span className={styles.subStat}>농산물: {transactionStats[0].productTransactions}</span>
-                  <span className={styles.subStat}>토지: {transactionStats[0].landTransactions}</span>
+                  <span className={styles.subStat}>
+                    농산물: {loading ? '...' : transactionStats.length > 0 ? transactionStats[0].productTransactions : '0'}
+                  </span>
+                  <span className={styles.subStat}>
+                    토지: {loading ? '...' : transactionStats.length > 0 ? transactionStats[0].landTransactions : '0'}
+                  </span>
                 </div>
               </div>
             </div>
@@ -201,6 +234,7 @@ const Statistics: React.FC = () => {
                     tabs={[
                       { id: "유저 통계", label: "유저 통계" },
                       { id: "거래 통계", label: "거래 통계" },
+                      { id: "토지 임대/임차 통계", label: "토지 임대/임차 통계" },
                       { id: "이상 거래 감지", label: "이상 거래 감지" }
                     ]}
                     defaultActiveTab={selectedSort}
@@ -229,6 +263,7 @@ const Statistics: React.FC = () => {
               <p className={styles.cardDescription}>
                 {selectedSort === "유저 통계" && "유저 통계 목록"}
                 {selectedSort === "거래 통계" && "거래 통계 목록"}
+                {selectedSort === "토지 임대/임차 통계" && "토지 임대/임차 통계 목록"}
                 {selectedSort === "이상 거래 감지" && (
                   selectedAnomalyFilter === "전체" 
                     ? "이상 거래 감지 목록" 
@@ -237,31 +272,36 @@ const Statistics: React.FC = () => {
               </p>
             </div>
             <div className={styles.cardContent}>
-              <div className={styles.tableContainer}>
-                <table className={styles.dataTable}>
-                  <thead>
-                    <tr>
-                      {selectedSort === "이상 거래 감지" ? (
-                        <>
-                          <th>항목명</th>
-                          <th>위험도</th>
-                          <th>상세 정보</th>
-                          <th>감지 시간</th>
-                          <th>조치 내용</th>
-                          <th>액션</th>
-                        </>
-                      ) : (
-                        <>
-                          <th>기간</th>
-                          <th>주요 지표</th>
-                          <th>상세 정보</th>
-                          <th>성장률/변화</th>
-                        </>
-                      )}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentData.map((item: any) => (
+              {loading ? (
+                <div style={{ textAlign: 'center', padding: '2rem' }}>
+                  <p>통계 데이터를 불러오는 중...</p>
+                </div>
+              ) : (
+                <div className={styles.tableContainer}>
+                  <table className={styles.dataTable}>
+                    <thead>
+                      <tr>
+                        {selectedSort === "이상 거래 감지" ? (
+                          <>
+                            <th>항목명</th>
+                            <th>위험도</th>
+                            <th>상세 정보</th>
+                            <th>감지 시간</th>
+                            <th>조치 내용</th>
+                            <th>액션</th>
+                          </>
+                        ) : (
+                          <>
+                            <th>기간</th>
+                            <th>주요 지표</th>
+                            <th>상세 정보</th>
+                            <th>성장률/변화</th>
+                          </>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentData.map((item: any) => (
                       <tr key={item.id} className={styles.tableRow}>
                         {selectedSort === "이상 거래 감지" ? (
                           <>
@@ -323,6 +363,12 @@ const Statistics: React.FC = () => {
                                     <div className={styles.metricLabel}>총 거래</div>
                                   </>
                                 )}
+                                {selectedSort === "토지 임대/임차 통계" && (
+                                  <>
+                                    <div className={styles.metricValue}>{item.totalLandLeases}건</div>
+                                    <div className={styles.metricLabel}>총 임대</div>
+                                  </>
+                                )}
                               </div>
                             </td>
                             <td>
@@ -341,6 +387,14 @@ const Statistics: React.FC = () => {
                                     <div className={styles.detailItem}>토지: {item.landTransactions}건</div>
                                   </>
                                 )}
+                                {selectedSort === "토지 임대/임차 통계" && (
+                                  <>
+                                    <div className={styles.detailItem}>활성: {item.activeLandLeases}건</div>
+                                    <div className={styles.detailItem}>비활성: {item.inactiveLandLeases}건</div>
+                                    <div className={styles.detailItem}>신규: {item.newLandLeases}건</div>
+                                    <div className={styles.detailItem}>완료: {item.completedLandLeases}건</div>
+                                  </>
+                                )}
                               </div>
                             </td>
                             <td>
@@ -351,15 +405,19 @@ const Statistics: React.FC = () => {
                                 {selectedSort === "거래 통계" && (
                                   <div className={styles.growthValue}>평균: {formatCurrency(item.averageTransaction)}</div>
                                 )}
+                                {selectedSort === "토지 임대/임차 통계" && (
+                                  <div className={styles.growthValue}>기간: {item.periodStart} ~ {item.periodEnd}</div>
+                                )}
                               </div>
                             </td>
                           </>
                         )}
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </div>
         </div>

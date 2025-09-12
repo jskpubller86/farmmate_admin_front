@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "./qna-sentiment.module.css";
 import { Button, Badge, Select } from "../../../components/ui";
+import useAPI from "../../../hooks/useAPI";
 
 
 type Sentiment = "angry" | "fear" | "happy" | "tender" | "sad";
@@ -37,7 +38,7 @@ interface QnaItem {
 }
 
 const QnaSentiment: React.FC = () => {
-  // const api = useAPI(); // 현재 외부 API 미사용
+  const api = useAPI();
 
   // 필터 상태
   const [range, setRange] = useState<string>("7d");
@@ -116,12 +117,98 @@ const QnaSentiment: React.FC = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      // 실제 연동 예시
-      // const { data } = await api.postWithJson('/api/admin/qna/sentiment', { range, sentiment, category });
-      // setItems(data?.data ?? []);
-      // 데모용 더미
-      const demo: QnaItem[] = [
+      // 1) 우선 QNA 전용 관리자 엔드포인트 호출 시도
+      try {
+        const r = await api.get('/api/admin/qna');
+        if (r?.data?.code === '0000' && Array.isArray(r.data.data)) {
+          const list = r.data.data;
+          const mapped: QnaItem[] = list.map((it: any, idx: number) => {
+            const title = it.title || '';
+            const content = it.content || '';
+            const eRaw = String(it.emotionType || '').trim();
 
+            const mapEmotion = (e: string, text: string): Sentiment => {
+              const lower = e.toLowerCase();
+              // DB 라벨 매핑 (예: 궁금해요/도움돼요/화나요)
+              if (e === '화나요') return 'angry';
+              if (e === '궁금해요') return 'tender'; // 중립/호기심 → 부드러운 톤으로 표시
+              if (e === '도움돼요') return 'happy';
+
+              // 한글 일반 감정 키워드
+              if (/분노|화남|화가|짜증|최악/.test(e) || /분노|화남|화가|짜증|최악/.test(text)) return 'angry';
+              if (/두려움|무섭|걱정|불안/.test(e) || /두려움|무섭|걱정|불안/.test(text)) return 'fear';
+              if (/행복|기쁨|좋아요|만족|감사/.test(e) || /행복|기쁨|좋아요|만족|감사/.test(text)) return 'happy';
+              if (/사랑|감동|고마움/.test(e) || /사랑|감동|고마움/.test(text)) return 'tender';
+              if (/슬픔|속상|우울/.test(e) || /슬픔|속상|우울/.test(text)) return 'sad';
+
+              // 영어 키워드 보조
+              if (lower.includes('angry')) return 'angry';
+              if (lower.includes('fear')) return 'fear';
+              if (lower.includes('happy')) return 'happy';
+              if (lower.includes('tender') || lower.includes('love')) return 'tender';
+              if (lower.includes('sad')) return 'sad';
+
+              // 기본값: tender(중립에 가까운 긍정)로 설정
+              return 'tender';
+            };
+
+            return {
+              id: String(it.postId || idx + 1),
+              title,
+              content,
+              sentiment: mapEmotion(eRaw, `${title} ${content}`),
+              score: 0.5,
+              keywords: (it.keywords || '').split(',').map((s: string)=>s.trim()).filter(Boolean),
+              createdAt: it.createdDate ? new Date(it.createdDate).toISOString() : new Date().toISOString(),
+            };
+          });
+          
+          setItems(mapped);
+          return;
+        }
+      } catch (e) {
+        // 무시하고 다음 시도로 진행
+      }
+
+      // 2) 실패 시 게시판 리스트 연동 시도 (대체 데이터)
+      //    BoardController: GET /api/board/boardList (expects currPage)
+      try {
+        const res = await api.get('/api/board/boardList', { currPage: 1 });
+        if (res?.data?.code === '0000') {
+          const list = Array.isArray(res.data.data) ? res.data.data : [];
+          // 필드 추론 매핑: id/title/contents/creDatetime 등
+          const mapped: QnaItem[] = list.map((it: any, idx: number) => {
+            const title = it.title || it.subject || it.boardTitle || `게시글 ${idx+1}`;
+            const content = it.contents || it.content || it.boardContents || '';
+            const created = it.creDatetime || it.regDate || it.createdAt || new Date().toISOString();
+            return {
+              id: String(it.id || it.boardId || it.seq || idx+1),
+              title,
+              content,
+              // 감정 값은 백엔드에 없으므로 간단 히유리스틱(긍/부 키워드)로 라벨링
+              sentiment: ((): Sentiment => {
+                const text = `${title} ${content}`;
+                if (/화남|화가|짜증|불만|최악|분노/i.test(text)) return 'angry';
+                if (/무서|두려|걱정|불안/i.test(text)) return 'fear';
+                if (/행복|좋아요|만족|감사|기쁨|잘됨|ㅎㅎ|^^/i.test(text)) return 'happy';
+                if (/사랑|고마|감동|💕|❤/i.test(text)) return 'tender';
+                if (/슬픔|속상|우울|ㅠㅠ|ㅜㅜ/i.test(text)) return 'sad';
+                return 'sad';
+              })(),
+              score: 0.5,
+              keywords: [],
+              createdAt: new Date(created).toISOString(),
+            };
+          });
+          setItems(mapped);
+          return; // 성공 시 더미 생략
+        }
+      } catch (e) {
+        // 무시하고 더미로 대체
+      }
+
+      // 3) 모두 실패 시 데모 더미로 대체
+      const demo: QnaItem[] = [
         { id: "1", title: "사과 잘 자라고 있어요 ㅎㅎ 더 잘 키우고 싶은데 영양제좀 추천해주시면 감사하겠습니다.", content: "만족", sentiment: "happy", score: 0.92, keywords:["잘","감사"], createdAt: new Date().toISOString() },
         { id: "2", title: "나무가 죽기 일보직전이에요 너무 속상한데 어떻게 해야하나요", content: "불만", sentiment: "angry", score: 0.18, keywords:["죽기","속상"], createdAt: new Date().toISOString() },
         { id: "3", title: "그럭저럭 자라긴 자라는거 같은데 열매가 작네요", content: "그럭저럭", sentiment: "sad", score: 0.5, keywords:["보통"], createdAt: new Date().toISOString() },

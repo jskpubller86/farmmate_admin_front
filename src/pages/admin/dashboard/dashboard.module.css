@@ -1,4 +1,108 @@
 .container {
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.maxWidth {
+  width: 100%;
+  max-width: var(--content-max, 1200px);
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-family: var(--font-primaryExBold, inherit);
+  font-size: 28px;
+  margin: 0 0 6px 0;
+  color: var(--color-base, #2c2c2c);
+}
+
+.subtitle {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.section {
+  margin: 24px 0;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+}
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.menuCard {
+  cursor: pointer;
+}
+
+.card {
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 16px;
+  background: #fff;
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 16px;
+}
+
+.cardContent {}
+
+.number {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--color-point, #6e9556);
+}
+
+.description {
+  color: #777;
+  font-size: 12px;
+  margin: 4px 0 8px 0;
+}
+
+.subStats {
+  display: flex;
+  gap: 12px;
+  color: #444;
+  font-size: 12px;
+}
+
+.subStat {}
+
+@media (max-width: 900px) {
+  .menuGrid { grid-template-columns: 1fr; }
+}
+
+.container {
   min-height: 100vh;
   background-color: #f9fafb;
 }
@@ -316,4 +420,35 @@
   .activityTime {
     font-size: 0.5rem;
   }
+}
+
+/* 이상 거래 감지 스타일 */
+.activityDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.red {
+  background-color: #f60101;
+}
+
+.orange {
+  background-color: #ff8c00;
+}
+
+.yellow {
+  background-color: #ffd700;
+}
+
+.green {
+  background-color: #28a745;
+}
+
+.activitySubtitle {
+  font-size: 0.75rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.2;
 }

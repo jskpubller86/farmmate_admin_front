@@ -154,7 +154,7 @@ const Left: React.FC = () => {
 
           {/* 🌾 거래 관리 */}
           <div className={styles.left_navigation_box}>
-            <Link to="/admin/reports" className={styles.left_navigation_item}>
+            <Link to="/admin/reports?tab=product" className={styles.left_navigation_item}>
               <span>신고 처리</span>
             </Link>
             {/* {transactionDropdownOpen && (

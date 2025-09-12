@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Badge } from "../../../components/ui";
 import styles from "./products.module.css";
 import { SortTabs, Tabs } from '../../../components/sets';
+import useAdminAPI, { Product, LandLease } from '../../../hooks/useAdminAPI';
 
 const Products: React.FC = () => {
   const [selectedSort, setSelectedSort] = useState<string>("농산물 거래");
@@ -9,9 +10,83 @@ const Products: React.FC = () => {
   const [selectedLandFilter, setSelectedLandFilter] = useState<string>("전체");
   const [selectedReportFilter, setSelectedReportFilter] = useState<string>("전체");
   const [selectedDisputeFilter, setSelectedDisputeFilter] = useState<string>("전체");
+  
+  // 실제 API 데이터
+  const [products, setProducts] = useState<Product[]>([]);
+  const [landLeases, setLandLeases] = useState<LandLease[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [totalElements, setTotalElements] = useState(0);
+  const [landLeaseTotalElements, setLandLeaseTotalElements] = useState(0);
+  
+  const { getProducts, getLandLeases, getUserReports } = useAdminAPI();
 
-  // 샘플 농산물 거래 데이터
-  const products = [
+  // 상품 데이터 로드
+  useEffect(() => {
+    const loadProducts = async () => {
+      setLoading(true);
+      const response = await getProducts({ page, size: 10, search: selectedProductFilter === "전체" ? undefined : selectedProductFilter });
+      if (response) {
+        setProducts(response.content);
+        setTotalElements(response.totalElements);
+      }
+      setLoading(false);
+    };
+
+    const loadLandLeases = async () => {
+      console.log('토지 거래 데이터 로딩 시작...');
+      setLoading(true);
+      const response = await getLandLeases({ page, size: 10, search: selectedLandFilter === "전체" ? undefined : selectedLandFilter });
+      console.log('토지 거래 API 응답:', response);
+      if (response) {
+        setLandLeases(response.content);
+        setLandLeaseTotalElements(response.totalElements);
+        console.log('토지 거래 데이터 설정 완료:', response.content.length, '개');
+      }
+      setLoading(false);
+    };
+
+    if (selectedSort === "농산물 거래") {
+      loadProducts();
+    } else if (selectedSort === "토지 거래") {
+      loadLandLeases();
+    }
+  }, [page, getProducts, getLandLeases, selectedSort, selectedProductFilter, selectedLandFilter]);
+
+  // 신고 데이터 로드
+  useEffect(() => {
+    const loadReports = async () => {
+      if (selectedSort !== "신고 처리") return;
+      
+      try {
+        const data = await getUserReports();
+        if (Array.isArray(data)) {
+          // 사용자 신고 데이터를 신고 처리 형식으로 변환
+          const reportData = data.map((report: any, index: number) => ({
+            id: report.reportId || index + 1,
+            itemName: report.targetUser || '알 수 없는 대상',
+            reporter: report.reporter || report.createdBy || '알 수 없는 신고자',
+            reason: report.reason || report.category || '기타',
+            status: report.status === 'PENDING' ? '처리중' : 
+                   report.status === 'RESOLVED' ? '처리완료' : '처리중',
+            reportedAt: report.reportDate || report.creDatetime || new Date().toISOString().split('T')[0],
+            description: report.description || report.contents || '신고 내용 없음'
+          }));
+          setReports(reportData);
+        } else {
+          setReports([]);
+        }
+      } catch (error) {
+        console.error('신고 데이터 로드 실패:', error);
+        setReports([]);
+      }
+    };
+
+    loadReports();
+  }, [selectedSort, getUserReports]);
+
+  // 샘플 농산물 거래 데이터 (기존 Mock 데이터는 주석 처리)
+  const mockProducts = [
     {
       id: 1,
       name: "유기농 토마토",
@@ -90,27 +165,8 @@ const Products: React.FC = () => {
     }
   ];
 
-  // 샘플 신고 데이터
-  const reports = [
-    {
-      id: 1,
-      itemName: "유기농 토마토",
-      reporter: "이신고자",
-      reason: "품질 불량",
-      status: "처리중",
-      reportedAt: "2024.02.15",
-      description: "신선하지 않은 상품을 신선하다고 표시"
-    },
-    {
-      id: 2,
-      itemName: "강남구 농지",
-      reporter: "박신고자",
-      reason: "허위 정보",
-      status: "처리완료",
-      reportedAt: "2024.02.14",
-      description: "실제 면적과 다르게 표시"
-    }
-  ];
+  // 신고 데이터 (API 연동)
+  const [reports, setReports] = useState<any[]>([]);
 
   // 샘플 분쟁 데이터
   const disputes = [
@@ -141,11 +197,29 @@ const Products: React.FC = () => {
     setSelectedLandFilter("전체");
     setSelectedReportFilter("전체");
     setSelectedDisputeFilter("전체");
+    
+    // 페이지 초기화
+    setPage(0);
   };
 
   const getFilteredData = () => {
     if (selectedSort === "농산물 거래") {
-      let filtered = products;
+      // 실제 API 데이터를 UI에 맞는 형태로 변환
+      let filtered = products.map((product, index) => ({
+        id: product.id,
+        name: product.title,
+        seller: product.sellerId,
+        buyer: "구매자 정보 없음", // PRODUCT 테이블에 구매자 정보 없음
+        category: product.typeCd,
+        price: product.price,
+        quantity: product.quantity,
+        status: product.orderCd === '3001' ? '거래완료' : 
+                product.orderCd === '3002' ? '거래중' : 
+                product.orderCd === '3003' ? '대기' : '취소',
+        transactionDate: new Date(product.creDatetime).toLocaleDateString(),
+        location: product.addr
+      }));
+      
       if (selectedProductFilter === "거래완료") {
         filtered = filtered.filter(item => item.status === "거래완료");
       } else if (selectedProductFilter === "거래중") {
@@ -154,15 +228,30 @@ const Products: React.FC = () => {
         filtered = filtered.filter(item => item.status === "취소");
       }
       return filtered;
-    } else if (selectedSort === "토지 거래") {
-      let filtered = lands;
-      if (selectedLandFilter === "계약완료") {
-        filtered = filtered.filter(item => item.status === "계약완료");
-      } else if (selectedLandFilter === "계약중") {
-        filtered = filtered.filter(item => item.status === "계약중");
-      }
-      return filtered;
-    } else if (selectedSort === "신고 처리") {
+    } 
+    // else if (selectedSort === "토지 거래") {
+    //   // 실제 API 데이터를 UI에 맞는 형태로 변환
+    //   let filtered = landLeases.map((landLease, index) => ({
+    //     id: landLease.id,
+    //     name: landLease.landName,
+    //     seller: landLease.lessorId,
+    //     buyer: landLease.lesseeId,
+    //     category: landLease.landType,
+    //     price: landLease.monthlyRent,
+    //     quantity: landLease.area,
+    //     status: landLease.status === 'IN_PROGRESS' ? '계약중' : '취소',
+    //     transactionDate: new Date(landLease.creDatetime).toLocaleDateString(),
+    //     location: landLease.address
+    //   }));
+      
+    //   if (selectedLandFilter === "계약완료") {
+    //     filtered = filtered.filter(item => item.status === "계약완료");
+    //   } else if (selectedLandFilter === "계약중") {
+    //     filtered = filtered.filter(item => item.status === "계약중");
+    //   }
+    //   return filtered;
+    // } 
+    else if (selectedSort === "신고 처리") {
       let filtered = reports;
       if (selectedReportFilter === "처리중") {
         filtered = filtered.filter(item => item.status === "처리중");
@@ -170,21 +259,25 @@ const Products: React.FC = () => {
         filtered = filtered.filter(item => item.status === "처리완료");
       }
       return filtered;
-    } else if (selectedSort === "분쟁 중재") {
-      let filtered = disputes;
-      if (selectedDisputeFilter === "중재중") {
-        filtered = filtered.filter(item => item.status === "중재중");
-      } else if (selectedDisputeFilter === "해결완료") {
-        filtered = filtered.filter(item => item.status === "해결완료");
-      }
-      return filtered;
-    }
+    } 
+    // else if (selectedSort === "분쟁 중재") {
+    //   let filtered = disputes;
+    //   if (selectedDisputeFilter === "중재중") {
+    //     filtered = filtered.filter(item => item.status === "중재중");
+    //   } else if (selectedDisputeFilter === "해결완료") {
+    //     filtered = filtered.filter(item => item.status === "해결완료");
+    //   }
+    //   return filtered;
+    // }
     return [];
   };
 
   const currentData = getFilteredData();
 
-  const formatCurrency = (amount: number) => {
+  const formatCurrency = (amount: number | null | undefined) => {
+    if (amount === null || amount === undefined) {
+      return '0원';
+    }
     return amount.toLocaleString('ko-KR') + '원';
   };
 
@@ -195,7 +288,7 @@ const Products: React.FC = () => {
           {/* 헤더 */}
           <div className={styles.header}>
             <div className={styles.headerTop}>
-              <h1 className={styles.title}>🌾 거래 관리</h1>
+              <h1 className={styles.title}>거래 관리</h1>
               <p className={styles.subtitle}>농산물 및 토지 거래 현황을 관리합니다</p>
             </div>
             
@@ -205,17 +298,21 @@ const Products: React.FC = () => {
                 <div className={styles.cardHeader}>
                   <h3 className={styles.cardTitle}>농산물 거래</h3>
                 </div>
-                <div className={styles.number}>{products.length}</div>
+                <div className={styles.number}>
+                  {loading ? '...' : totalElements}
+                </div>
                 <p className={styles.description}>총 거래 건수</p>
               </div>
               
-              <div className={styles.card}>
+              {/* <div className={styles.card}>
                 <div className={styles.cardHeader}>
                   <h3 className={styles.cardTitle}>토지 거래</h3>
                 </div>
-                <div className={styles.number}>{lands.length}</div>
+                <div className={styles.number}>
+                  {loading ? '...' : landLeaseTotalElements}
+                </div>
                 <p className={styles.description}>총 계약 건수</p>
-              </div>
+              </div> */}
               
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
@@ -225,13 +322,13 @@ const Products: React.FC = () => {
                 <p className={styles.description}>처리 대기 건수</p>
               </div>
               
-              <div className={styles.card}>
+              {/* <div className={styles.card}>
                 <div className={styles.cardHeader}>
                   <h3 className={styles.cardTitle}>분쟁 중재</h3>
                 </div>
                 <div className={styles.number}>{disputes.length}</div>
                 <p className={styles.description}>중재 진행 건수</p>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -243,9 +340,9 @@ const Products: React.FC = () => {
                   <Tabs 
                     tabs={[
                       { id: "농산물 거래", label: "농산물 거래" },
-                      { id: "토지 거래", label: "토지 거래" },
+                      // { id: "토지 거래", label: "토지 거래" },
                       { id: "신고 처리", label: "신고 처리" },
-                      { id: "분쟁 중재", label: "분쟁 중재" }
+                      // { id: "분쟁 중재", label: "분쟁 중재" }
                     ]}
                     defaultActiveTab={selectedSort}
                     onTabChange={handleSortChange}
@@ -262,7 +359,7 @@ const Products: React.FC = () => {
                     </div>
                   )}
                   
-                  {selectedSort === "토지 거래" && (
+                  {/* {selectedSort === "토지 거래" && (
                     <div style={{ marginTop: "12px" }}>
                       <SortTabs 
                         items={["전체", "계약완료", "계약중"]}
@@ -270,7 +367,7 @@ const Products: React.FC = () => {
                         onChange={(value) => setSelectedLandFilter(value)}
                       />
                     </div>
-                  )}
+                  )} */}
                   
                   {selectedSort === "신고 처리" && (
                     <div style={{ marginTop: "12px" }}>
@@ -282,7 +379,7 @@ const Products: React.FC = () => {
                     </div>
                   )}
                   
-                  {selectedSort === "분쟁 중재" && (
+                  {/* {selectedSort === "분쟁 중재" && (
                     <div style={{ marginTop: "12px" }}>
                       <SortTabs 
                         items={["전체", "중재중", "해결완료"]}
@@ -290,7 +387,7 @@ const Products: React.FC = () => {
                         onChange={(value) => setSelectedDisputeFilter(value)}
                       />
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
@@ -324,21 +421,26 @@ const Products: React.FC = () => {
               </p>
             </div>
             <div className={styles.cardContent}>
-              <div className={styles.tableContainer}>
-                <table className={styles.dataTable}>
-                  <thead>
-                    <tr>
-                      <th>선택</th>
-                      <th>항목명</th>
-                      <th>거래 당사자</th>
-                      <th>거래 정보</th>
-                      <th>상태</th>
-                      <th>거래일</th>
-                      <th>액션</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentData.map((item: any) => (
+              {loading ? (
+                <div style={{ textAlign: 'center', padding: '2rem' }}>
+                  <p>상품 데이터를 불러오는 중...</p>
+                </div>
+              ) : (
+                <div className={styles.tableContainer}>
+                  <table className={styles.dataTable}>
+                    <thead>
+                      <tr>
+                        <th>선택</th>
+                        <th>항목명</th>
+                        <th>거래 당사자</th>
+                        <th>거래 정보</th>
+                        <th>상태</th>
+                        <th>거래일</th>
+                        <th>액션</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentData.map((item: any) => (
                       <tr key={item.id} className={styles.tableRow}>
                         <td>
                           <input type="checkbox" className={styles.checkbox} />
@@ -426,9 +528,10 @@ const Products: React.FC = () => {
                         </td>
                       </tr>
                     ))}
-                  </tbody>
-                </table>
-              </div>
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </div>
         </div>
