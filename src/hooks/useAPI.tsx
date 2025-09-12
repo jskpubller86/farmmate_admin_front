@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { appConsole } from "../utils";
 
 const useAPI = () => {
-    const API_BASE_URL = process.env.REACT_APP_API_HOST;
+    const API_BASE_URL = process.env.REACT_APP_API_HOST || "http://localhost:81";
     const {user, logout} = useAuth();
     const {alertError, alertWarn, alertSuccess} = useAlert();
     const navigate = useNavigate();
@@ -16,7 +16,8 @@ const useAPI = () => {
     const newAxios = axios.create({
         baseURL: API_BASE_URL,
         timeout: 10000,
-        withCredentials: true
+        // 임시 우회: 세션/쿠키 없이 호출
+        withCredentials: false
     });
 
     newAxios.interceptors.response.use(

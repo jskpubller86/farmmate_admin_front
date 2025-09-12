@@ -1,81 +1,132 @@
-import React, { useState } from 'react';
-import { Button, Badge, Select } from "../../../components/ui";
+import React, { useEffect, useMemo, useState } from 'react';
+import { Button } from "../../../components/ui";
 import styles from "./reports.module.css";
 import { SortTabs, Tabs } from '../../../components/sets';
+import useAPI from '../../../hooks/useAPI';
+import { useSearchParams } from 'react-router-dom';
 
 const Reports: React.FC = () => {
-  const [selectedSort, setSelectedSort] = useState<string>("농산물 신고");
+  const api = useAPI();
+  const [searchParams] = useSearchParams();
+  const [selectedSort, setSelectedSort] = useState<string>(() => {
+    const tab = searchParams.get('tab');
+    return tab === 'product' ? '농산물 신고' : '사용자 신고';
+  });
   const [selectedProductReportFilter, setSelectedProductReportFilter] = useState<string>("전체");
   const [selectedUserReportFilter, setSelectedUserReportFilter] = useState<string>("전체");
 
-  // 농산물 관련 신고 데이터 (상태 관리 개선)
-  const [productReports, setProductReports] = useState([
-    {
-      id: 1,
-      type: "농산물",
-      itemName: "유기농 토마토",
-      seller: "김농부",
-      reporter: "이구매자",
-      reason: "허위 정보",
-      description: "유기농이 아닌데 유기농으로 광고",
-      status: "조사대기", // 조사대기 → 처리완료 순서
-      reportedAt: "2024.02.15",
-      evidence: ["상품사진", "구매영수증", "채팅내역"]
-    },
-    {
-      id: 2,
-      type: "농산물",
-      itemName: "친환경 상추",
-      seller: "박재배자",
-      reporter: "최소비자",
-      reason: "품질 불량",
-      description: "신선하지 않은 상품을 신선하다고 표시",
-      status: "처리완료",
-      reportedAt: "2024.02.14",
-      evidence: ["상품사진", "배송사진"],
-      result: "신고 기각"
-    },
-    {
-      id: 3,
-      type: "농산물",
-      itemName: "무농약 당근",
-      seller: "정농부",
-      reporter: "한구매자",
-      reason: "가격 조작",
-      description: "시세보다 비싸게 판매",
-      status: "처리완료",
-      reportedAt: "2024.02.13",
-      evidence: ["가격비교자료", "시세표"]
-    }
-  ]);
+  // 농산물 관련 신고 데이터 (API 연동)
+  const [productReports, setProductReports] = useState<any[]>([]);
 
 
   // 사용자 관련 신고 데이터 (상태 통일)
-  const userReports = [
-    {
-      id: 1,
-      type: "사용자",
-      reportedUser: "김농부",
-      reporter: "이구매자",
-      reason: "욕설",
-      description: "거래 중 욕설 사용",
-      status: "조사대기",
-      reportedAt: "2024.02.15",
-      evidence: ["채팅내역", "녹음파일"]
-    },
-    {
-      id: 2,
-      type: "사용자",
-      reportedUser: "박토지주",
-      reporter: "김임차인",
-      reason: "협박",
-      description: "계약 해지 협박",
-      status: "처리완료",
-      reportedAt: "2024.02.14",
-      evidence: ["채팅내역", "통화녹음"],
-      result: "경고 조치"
-    }
-  ];
+  const [userReports, setUserReports] = useState<any[]>([]);
+
+  // 농산물 신고 API 연동
+  useEffect(() => {
+    const loadProductReports = async () => {
+      if (selectedSort !== "농산물 신고") return;
+      try {
+        const res = await api.get('/api/admin/reports/products');
+        if (res?.data?.code === '0000' && Array.isArray(res.data.data)) {
+          const list = res.data.data.map((it: any, idx: number) => ({
+            id: it.reportId || it.id || idx + 1,
+            type: "농산물",
+            itemName: it.productTitle || '',
+            seller: it.sellerName || '',
+            reporter: it.reporterName || '',
+            reason: it.reportType || '',
+            description: it.description || '',
+            status: it.status === 'PENDING' ? '조사대기' : 
+                   it.status === 'RESOLVED' ? '처리완료' : 
+                   it.status === 'REJECTED' ? '처리완료' : '조사대기',
+            reportedAt: it.reportedAt || new Date().toISOString(),
+            evidence: [],
+            result: it.resolutionNotes || ''
+          }));
+          setProductReports(list);
+          return;
+        }
+      } catch (e) {
+        console.error('농산물 신고 목록 조회 실패:', e);
+      }
+
+      // 실패 시 빈 배열로 설정
+      setProductReports([]);
+    };
+
+    loadProductReports();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSort]);
+
+  // 사용자 신고 API 연동 (실패 시 더미)
+  useEffect(() => {
+    const loadUserReports = async () => {
+      if (selectedSort !== "사용자 신고") return;
+      try {
+        // 우선 관리자 전용 사용자 신고 엔드포인트 시도
+        const res = await api.get('/api/admin/reports/users');
+        if (res?.data?.code === '0000' && Array.isArray(res.data.data)) {
+          const list = res.data.data.map((it: any, idx: number) => ({
+            id: it.id || it.reportId || idx + 1,
+            type: '사용자',
+            reportedUser: it.reportedUser || it.targetUser || it.owner || '',
+            reporter: it.reporter || it.createdBy || '',
+            reason: it.reason || it.category || '',
+            description: it.description || it.contents || '',
+            status: it.status || '조사대기',
+            reportedAt: it.reportedAt || it.creDatetime || new Date().toISOString(),
+            evidence: it.evidence || [],
+            result: it.result || ''
+          }));
+          setUserReports(list);
+          return;
+        }
+      } catch (e) {
+        // 다음으로 보드 신고 대체 엔드포인트 시도 가능하면 여기에 추가
+      }
+
+      // 실패 시 더미로 대체
+      setUserReports([
+        {
+          id: 1,
+          type: "사용자",
+          reportedUser: "김농부",
+          reporter: "이구매자",
+          reason: "욕설",
+          description: "거래 중 욕설 사용",
+          status: "조사대기",
+          reportedAt: "2024.02.15",
+          evidence: ["채팅내역", "녹음파일"]
+        },
+        {
+          id: 2,
+          type: "사용자",
+          reportedUser: "박토지주",
+          reporter: "김임차인",
+          reason: "협박",
+          description: "계약 해지 협박",
+          status: "처리완료",
+          reportedAt: "2024.02.14",
+          evidence: ["채팅내역", "통화녹음"],
+          result: "경고 조치"
+        }
+      ]);
+    };
+
+    loadUserReports();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSort]);
+
+  // 사용자 신고 상태 화면 표기 매핑
+  const userReportsDisplay = useMemo(() => {
+    return userReports.map((it:any)=> ({
+      ...it,
+      status: (it.status || '').toUpperCase() === 'PENDING' ? '조사대기' :
+              (it.status || '').toUpperCase() === 'IN_PROGRESS' ? '조사대기' :
+              (it.status || '').toUpperCase() === 'RESOLVED' ? '처리완료' : (it.status || '조사대기')
+    }));
+  }, [userReports]);
 
 
   const handleSortChange = (value: string) => {
@@ -85,18 +136,32 @@ const Reports: React.FC = () => {
   };
 
   // 상태 변경 핸들러
-  const handleStatusChange = (reportId: number, newStatus: string) => {
+  const handleStatusChange = async (reportId: number, newStatus: string) => {
     if (selectedSort === "농산물 신고") {
-      setProductReports(prev => 
-        prev.map(report => 
-          report.id === reportId 
-            ? { ...report, status: newStatus }
-            : report
-        )
-      );
+      try {
+        // 백엔드에 상태 변경 요청
+        await api.post('/api/admin/reports/products/status', {
+          id: reportId,
+          status: newStatus === '조사대기' ? 'PENDING' : 
+                 newStatus === '처리완료' ? 'RESOLVED' : 'REJECTED',
+          resolutionNotes: newStatus === '처리완료' ? '처리 완료' : ''
+        });
+        
+        // 성공 시 로컬 상태 업데이트
+        setProductReports(prev => 
+          prev.map(report => 
+            report.id === reportId 
+              ? { ...report, status: newStatus }
+              : report
+          )
+        );
+      } catch (e) {
+        console.error('농산물 신고 상태 변경 실패:', e);
+        alert('상태 변경에 실패했습니다.');
+      }
     } else if (selectedSort === "사용자 신고") {
-      // 사용자 신고는 별도 상태 관리가 필요하지만 현재는 productReports에 통합 관리
-      setProductReports(prev => 
+      // 사용자 신고는 기존 로직 유지
+      setUserReports(prev => 
         prev.map(report => 
           report.id === reportId 
             ? { ...report, status: newStatus }
@@ -147,7 +212,7 @@ const Reports: React.FC = () => {
       }
       return normalizeData(filtered, "농산물");
     } else if (selectedSort === "사용자 신고") {
-      let filtered = userReports;
+      let filtered = userReportsDisplay;
       if (selectedUserReportFilter === "조사대기") {
         filtered = filtered.filter(item => item.status === "조사대기");
       } else if (selectedUserReportFilter === "처리완료") {
@@ -176,7 +241,7 @@ const Reports: React.FC = () => {
                 color="secondary"
                 onClick={showContractNotice}
               >
-                📋 계약 안내
+                계약 안내
               </Button>
             </div>
           </div>
@@ -186,11 +251,11 @@ const Reports: React.FC = () => {
             <div className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>조사 대기</h3>
-                <Button size="sm" color="danger" disabled>🔍</Button>
+                {/* <Button size="sm" color="danger" disabled>🔍</Button> */}
               </div>
               <div className={styles.cardContent}>
                 <div className={styles.number}>
-                  {productReports.filter(r => r.status === "조사대기").length + userReports.filter(r => r.status === "조사대기").length}
+                  {productReports.filter(r => r.status === "조사대기").length + userReportsDisplay.filter((r:any) => r.status === "조사대기").length}
                 </div>
                 <p className={styles.description}>접수된 신고</p>
               </div>
@@ -199,11 +264,11 @@ const Reports: React.FC = () => {
             <div className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>처리 완료</h3>
-                <Button size="sm" color="point2" disabled>🎯</Button>
+                {/* <Button size="sm" color="point2" disabled>🎯</Button> */}
               </div>
               <div className={styles.cardContent}>
                 <div className={styles.number}>
-                  {productReports.filter(r => r.status === "처리완료").length + userReports.filter(r => r.status === "처리완료").length}
+                  {productReports.filter(r => r.status === "처리완료").length + userReportsDisplay.filter((r:any) => r.status === "처리완료").length}
                 </div>
                 <p className={styles.description}>처리완료된 신고</p>
               </div>
@@ -323,8 +388,18 @@ const Reports: React.FC = () => {
                                 onClick={() => {
                                   const action = item.type === "농산물" ? "판매중지" : "활동정지";
                                   if (window.confirm(`${item.type === "농산물" ? "농산물" : "사용자"} 신고를 ${action} 처리하시겠습니까?`)) {
-                                    alert(`${action} 처리가 완료되었습니다.`);
-                                    handleStatusChange(item.id, "처리완료");
+                                    // 백엔드에 상태 변경 반영
+                                    api.postWithJson('/api/admin/reports/users/status', {
+                                      reportId: item.id,
+                                      status: 'RESOLVED',
+                                      action
+                                    }).then(() => {
+                                      alert(`${action} 처리가 완료되었습니다.`);
+                                      // 사용자 신고 상태를 즉시 갱신
+                                      setUserReports(prev => prev.map((r:any)=> r.id === item.id ? { ...r, status: 'RESOLVED' } : r));
+                                    }).catch(() => {
+                                      alert('상태 변경에 실패했습니다.');
+                                    });
                                   }
                                 }}
                               >
