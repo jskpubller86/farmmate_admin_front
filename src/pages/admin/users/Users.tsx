@@ -64,7 +64,7 @@ const Users: React.FC = () => {
             <div className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>총 유저 수</h3>
-                <Button size="sm" color="point" disabled>👥</Button>
+                {/* <Button size="sm" color="point" disabled>👥</Button> */}
               </div>
               <div className={styles.cardContent}>
                 <div className={styles.number}>{loading ? '...' : totalElements}</div>
@@ -75,7 +75,7 @@ const Users: React.FC = () => {
             <div className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>활성 유저</h3>
-                <Button size="sm" color="point2" disabled>🟢</Button>
+                {/* <Button size="sm" color="point2" disabled>🟢</Button> */}
               </div>
               <div className={styles.cardContent}>
                 <div className={styles.number}>
@@ -88,7 +88,7 @@ const Users: React.FC = () => {
             <div className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>비활성 유저</h3>
-                <Button size="sm" color="secondary" disabled>🔴</Button>
+                {/* <Button size="sm" color="secondary" disabled>🔴</Button> */}
               </div>
               <div className={styles.cardContent}>
                 <div className={styles.number}>
@@ -101,7 +101,7 @@ const Users: React.FC = () => {
             <div className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>정지된 유저</h3>
-                <Button size="sm" color="danger" disabled>🚫</Button>
+                {/* <Button size="sm" color="danger" disabled>🚫</Button> */}
               </div>
               <div className={styles.cardContent}>
                 <div className={styles.number}>
@@ -114,7 +114,7 @@ const Users: React.FC = () => {
             <div className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>이번 주 신규</h3>
-                <Button size="sm" color="point3" disabled>✨</Button>
+                {/* <Button size="sm" color="point3" disabled>✨</Button> */}
               </div>
               <div className={styles.cardContent}>
                 <div className={styles.number}>
@@ -131,7 +131,7 @@ const Users: React.FC = () => {
             <div className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>현재 페이지</h3>
-                <Button size="sm" color="secondary" disabled>📄</Button>
+                {/* <Button size="sm" color="secondary" disabled>📄</Button> */}
               </div>
               <div className={styles.cardContent}>
                 <div className={styles.number}>

@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./layout.module.css";
-import { Link } from "react-router-dom";
-import { useLeftLayout } from "../hooks";
+import { Link, useNavigate } from "react-router-dom";
+import { useLeftLayout, useAuth, useAlert } from "../hooks";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Left (검색, 자동완성 기능 구현)
@@ -10,6 +12,9 @@ import { useLeftLayout } from "../hooks";
 
 const Left: React.FC = () => {
   const { leftState, setLeftState } = useLeftLayout();
+  const { user, logout } = useAuth();
+  const { alertSuccess } = useAlert();
+  const navigate = useNavigate();
 
   const handleDeactive = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -19,6 +24,17 @@ const Left: React.FC = () => {
         isMob: window.innerWidth < 760 ? true : false,
       });
     }
+  };
+
+  // 로그아웃 핸들러
+  const handleLogout = () => {
+    alertSuccess({
+      message: "로그아웃되었습니다.",
+      onClose: () => {
+        logout();
+        navigate("/admin/login");
+      },
+    });
   };
 
   // 렌더링
@@ -264,6 +280,17 @@ const Left: React.FC = () => {
                 </Link>
               </div> */}
            {/* )} */}
+          </div>
+
+          {/* 로그아웃 버튼 */}
+          <div className={styles.left_logout_box}>
+            <button 
+              className={styles.left_logout_button}
+              onClick={handleLogout}
+            >
+              <FontAwesomeIcon icon={faSignOutAlt} />
+              <span>로그아웃</span>
+            </button>
           </div>
 
           {/* ❓ Q&A */}

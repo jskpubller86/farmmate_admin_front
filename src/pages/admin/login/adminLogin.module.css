@@ -1,0 +1,342 @@
+/* 관리자 로그인 컨테이너 */
+.admin_login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+/* 좌측 이미지 영역 - 제거됨 */
+
+/* 메인 콘텐츠 */
+.admin_login_main_box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0;
+  max-width: 25rem;
+  width: 100%;
+}
+
+.admin_login_header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.admin_login_h1 {
+  font-size: 2.7rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #2c2c2c;
+  margin: 0 0 1rem 0;
+  font-family: "NanumGothic", sans-serif;
+  background: linear-gradient(135deg, #6e9556, #5a7a47);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.admin_login_p {
+  color: #6b7280;
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-family: "NanumGothic", sans-serif;
+  font-weight: 600;
+}
+
+.admin_login_sub_p {
+  color: #9ca3af;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-family: "NanumGothic", sans-serif;
+}
+
+/* 로그인 폼 */
+.admin_login_form_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.input_group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  color: #374151;
+  font-family: "NanumGothic", sans-serif;
+}
+
+.input_field {
+  width: 100%;
+  height: 3.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  font-family: "NanumGothic", sans-serif;
+  transition: all 0.2s ease;
+  background: #fafafa;
+}
+
+.input_field:focus {
+  outline: none;
+  border-color: #6e9556;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(110, 149, 86, 0.1);
+}
+
+.input_field::placeholder {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+/* 로그인 버튼 */
+.admin_login_button {
+  width: 100% !important;
+  height: 3rem !important;
+  background: linear-gradient(135deg, #6e9556, #5a7a47) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0.5rem !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  line-height: 1.5rem !important;
+  font-family: "NanumGothic", sans-serif !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+  margin-top: 1rem !important;
+  box-shadow: 0 2px 4px rgba(110, 149, 86, 0.3) !important;
+}
+
+.admin_login_button:hover {
+  background: linear-gradient(135deg, #5a7a47, #4a6b3a) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 8px rgba(110, 149, 86, 0.4) !important;
+}
+
+.admin_login_button:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 4px rgba(110, 149, 86, 0.3) !important;
+}
+
+.admin_login_button:disabled {
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* 개발용 안내 */
+.dev_notice {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f3f4f6;
+  border-radius: 0.5rem;
+  border-left: 4px solid #6e9556;
+  text-align: center;
+}
+
+.dev_notice p {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #6b7280;
+  font-family: "NanumGothic", sans-serif;
+}
+
+.dev_notice p:first-child {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+/* 반응형 디자인 */
+/* 1400px 이상 (기본 디자인) */
+@media (min-width: 87.5rem) {
+  .admin_login_container {
+    padding: 2rem;
+  }
+
+  .admin_login_main_box {
+    max-width: 25rem;
+  }
+
+  .admin_login_h1 {
+    font-size: 2.7rem;
+  }
+
+  .admin_login_p {
+    font-size: 1rem;
+  }
+
+  .admin_login_sub_p {
+    font-size: 0.875rem;
+  }
+}
+
+/* 760px 이상 1400px 미만 */
+@media (min-width: 47.5rem) and (max-width: 87.4375rem) {
+  .admin_login_container {
+    padding: 1.5rem;
+  }
+
+  .admin_login_main_box {
+    max-width: 22rem;
+  }
+
+  .admin_login_h1 {
+    font-size: 2.2rem;
+  }
+
+  .admin_login_p {
+    font-size: 0.9rem;
+  }
+
+  .admin_login_sub_p {
+    font-size: 0.8rem;
+  }
+
+  .admin_login_form_wrap {
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .input_field {
+    height: 3rem;
+    font-size: 0.8rem;
+  }
+
+  .admin_login_button {
+    height: 2.75rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+/* 360px 이상 760px 미만 */
+@media (min-width: 22.5rem) and (max-width: 47.4375rem) {
+  .admin_login_container {
+    padding: 1rem;
+  }
+
+  .admin_login_main_box {
+    max-width: 20rem;
+  }
+
+  .admin_login_h1 {
+    font-size: 1.8rem;
+  }
+
+  .admin_login_p {
+    font-size: 0.8rem;
+  }
+
+  .admin_login_sub_p {
+    font-size: 0.75rem;
+  }
+
+  .admin_login_form_wrap {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .input_group {
+    gap: 0.375rem;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    line-height: 0.8rem;
+  }
+
+  .input_field {
+    height: 2.75rem;
+    font-size: 0.75rem;
+    padding: 0 0.75rem;
+  }
+
+  .admin_login_button {
+    height: 2.5rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  .dev_notice {
+    padding: 0.75rem;
+  }
+
+  .dev_notice p {
+    font-size: 0.7rem;
+  }
+}
+
+/* 360px 미만 (모바일 최소 크기) */
+@media (max-width: 22.4375rem) {
+  .admin_login_container {
+    padding: 0.75rem;
+  }
+
+  .admin_login_main_box {
+    max-width: 18rem;
+  }
+
+  .admin_login_h1 {
+    font-size: 1.5rem;
+  }
+
+  .admin_login_p {
+    font-size: 0.75rem;
+  }
+
+  .admin_login_sub_p {
+    font-size: 0.7rem;
+  }
+
+  .admin_login_form_wrap {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .input_group {
+    gap: 0.25rem;
+  }
+
+  .label {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+  }
+
+  .input_field {
+    height: 2.5rem;
+    font-size: 0.7rem;
+    padding: 0 0.5rem;
+  }
+
+  .admin_login_button {
+    height: 2.25rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .dev_notice {
+    padding: 0.5rem;
+  }
+
+  .dev_notice p {
+    font-size: 0.65rem;
+  }
+}
