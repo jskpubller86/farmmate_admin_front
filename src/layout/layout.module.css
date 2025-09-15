@@ -410,6 +410,41 @@
   z-index: 1;
 }
 
+/* 로그아웃 버튼 */
+.left_logout_box {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.left_logout_button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: "NanumGothic", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.left_logout_button:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.left_logout_button:active {
+  background: #fecaca;
+  transform: translateY(1px);
+}
+
 @media screen and (min-width: 760px) {
   .left_layout {
     display: block;
