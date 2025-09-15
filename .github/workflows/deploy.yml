@@ -1,12 +1,11 @@
 name: Deploy to OCI Rocky Server
 
 on:
-    push:
-        branches: [main]
     pull_request:
         types: [closed]
         branches: [main]
-
+    push:
+        branches: [test]
 jobs:
     deploy:
         runs-on: ubuntu-latest
@@ -40,7 +39,7 @@ jobs:
                         sudo rm -rf /var/www/farmmate_admin_front_backup
                       fi
                       if [ -d "/var/www/farmmate_admin_front" ]; then
-                        sudo mv /var/www/farmmate_front /var/www/farmmate_admin_front_backup
+                        sudo mv /var/www/farmmate_admin_front /var/www/farmmate_admin_front_backup
                       fi
 
                       # 새로운 배포 디렉토리 생성
