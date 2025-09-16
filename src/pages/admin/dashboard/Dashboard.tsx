@@ -45,7 +45,7 @@ const Dashboard: React.FC = () => {
 
     const loadPendingReports = async () => {
       try {
-        const res = await apiRef.current.get('/api/admin/reports/users');
+        const res = await apiRef.current.get('/admin/reports/users');
         if (res?.data?.code === '0000' && Array.isArray(res.data.data)) {
           const list = res.data.data;
           const pending = list.filter((it: any) => String(it.status || '').toUpperCase() !== 'RESOLVED').length;
@@ -69,7 +69,7 @@ const Dashboard: React.FC = () => {
     const loadReportsData = async () => {
       try {
         // 농산물 신고 데이터 로드 (전체)
-        const productReportsAllRes = await apiRef.current.get('/api/admin/reports/products');
+        const productReportsAllRes = await apiRef.current.get('/admin/reports/products');
         let productPending = 0;
         let productCompleted = 0;
         
@@ -87,7 +87,7 @@ const Dashboard: React.FC = () => {
         setProductReportsCompleted(productCompleted);
 
         // 사용자 신고 데이터 로드 (전체)
-        const userReportsAllRes = await apiRef.current.get('/api/admin/reports/users');
+        const userReportsAllRes = await apiRef.current.get('/admin/reports/users');
         let userPending = 0;
         let userCompleted = 0;
         

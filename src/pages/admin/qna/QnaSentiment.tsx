@@ -119,7 +119,7 @@ const QnaSentiment: React.FC = () => {
       setLoading(true);
       // 1) 우선 QNA 전용 관리자 엔드포인트 호출 시도
       try {
-        const r = await api.get('/api/admin/qna');
+        const r = await api.get('/admin/qna');
         if (r?.data?.code === '0000' && Array.isArray(r.data.data)) {
           const list = r.data.data;
           const mapped: QnaItem[] = list.map((it: any, idx: number) => {
