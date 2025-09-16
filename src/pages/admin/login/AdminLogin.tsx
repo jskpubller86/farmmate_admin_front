@@ -9,14 +9,14 @@ import styles from "./adminLogin.module.css";
 
 const schema = yup
   .object({
-    adminId: yup.string().required("관리자 ID는 필수입니다."),
-    password: yup.string().required("비밀번호는 필수입니다."),
+    admin_account: yup.string().required("관리자 ID는 필수입니다."),
+    pwd: yup.string().required("비밀번호는 필수입니다."),
   })
   .required();
 
 interface AdminLoginForm {
-  adminId: string;
-  password: string;
+  admin_account: string;
+  pwd: string;
 }
 
 const AdminLogin: React.FC = () => {
@@ -42,20 +42,26 @@ const AdminLogin: React.FC = () => {
 
   const handleFormSubmit = async (data: AdminLoginForm) => {
     try {
-      // 임시 관리자 로그인 (개발용)
-      if (data.adminId === "admin" && data.password === "admin123") {
+      const resp = await api.post("/auth/AdminSignIn", data);
+      console.log("응답 데이터:", resp.data);
+      
+      // 백엔드 응답 형식에 맞게 수정: {success: true, message: "...", data: {...}}
+      if (resp.data.success === true) {
+        const userId = resp.data.data.userId;
+        const userName = resp.data.data.userName;
+        
         alertSuccess({
           message: "관리자 로그인 성공했습니다.",
           onClose: () => {
-            // 임시 관리자 정보로 로그인 처리
-            login({ id: "admin", userName: "관리자" });
+            login({ id: userId, userName: userName });
             navigate("/");
           },
         });
       } else {
-        alertError({ message: "잘못된 관리자 ID 또는 비밀번호입니다." });
+        alertError({ message: "로그인 실패: " + resp.data.message });
       }
     } catch (error) {
+      console.error("로그인 오류:", error);
       alertError({ 
         error,
         message: "관리자 로그인에 실패했습니다. 다시 시도해주세요."
@@ -88,12 +94,12 @@ const AdminLogin: React.FC = () => {
           <div className={styles.input_group}>
             <label className={styles.label}>관리자 ID *</label>
             <Input 
-              {...register("adminId")} 
+              {...register("admin_account")} 
               className={styles.input_field}
               placeholder="관리자 ID를 입력하세요"
             />
-            <Error isError={Boolean(errors.adminId)}>
-              {errors.adminId && errors.adminId.message?.toString()}
+            <Error isError={Boolean(errors.admin_account)}>
+              {errors.admin_account && errors.admin_account.message?.toString()}
             </Error>
           </div>
 
@@ -102,12 +108,12 @@ const AdminLogin: React.FC = () => {
             <label className={styles.label}>비밀번호 *</label>
             <Input
               type="password"
-              {...register("password")}
+              {...register("pwd")}
               className={styles.input_field}
               placeholder="비밀번호를 입력하세요"
             />
-            <Error isError={Boolean(errors.password)}>
-              {errors.password && errors.password.message?.toString()}
+            <Error isError={Boolean(errors.pwd)}>
+              {errors.pwd && errors.pwd.message?.toString()}
             </Error>
           </div>
 
@@ -119,7 +125,7 @@ const AdminLogin: React.FC = () => {
           {/* 개발용 안내 */}
           <div className={styles.dev_notice}>
             <p>개발 환경에서는 임시 관리자 계정을 사용하세요</p>
-            <p>ID: admin / Password: admin123</p>
+            <p>ID: admin / pwd: 1</p>
           </div>
         </form>
       </main>

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { appConsole } from "../utils";
 
 const useAPI = () => {
-    const API_BASE_URL = process.env.REACT_APP_API_HOST || "http://localhost:81";
+    const API_BASE_URL = process.env.REACT_APP_API_HOST || "http://localhost:4002";
     const {user, logout} = useAuth();
     const {alertError, alertWarn, alertSuccess} = useAlert();
     const navigate = useNavigate();
