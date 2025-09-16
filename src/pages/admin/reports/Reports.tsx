@@ -27,7 +27,7 @@ const Reports: React.FC = () => {
     const loadProductReports = async () => {
       if (selectedSort !== "농산물 신고") return;
       try {
-        const res = await api.get('/api/admin/reports/products');
+        const res = await api.get('/admin/reports/products');
         if (res?.data?.code === '0000' && Array.isArray(res.data.data)) {
           const list = res.data.data.map((it: any, idx: number) => ({
             id: it.reportId || it.id || idx + 1,
@@ -65,7 +65,7 @@ const Reports: React.FC = () => {
       if (selectedSort !== "사용자 신고") return;
       try {
         // 우선 관리자 전용 사용자 신고 엔드포인트 시도
-        const res = await api.get('/api/admin/reports/users');
+        const res = await api.get('/admin/reports/users');
         if (res?.data?.code === '0000' && Array.isArray(res.data.data)) {
           const list = res.data.data.map((it: any, idx: number) => ({
             id: it.id || it.reportId || idx + 1,
@@ -140,7 +140,7 @@ const Reports: React.FC = () => {
     if (selectedSort === "농산물 신고") {
       try {
         // 백엔드에 상태 변경 요청
-        await api.post('/api/admin/reports/products/status', {
+        await api.post('/admin/reports/products/status', {
           id: reportId,
           status: newStatus === '조사대기' ? 'PENDING' : 
                  newStatus === '처리완료' ? 'RESOLVED' : 'REJECTED',
@@ -389,7 +389,7 @@ const Reports: React.FC = () => {
                                   const action = item.type === "농산물" ? "판매중지" : "활동정지";
                                   if (window.confirm(`${item.type === "농산물" ? "농산물" : "사용자"} 신고를 ${action} 처리하시겠습니까?`)) {
                                     // 백엔드에 상태 변경 반영
-                                    api.postWithJson('/api/admin/reports/users/status', {
+                                    api.postWithJson('/admin/reports/users/status', {
                                       reportId: item.id,
                                       status: 'RESOLVED',
                                       action

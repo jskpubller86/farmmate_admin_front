@@ -179,7 +179,7 @@ const useAdminAPI = () => {
   const getDashboardStats = useCallback(async (): Promise<DashboardStats | null> => {
     try {
       setLoading(true);
-      const response = await api.get('/api/admin/dashboard/stats');
+      const response = await api.get('/admin/dashboard/stats');
       
       // 백엔드 응답 구조에 맞게 수정
       if (response.data.code === '0000') {
@@ -206,7 +206,7 @@ const useAdminAPI = () => {
   } = {}): Promise<UsersPageResponse | null> => {
     try {
       setLoading(true);
-      const response = await api.get('/api/admin/users', params);
+      const response = await api.get('/admin/users', params);
       
       // 백엔드 응답 구조에 맞게 수정
       if (response.data.code === '0000') {
@@ -228,7 +228,7 @@ const useAdminAPI = () => {
   const getUserStats = useCallback(async (limit: number = 6): Promise<UserStats[] | null> => {
     try {
       setLoading(true);
-      const response = await api.get('/api/admin/user-stats', { limit });
+      const response = await api.get('/admin/user-stats', { limit });
       
       // 백엔드 응답 구조에 맞게 수정
       if (response.data.code === '0000') {
@@ -250,7 +250,7 @@ const useAdminAPI = () => {
   const getTransactionStats = useCallback(async (limit: number = 6): Promise<TransactionStats[] | null> => {
     try {
       setLoading(true);
-      const response = await api.get('/api/admin/transaction-stats', { limit });
+      const response = await api.get('/admin/transaction-stats', { limit });
       
       // 백엔드 응답 구조에 맞게 수정
       if (response.data.code === '0000') {
@@ -278,7 +278,7 @@ const useAdminAPI = () => {
       if (params.search) queryParams.append('search', params.search);
       if (params.type) queryParams.append('type', params.type);
       
-      const response = await api.get(`/api/admin/products?${queryParams.toString()}`);
+      const response = await api.get(`/admin/products?${queryParams.toString()}`);
       
       // 백엔드 응답 구조에 맞게 수정
       if (response.data.code === '0000') {
@@ -306,7 +306,7 @@ const useAdminAPI = () => {
       if (params.search) queryParams.append('search', params.search);
       if (params.status) queryParams.append('status', params.status);
       
-      const response = await api.get(`/api/admin/land-leases?${queryParams.toString()}`);
+      const response = await api.get(`/admin/land-leases?${queryParams.toString()}`);
       
       // 백엔드 응답 구조에 맞게 수정
       if (response.data.code === '0000') {
@@ -328,7 +328,7 @@ const useAdminAPI = () => {
   const getLandLeasesStats = useCallback(async (): Promise<{ totalLandLeases: number; activeLandLeases: number; inactiveLandLeases: number } | null> => {
     try {
       setLoading(true);
-      const response = await api.get('/api/admin/land-leases/stats');
+      const response = await api.get('/admin/land-leases/stats');
       
       if (response.data.code === '0000') {
         return response.data.data;
@@ -433,17 +433,62 @@ const useAdminAPI = () => {
       if (anomalyType) params.append('anomalyType', anomalyType);
       if (severity) params.append('severity', severity);
       
-      const response = await api.get(`/api/admin/anomalies?${params.toString()}`);
+      const requestUrl = `/admin/anomalies?${params.toString()}`;
+      console.log('=== 이상 거래 목록 API 호출 시작 ===');
+      console.log('요청 파라미터:', { status, anomalyType, severity });
+      console.log('이상 거래 목록 요청 URL:', requestUrl);
+      console.log('전체 요청 URL: http://localhost:4002' + requestUrl);
+      console.log('현재 시간:', new Date().toISOString());
+      
+      const response = await api.get(requestUrl);
+      console.log('이상 거래 목록 응답 전체:', response);
+      console.log('이상 거래 목록 응답 데이터:', response.data);
+      console.log('응답 상태:', response.status);
       
       if (response.data?.code === '0000') {
+        console.log('성공 응답 - 데이터:', response.data.data);
         return response.data.data || [];
       } else {
+        console.log('실패 응답 - 메시지:', response.data?.message);
         throw new Error(response.data?.message || '이상 거래 목록 조회 실패');
       }
-    } catch (error) {
-      console.error('이상 거래 목록 조회 실패:', error);
-      // alertError({ message: '이상 거래 목록을 불러오는데 실패했습니다.' });
-      return [];
+    } catch (error: any) {
+      console.error('이상 거래 목록 조회 실패 상세:', error);
+      if (error.response) {
+        console.error('오류 응답:', error.response.data);
+        console.error('오류 상태:', error.response.status);
+      } else {
+        console.error('네트워크 오류 또는 백엔드 연결 실패');
+      }
+      
+      // 임시 더미 데이터 반환 (개발용)
+      console.log('임시 더미 데이터 반환');
+      return [
+        {
+          id: 'ANOM0000000001',
+          transactionId: 'TXN0000000001',
+          userId: 'US000000000001',
+          anomalyType: 'UNUSUAL_AMOUNT',
+          severity: 'HIGH',
+          description: '정상 범위를 벗어난 거래 금액이 감지되었습니다.',
+          status: 'PENDING',
+          createdAt: new Date().toISOString(),
+          userName: '테스트 사용자',
+          userAccount: 'testuser'
+        },
+        {
+          id: 'ANOM0000000002',
+          transactionId: 'TXN0000000002',
+          userId: 'US000000000002',
+          anomalyType: 'SUSPICIOUS_TIME',
+          severity: 'MEDIUM',
+          description: '비정상적인 시간대에 발생한 거래입니다.',
+          status: 'PENDING',
+          createdAt: new Date().toISOString(),
+          userName: '테스트 사용자2',
+          userAccount: 'testuser2'
+        }
+      ];
     } finally {
       setLoading(false);
     }
@@ -453,7 +498,7 @@ const useAdminAPI = () => {
   const updateAnomalyStatus = useCallback(async (anomalyId: string, status: string, resolutionNotes?: string) => {
     setLoading(true);
     try {
-      const response = await api.post('/api/admin/anomalies/status', {
+      const response = await api.post('/admin/anomalies/status', {
         id: anomalyId,
         status,
         resolutionNotes
@@ -477,7 +522,7 @@ const useAdminAPI = () => {
   const getUserReports = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/admin/reports/users');
+      const response = await api.get('/admin/reports/users');
       
       if (response.data?.code === '0000') {
         return response.data.data || [];
