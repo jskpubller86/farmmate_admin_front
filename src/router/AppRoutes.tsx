@@ -9,97 +9,12 @@ import Products from "../pages/admin/products/Products";
 import Rentals from "../pages/admin/rentals/Rentals";
 import Disputes from "../pages/admin/disputes/Disputes";
 import QnaSentiment from "../pages/admin/qna/QnaSentiment";
+import AdminLogin from "../pages/admin/login/AdminLogin";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
-    // { path: "/", element: <Homepage /> },
-    // { path: "/main", element: <Homepage /> },
-    // { path: "/login", element: <Login /> },
-    // { path: "/findaccount", element: <FindAccount /> },
-    // { path: "/signup", element: <Signup /> },
-    // {
-    //   path: "/mypage",
-    //   element: (
-    //     // <PermissionFilter>
-    //     <Mypage />
-    //     // </PermissionFilter>
-    //   ),
-    // },
-    // {
-    //   path: "/mypage_edit",
-    //   element: (
-    //     // <PermissionFilter>
-    //     <MypageEdit />
-    //     // </PermissionFilter>
-    //   ),
-    // },
-    // {
-    //   path: "/market_list",
-    //   element: <MarketList />,
-    // },
-    // {
-    //   path: "/market_detail/:productId",
-    //   element: <MarketDetail />,
-    // },
-    // {
-    //   path: "/mycart",
-    //   element: <Mycart />,
-    // },
-    // {
-    //   path: "/alert",
-    //   element: <Alert />,
-    // },
-    // {
-    //   path: "/market_write",
-    //   element: <MarketWrite />,
-    // },
-    // {
-    //   path: "/market_wish",
-    //   element: <MarketWish />,
-    // },
-    // // Lease routes
-    // { path: "/lease/contract", element: <LeaseContract /> },
-    // { path: "/lease/applicants", element: <ApplicantList /> },
-    // { path: "/lease", element: <LandLeaseList /> },
-    // { path: "/lease/my-lease", element: <MyLease /> },
-    // { path: "/lease/my-rent", element: <LandLeaseList /> },
-    // { path: "/lease/wish", element: <LandLeaseList /> },
-    // { path: "/lease/:id", element: <LeaseDetail /> },
-    // { path: "/lease/my-lease/:id", element: <MyLeaseDetail /> },
-    // { path: "/lease/:id/applicants", element: <ApplicantList /> },
-
-    // // Land routes
-    // { path: "/land", element: <LandLeaseList /> },
-    // { path: "/land/my-rent", element: <LandLeaseList /> },
-    // { path: "/land/wish", element: <LandLeaseList /> },
-    // { path: "/land/registration", element: <LandRegistration /> },
-
-    // { path: "/land/rent-add", element: <LandRentAdd /> },
-    // { path: "/land/:id", element: <LandDetail /> },
-    // { path: "/qanda", element: <QandA /> },
-
-    // // Diagnosis routes
-    // { path: "/diagnosis", element: <DiagnosisPage /> },
-
-    // {
-    //   path: "/form",
-    //   element: (
-    //     <PermissionFilter>
-    //       <Form />
-    //     </PermissionFilter>
-    //   ),
-    // },
-    // { path: "/toast", element: <Toast /> },
-    // { path: "/sample/tabs", element: <TabsSample /> },
-    // { path: "/board", element: <BoardList /> },
-    // { path: "/board/boardList", element: <BoardList /> },
-    // { path: "/board/write", element: <BoardForm /> },
-    // { path: "/board/:id", element: <BoardDetail /> },
-    // // { path: "/sample/modal", element: <ModalSample /> },
-    // // Checkout routes
-    // { path: "/checkout", element: <Checkout /> },
-    // { path: "/success", element: <CheckoutSuccess /> },
-    // { path: "/fail", element: <CheckoutFail /> },
+    // Admin Login Route
+    { path: "/admin/login", element: <AdminLogin /> },
     
     // Admin routes - Left.tsx에 맞춰 재구성
     { path: "/", element: <Dashboard /> },
