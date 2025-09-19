@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks";
 import AdminLogin from "../../pages/admin/login/AdminLogin";
+import { appConsole } from "../../utils";
+import FaceLogin from "../../pages/admin/login/FaceLogin";
 
 interface AdminAuthGuardProps {
   children: React.ReactNode;
@@ -15,12 +17,13 @@ const AdminAuthGuard: React.FC<AdminAuthGuardProps> = ({ children }) => {
 
   useEffect(() => {
     // 로그인 페이지가 아닌 경우에만 인증 체크
-    if (location.pathname !== "/admin/login") {
+    if (location.pathname !== "/admin/login" && location.pathname !== "/admin/login/face") {
       if (!user) {
         // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
         navigate("/admin/login", { replace: true });
       }
     }
+
     setIsLoading(false);
   }, [user, navigate, location.pathname]);
 
@@ -44,6 +47,10 @@ const AdminAuthGuard: React.FC<AdminAuthGuardProps> = ({ children }) => {
   // 로그인 페이지인 경우 AdminLogin 컴포넌트 렌더링
   if (location.pathname === "/admin/login") {
     return <AdminLogin />;
+  }
+
+  if (location.pathname === "/admin/login/face") {
+    return <FaceLogin />;
   }
 
   // 로그인된 사용자가 있는 경우에만 children 렌더링
