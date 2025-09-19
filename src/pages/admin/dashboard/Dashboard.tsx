@@ -8,7 +8,7 @@ import useAPI from "../../../hooks/useAPI";
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { getDashboardStats, getLandLeasesStats, getAnomalies, loading } = useAdminAPI();
-  const api = useAPI();
+  const {api} = useAPI();
   const apiRef = useRef(api);
   // keep latest api without re-triggering effects
   useEffect(() => { apiRef.current = api; }, [api]);

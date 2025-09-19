@@ -34,7 +34,7 @@ const FaceLogin: React.FC = () => {
     const [countdown, setCountdown] = useState<number | null>(null);
     const [captured, setCaptured] = useState<boolean>(false);
     const [result, setResult] = useState<FaceCompareResult | null>(null);
-    const api = useAPI();
+    const {api, aiApi} = useAPI();
     const { alertSuccess, alertError } = useAlert();
     const navigate = useNavigate();
     const { login } = useAuth();
@@ -79,16 +79,15 @@ const FaceLogin: React.FC = () => {
         formData.append('image', blob, 'capture.jpg');
 
         console.log("인증 요청");
-        const response = await axios.post<FaceCompareResult>(
-          "http://146.56.180.182:3003/faceunlock/compare_face",
-          formData
-        );
+        const response = await aiApi.postWithMultiPart<FaceCompareResult>("/faceunlock/compare_face", formData);
+        console.log("인증 요청 완료");
 
+        // 인증 성공이면 백엔드로 로그인 시도
         if(response.data.success && response.data.similarity > 0.6) {
             handleLogin()
-            setResult(response.data);
-            setCaptured(true);
-        }       
+        }
+        setResult(response.data);
+        setCaptured(true);
       } catch (error) {
         console.error("Error sending to server:", error);
       }

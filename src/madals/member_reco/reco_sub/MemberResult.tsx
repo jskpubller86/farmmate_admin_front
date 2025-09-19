@@ -31,7 +31,7 @@ const MemberResult: React.FC<Props> = ({ modalId, teamId, memberList }) => {
   const maxWidth = 35.714;
   const { alertError, alertSuccess, alertWarn } = useAlert();
   const [members, setMembers] = useState<MemberProps[] | undefined>(memberList);
-  const api = useAPI();
+  const {api} = useAPI();
   const { openModal, closeModal } = useModal();
 
   /**

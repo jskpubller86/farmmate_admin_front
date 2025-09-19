@@ -1,5 +1,4 @@
 import { createContext, useReducer} from 'react';
-import { UserItem } from "../../pages/signup/userData";
 import authReducer from './authReducer';
 import UserContext, { User } from './AuthContext';
 import UserDispatchContext from './AuthDispatchContext';

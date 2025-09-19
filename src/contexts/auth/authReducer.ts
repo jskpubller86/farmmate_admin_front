@@ -1,4 +1,3 @@
-import { UserItem } from "../../pages/signup/userData";
 import { User } from "./AuthContext";
 
 export interface UserReducerActionProps {

@@ -24,7 +24,7 @@ const InteractionOpts: React.FC<Props> = ({ modalId, teamId }) => {
   const [interests, setInterests] = useState<InterestProps[]>([]);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const { alertError, alertSuccess } = useAlert();
-  const api = useAPI();
+  const {api} = useAPI();
   // 폼 요소 검증을 위한 훅
   const { register, handleSubmit } = useForm();
 

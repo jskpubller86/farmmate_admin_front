@@ -6,7 +6,7 @@ import useAPI from '../../../hooks/useAPI';
 import { useSearchParams } from 'react-router-dom';
 
 const Reports: React.FC = () => {
-  const api = useAPI();
+  const {api} = useAPI();
   const [searchParams] = useSearchParams();
   const [selectedSort, setSelectedSort] = useState<string>(() => {
     const tab = searchParams.get('tab');

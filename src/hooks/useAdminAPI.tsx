@@ -171,7 +171,7 @@ interface ApiResponse<T> {
 }
 
 const useAdminAPI = () => {
-  const api = useAPI();
+  const {api} = useAPI();
   const { alertError } = useAlert();
   const [loading, setLoading] = useState(false);
 

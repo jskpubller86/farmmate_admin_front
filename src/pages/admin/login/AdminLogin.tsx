@@ -21,7 +21,7 @@ interface AdminLoginForm {
 
 const AdminLogin: React.FC = () => {
   const { alertSuccess, alertError } = useAlert();
-  const api = useAPI();
+  const {api} = useAPI();
   const { user, login } = useAuth();
   const navigate = useNavigate();
 

@@ -38,7 +38,7 @@ interface QnaItem {
 }
 
 const QnaSentiment: React.FC = () => {
-  const api = useAPI();
+  const {api} = useAPI();
 
   // 필터 상태
   const [range, setRange] = useState<string>("7d");
