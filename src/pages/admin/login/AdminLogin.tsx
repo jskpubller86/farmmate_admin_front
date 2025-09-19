@@ -41,6 +41,7 @@ const AdminLogin: React.FC = () => {
   }, [user, navigate]);
 
   const handleFormSubmit = async (data: AdminLoginForm) => {
+    
     try {
       const resp = await api.post("/auth/AdminSignIn", data);
       console.log("응답 데이터:", resp.data);
@@ -62,7 +63,7 @@ const AdminLogin: React.FC = () => {
       }
     } catch (error) {
       console.error("로그인 오류:", error);
-      alertError({ 
+      alertError({
         error,
         message: "관리자 로그인에 실패했습니다. 다시 시도해주세요."
       });
@@ -120,6 +121,11 @@ const AdminLogin: React.FC = () => {
           {/* 로그인 버튼 */}
           <Button type="submit" color="point2" className={styles.admin_login_button}>
             관리자 로그인
+          </Button>
+
+          {/* 얼굴인식 로그인 버튼 */}
+          <Button type="button" to={"/admin/login/face"}  color="point2" className={styles.admin_login_button}>
+            얼굴인식 로그인
           </Button>
 
           {/* 개발용 안내 */}
